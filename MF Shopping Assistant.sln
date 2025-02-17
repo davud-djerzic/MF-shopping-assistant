@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MF Shopping Assistant", "MF Shopping Assistant.csproj", "{ADD20645-E8B6-4495-A154-66644F96D0A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADD20645-E8B6-4495-A154-66644F96D0A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADD20645-E8B6-4495-A154-66644F96D0A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADD20645-E8B6-4495-A154-66644F96D0A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADD20645-E8B6-4495-A154-66644F96D0A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27EE0873-600D-444E-8287-5DF0D0491F06}
+	EndGlobalSection
+EndGlobal
