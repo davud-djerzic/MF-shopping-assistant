@@ -52,7 +52,7 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblTotalPrice = new System.Windows.Forms.Label();
             this.panelConfirmPayment = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblClickToPay = new System.Windows.Forms.Label();
             this.panelUpdateProductQuantity = new System.Windows.Forms.Panel();
             this.btnUpdateProduct = new System.Windows.Forms.Button();
             this.lblUpdateNumberOfProducts = new System.Windows.Forms.Label();
@@ -61,12 +61,41 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.label10 = new System.Windows.Forms.Label();
             this.btnPay = new System.Windows.Forms.Button();
+            this.homePagePanel = new System.Windows.Forms.Panel();
+            this.lblHomePage = new System.Windows.Forms.Label();
+            this.panelDiscountPage = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.lblDiscountPriceP4 = new System.Windows.Forms.Label();
+            this.lblProductNameP4 = new System.Windows.Forms.Label();
+            this.lblOldPriceP4 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.lblDiscountPriceP3 = new System.Windows.Forms.Label();
+            this.lblOldPriceP3 = new System.Windows.Forms.Label();
+            this.lblProductNameP3 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lblDiscountPercentageP2 = new System.Windows.Forms.Label();
+            this.lblDiscountPriceP2 = new System.Windows.Forms.Label();
+            this.lblProductNameP2 = new System.Windows.Forms.Label();
+            this.lblOldPriceP2 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblDiscountPercentageP1 = new System.Windows.Forms.Label();
+            this.lblDiscountPriceP1 = new System.Windows.Forms.Label();
+            this.lblOldPriceP1 = new System.Windows.Forms.Label();
+            this.lblProductNameP1 = new System.Windows.Forms.Label();
+            this.btnShowFruit = new System.Windows.Forms.Button();
+            this.flpFruit = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             this.panelProductQuantity.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelConfirmPayment.SuspendLayout();
             this.panelUpdateProductQuantity.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
+            this.homePagePanel.SuspendLayout();
+            this.panelDiscountPage.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -196,7 +225,7 @@
             this.panelProductQuantity.Controls.Add(this.lblNumberOfProducts);
             this.panelProductQuantity.Controls.Add(this.btnQuantityDecrease);
             this.panelProductQuantity.Controls.Add(this.btnQuantityIncrease);
-            this.panelProductQuantity.Location = new System.Drawing.Point(611, 185);
+            this.panelProductQuantity.Location = new System.Drawing.Point(998, 25);
             this.panelProductQuantity.Name = "panelProductQuantity";
             this.panelProductQuantity.Size = new System.Drawing.Size(200, 135);
             this.panelProductQuantity.TabIndex = 6;
@@ -282,7 +311,7 @@
             // 
             // panelConfirmPayment
             // 
-            this.panelConfirmPayment.Controls.Add(this.label9);
+            this.panelConfirmPayment.Controls.Add(this.lblClickToPay);
             this.panelConfirmPayment.Controls.Add(this.lblTotalPrice);
             this.panelConfirmPayment.Location = new System.Drawing.Point(2, 404);
             this.panelConfirmPayment.Name = "panelConfirmPayment";
@@ -290,14 +319,14 @@
             this.panelConfirmPayment.TabIndex = 9;
             this.panelConfirmPayment.Click += new System.EventHandler(this.panelConfirmPayment_Click);
             // 
-            // label9
+            // lblClickToPay
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(10, 17);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(76, 16);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Click to pay";
+            this.lblClickToPay.AutoSize = true;
+            this.lblClickToPay.Location = new System.Drawing.Point(10, 17);
+            this.lblClickToPay.Name = "lblClickToPay";
+            this.lblClickToPay.Size = new System.Drawing.Size(76, 16);
+            this.lblClickToPay.TabIndex = 9;
+            this.lblClickToPay.Text = "Click to pay";
             // 
             // panelUpdateProductQuantity
             // 
@@ -370,7 +399,7 @@
             // btnPay
             // 
             this.btnPay.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnPay.Location = new System.Drawing.Point(479, 357);
+            this.btnPay.Location = new System.Drawing.Point(564, 437);
             this.btnPay.Name = "btnPay";
             this.btnPay.Size = new System.Drawing.Size(75, 44);
             this.btnPay.TabIndex = 11;
@@ -379,11 +408,256 @@
             this.btnPay.Visible = false;
             this.btnPay.Click += new System.EventHandler(this.btnPay_Click);
             // 
+            // homePagePanel
+            // 
+            this.homePagePanel.BackColor = System.Drawing.Color.Maroon;
+            this.homePagePanel.Controls.Add(this.lblHomePage);
+            this.homePagePanel.Location = new System.Drawing.Point(5, 3);
+            this.homePagePanel.Name = "homePagePanel";
+            this.homePagePanel.Size = new System.Drawing.Size(479, 648);
+            this.homePagePanel.TabIndex = 12;
+            // 
+            // lblHomePage
+            // 
+            this.lblHomePage.AutoSize = true;
+            this.lblHomePage.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHomePage.ForeColor = System.Drawing.Color.White;
+            this.lblHomePage.Location = new System.Drawing.Point(99, 213);
+            this.lblHomePage.Name = "lblHomePage";
+            this.lblHomePage.Size = new System.Drawing.Size(272, 92);
+            this.lblHomePage.TabIndex = 0;
+            this.lblHomePage.Text = "MF Shopping\r\n   Assistant";
+            // 
+            // panelDiscountPage
+            // 
+            this.panelDiscountPage.BackColor = System.Drawing.Color.Maroon;
+            this.panelDiscountPage.Controls.Add(this.panel6);
+            this.panelDiscountPage.Controls.Add(this.panel5);
+            this.panelDiscountPage.Controls.Add(this.panel4);
+            this.panelDiscountPage.Controls.Add(this.panel3);
+            this.panelDiscountPage.Location = new System.Drawing.Point(518, 3);
+            this.panelDiscountPage.Name = "panelDiscountPage";
+            this.panelDiscountPage.Size = new System.Drawing.Size(479, 648);
+            this.panelDiscountPage.TabIndex = 13;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.White;
+            this.panel6.Controls.Add(this.lblDiscountPriceP4);
+            this.panel6.Controls.Add(this.lblProductNameP4);
+            this.panel6.Controls.Add(this.lblOldPriceP4);
+            this.panel6.Location = new System.Drawing.Point(12, 493);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(457, 149);
+            this.panel6.TabIndex = 1;
+            // 
+            // lblDiscountPriceP4
+            // 
+            this.lblDiscountPriceP4.AutoSize = true;
+            this.lblDiscountPriceP4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblDiscountPriceP4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblDiscountPriceP4.Location = new System.Drawing.Point(328, 109);
+            this.lblDiscountPriceP4.Name = "lblDiscountPriceP4";
+            this.lblDiscountPriceP4.Size = new System.Drawing.Size(118, 32);
+            this.lblDiscountPriceP4.TabIndex = 9;
+            this.lblDiscountPriceP4.Text = "9.89KM";
+            // 
+            // lblProductNameP4
+            // 
+            this.lblProductNameP4.AutoSize = true;
+            this.lblProductNameP4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblProductNameP4.Location = new System.Drawing.Point(25, 42);
+            this.lblProductNameP4.Name = "lblProductNameP4";
+            this.lblProductNameP4.Size = new System.Drawing.Size(130, 32);
+            this.lblProductNameP4.TabIndex = 7;
+            this.lblProductNameP4.Text = "BANANE";
+            // 
+            // lblOldPriceP4
+            // 
+            this.lblOldPriceP4.AutoSize = true;
+            this.lblOldPriceP4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblOldPriceP4.Location = new System.Drawing.Point(360, 74);
+            this.lblOldPriceP4.Name = "lblOldPriceP4";
+            this.lblOldPriceP4.Size = new System.Drawing.Size(86, 22);
+            this.lblOldPriceP4.TabIndex = 8;
+            this.lblOldPriceP4.Text = "15.00 KM";
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel5.Controls.Add(this.lblDiscountPriceP3);
+            this.panel5.Controls.Add(this.lblOldPriceP3);
+            this.panel5.Controls.Add(this.lblProductNameP3);
+            this.panel5.Location = new System.Drawing.Point(12, 333);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(457, 149);
+            this.panel5.TabIndex = 1;
+            // 
+            // lblDiscountPriceP3
+            // 
+            this.lblDiscountPriceP3.AutoSize = true;
+            this.lblDiscountPriceP3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblDiscountPriceP3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblDiscountPriceP3.Location = new System.Drawing.Point(327, 108);
+            this.lblDiscountPriceP3.Name = "lblDiscountPriceP3";
+            this.lblDiscountPriceP3.Size = new System.Drawing.Size(118, 32);
+            this.lblDiscountPriceP3.TabIndex = 6;
+            this.lblDiscountPriceP3.Text = "9.89KM";
+            // 
+            // lblOldPriceP3
+            // 
+            this.lblOldPriceP3.AutoSize = true;
+            this.lblOldPriceP3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblOldPriceP3.Location = new System.Drawing.Point(359, 73);
+            this.lblOldPriceP3.Name = "lblOldPriceP3";
+            this.lblOldPriceP3.Size = new System.Drawing.Size(86, 22);
+            this.lblOldPriceP3.TabIndex = 4;
+            this.lblOldPriceP3.Text = "15.00 KM";
+            // 
+            // lblProductNameP3
+            // 
+            this.lblProductNameP3.AutoSize = true;
+            this.lblProductNameP3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblProductNameP3.Location = new System.Drawing.Point(24, 41);
+            this.lblProductNameP3.Name = "lblProductNameP3";
+            this.lblProductNameP3.Size = new System.Drawing.Size(130, 32);
+            this.lblProductNameP3.TabIndex = 3;
+            this.lblProductNameP3.Text = "BANANE";
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.Controls.Add(this.lblDiscountPercentageP2);
+            this.panel4.Controls.Add(this.lblDiscountPriceP2);
+            this.panel4.Controls.Add(this.lblProductNameP2);
+            this.panel4.Controls.Add(this.lblOldPriceP2);
+            this.panel4.Location = new System.Drawing.Point(12, 173);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(457, 149);
+            this.panel4.TabIndex = 1;
+            // 
+            // lblDiscountPercentageP2
+            // 
+            this.lblDiscountPercentageP2.AutoSize = true;
+            this.lblDiscountPercentageP2.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblDiscountPercentageP2.ForeColor = System.Drawing.Color.Red;
+            this.lblDiscountPercentageP2.Location = new System.Drawing.Point(21, 43);
+            this.lblDiscountPercentageP2.Name = "lblDiscountPercentageP2";
+            this.lblDiscountPercentageP2.Size = new System.Drawing.Size(120, 54);
+            this.lblDiscountPercentageP2.TabIndex = 5;
+            this.lblDiscountPercentageP2.Text = "50%";
+            // 
+            // lblDiscountPriceP2
+            // 
+            this.lblDiscountPriceP2.AutoSize = true;
+            this.lblDiscountPriceP2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblDiscountPriceP2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblDiscountPriceP2.Location = new System.Drawing.Point(328, 110);
+            this.lblDiscountPriceP2.Name = "lblDiscountPriceP2";
+            this.lblDiscountPriceP2.Size = new System.Drawing.Size(118, 32);
+            this.lblDiscountPriceP2.TabIndex = 6;
+            this.lblDiscountPriceP2.Text = "9.89KM";
+            // 
+            // lblProductNameP2
+            // 
+            this.lblProductNameP2.AutoSize = true;
+            this.lblProductNameP2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblProductNameP2.Location = new System.Drawing.Point(182, 31);
+            this.lblProductNameP2.Name = "lblProductNameP2";
+            this.lblProductNameP2.Size = new System.Drawing.Size(130, 32);
+            this.lblProductNameP2.TabIndex = 3;
+            this.lblProductNameP2.Text = "BANANE";
+            // 
+            // lblOldPriceP2
+            // 
+            this.lblOldPriceP2.AutoSize = true;
+            this.lblOldPriceP2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblOldPriceP2.Location = new System.Drawing.Point(360, 75);
+            this.lblOldPriceP2.Name = "lblOldPriceP2";
+            this.lblOldPriceP2.Size = new System.Drawing.Size(86, 22);
+            this.lblOldPriceP2.TabIndex = 4;
+            this.lblOldPriceP2.Text = "15.00 KM";
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Controls.Add(this.lblDiscountPercentageP1);
+            this.panel3.Controls.Add(this.lblDiscountPriceP1);
+            this.panel3.Controls.Add(this.lblOldPriceP1);
+            this.panel3.Controls.Add(this.lblProductNameP1);
+            this.panel3.Location = new System.Drawing.Point(12, 13);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(457, 149);
+            this.panel3.TabIndex = 0;
+            // 
+            // lblDiscountPercentageP1
+            // 
+            this.lblDiscountPercentageP1.AutoSize = true;
+            this.lblDiscountPercentageP1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblDiscountPercentageP1.ForeColor = System.Drawing.Color.Red;
+            this.lblDiscountPercentageP1.Location = new System.Drawing.Point(21, 46);
+            this.lblDiscountPercentageP1.Name = "lblDiscountPercentageP1";
+            this.lblDiscountPercentageP1.Size = new System.Drawing.Size(120, 54);
+            this.lblDiscountPercentageP1.TabIndex = 2;
+            this.lblDiscountPercentageP1.Text = "50%";
+            // 
+            // lblDiscountPriceP1
+            // 
+            this.lblDiscountPriceP1.AutoSize = true;
+            this.lblDiscountPriceP1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblDiscountPriceP1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblDiscountPriceP1.Location = new System.Drawing.Point(328, 113);
+            this.lblDiscountPriceP1.Name = "lblDiscountPriceP1";
+            this.lblDiscountPriceP1.Size = new System.Drawing.Size(118, 32);
+            this.lblDiscountPriceP1.TabIndex = 2;
+            this.lblDiscountPriceP1.Text = "9.89KM";
+            // 
+            // lblOldPriceP1
+            // 
+            this.lblOldPriceP1.AutoSize = true;
+            this.lblOldPriceP1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblOldPriceP1.Location = new System.Drawing.Point(360, 78);
+            this.lblOldPriceP1.Name = "lblOldPriceP1";
+            this.lblOldPriceP1.Size = new System.Drawing.Size(86, 22);
+            this.lblOldPriceP1.TabIndex = 1;
+            this.lblOldPriceP1.Text = "15.00 KM";
+            // 
+            // lblProductNameP1
+            // 
+            this.lblProductNameP1.AutoSize = true;
+            this.lblProductNameP1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblProductNameP1.Location = new System.Drawing.Point(182, 34);
+            this.lblProductNameP1.Name = "lblProductNameP1";
+            this.lblProductNameP1.Size = new System.Drawing.Size(130, 32);
+            this.lblProductNameP1.TabIndex = 0;
+            this.lblProductNameP1.Text = "BANANE";
+            // 
+            // btnShowFruit
+            // 
+            this.btnShowFruit.Location = new System.Drawing.Point(1110, 294);
+            this.btnShowFruit.Name = "btnShowFruit";
+            this.btnShowFruit.Size = new System.Drawing.Size(75, 23);
+            this.btnShowFruit.TabIndex = 14;
+            this.btnShowFruit.Text = "Fruitffawf";
+            this.btnShowFruit.UseVisualStyleBackColor = true;
+            this.btnShowFruit.Click += new System.EventHandler(this.btnShowFruit_Click);
+            // 
+            // flpFruit
+            // 
+            this.flpFruit.Location = new System.Drawing.Point(1013, 337);
+            this.flpFruit.Name = "flpFruit";
+            this.flpFruit.Size = new System.Drawing.Size(310, 255);
+            this.flpFruit.TabIndex = 15;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1177, 483);
+            this.ClientSize = new System.Drawing.Size(1347, 642);
+            this.Controls.Add(this.flpFruit);
+            this.Controls.Add(this.btnShowFruit);
+            this.Controls.Add(this.homePagePanel);
+            this.Controls.Add(this.panelDiscountPage);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.panelUpdateProductQuantity);
             this.Controls.Add(this.btnPay);
@@ -408,6 +682,17 @@
             this.panelUpdateProductQuantity.ResumeLayout(false);
             this.panelUpdateProductQuantity.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
+            this.homePagePanel.ResumeLayout(false);
+            this.homePagePanel.PerformLayout();
+            this.panelDiscountPage.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -437,7 +722,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label lblTotalPrice;
         private System.Windows.Forms.Panel panelConfirmPayment;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblClickToPay;
         private System.Windows.Forms.Panel panelUpdateProductQuantity;
         private System.Windows.Forms.Button btnUpdateProduct;
         private System.Windows.Forms.Label lblUpdateNumberOfProducts;
@@ -446,6 +731,29 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnPay;
+        private System.Windows.Forms.Panel homePagePanel;
+        private System.Windows.Forms.Label lblHomePage;
+        private System.Windows.Forms.Panel panelDiscountPage;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label lblOldPriceP1;
+        private System.Windows.Forms.Label lblProductNameP1;
+        private System.Windows.Forms.Label lblDiscountPriceP1;
+        private System.Windows.Forms.Label lblDiscountPercentageP1;
+        private System.Windows.Forms.Label lblDiscountPriceP4;
+        private System.Windows.Forms.Label lblProductNameP4;
+        private System.Windows.Forms.Label lblOldPriceP4;
+        private System.Windows.Forms.Label lblDiscountPriceP3;
+        private System.Windows.Forms.Label lblOldPriceP3;
+        private System.Windows.Forms.Label lblProductNameP3;
+        private System.Windows.Forms.Label lblDiscountPercentageP2;
+        private System.Windows.Forms.Label lblDiscountPriceP2;
+        private System.Windows.Forms.Label lblProductNameP2;
+        private System.Windows.Forms.Label lblOldPriceP2;
+        private System.Windows.Forms.Button btnShowFruit;
+        private System.Windows.Forms.FlowLayoutPanel flpFruit;
     }
 }
 

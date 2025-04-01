@@ -387,3 +387,5 @@ InteropTests/NativeTests/out
 **/ScratchProjectWithInternals/
 
 .env
+
+Connections.cs
