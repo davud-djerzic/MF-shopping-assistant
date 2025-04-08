@@ -84,6 +84,7 @@
             this.lblProductNameP1 = new System.Windows.Forms.Label();
             this.btnShowFruit = new System.Windows.Forms.Button();
             this.flpFruit = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblFruitWeight = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panelProductQuantity.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -644,16 +645,26 @@
             // 
             // flpFruit
             // 
-            this.flpFruit.Location = new System.Drawing.Point(1013, 337);
+            this.flpFruit.Location = new System.Drawing.Point(1016, 357);
             this.flpFruit.Name = "flpFruit";
             this.flpFruit.Size = new System.Drawing.Size(310, 255);
             this.flpFruit.TabIndex = 15;
+            // 
+            // lblFruitWeight
+            // 
+            this.lblFruitWeight.AutoSize = true;
+            this.lblFruitWeight.Location = new System.Drawing.Point(1080, 232);
+            this.lblFruitWeight.Name = "lblFruitWeight";
+            this.lblFruitWeight.Size = new System.Drawing.Size(15, 16);
+            this.lblFruitWeight.TabIndex = 0;
+            this.lblFruitWeight.Text = "g";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1347, 642);
+            this.Controls.Add(this.lblFruitWeight);
             this.Controls.Add(this.flpFruit);
             this.Controls.Add(this.btnShowFruit);
             this.Controls.Add(this.homePagePanel);
@@ -754,6 +765,7 @@
         private System.Windows.Forms.Label lblOldPriceP2;
         private System.Windows.Forms.Button btnShowFruit;
         private System.Windows.Forms.FlowLayoutPanel flpFruit;
+        private System.Windows.Forms.Label lblFruitWeight;
     }
 }
 

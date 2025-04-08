@@ -245,6 +245,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DiscountProduct.cs" />
+    <Compile Include="Classes\EditProduct.cs" />
+    <Compile Include="Classes\Fruit.cs" />
+    <Compile Include="Classes\GlobalData.cs" />
+    <Compile Include="Classes\ModifyQuantity.cs" />
+    <Compile Include="Classes\Payment.cs" />
+    <Compile Include="Classes\SetReset.cs" />
+    <Compile Include="Classes\UI.cs" />
     <Compile Include="Connections.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -265,6 +273,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include=".env" />
     <None Include="packages.config" />
@@ -283,6 +292,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <None Include="bin\Debug\Pictures\apple.jpg" />
+    <None Include="bin\Debug\Pictures\banana.jpg" />
+    <None Include="bin\Debug\Pictures\cucumber.jpg" />
+    <None Include="bin\Debug\Pictures\eggplant.jpg" />
+    <None Include="bin\Debug\Pictures\orange.jpg" />
+    <None Include="bin\Debug\Pictures\tomato.jpg" />
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
