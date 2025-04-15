@@ -123,43 +123,47 @@ namespace MF_Shopping_Assistant.Classes
 
         public async Task ReceiveWeightData()
         {
-            try
+            if (isRunning)
             {
-                if (!isRunning) throw new Exception("EEE");
-
-                if (client == null || !client.Connected)
+                try
                 {
-                    client = new TcpClient("127.0.0.1", 50001);
-                    stream = client.GetStream();
-                }
+                    if (!isRunning) throw new Exception("EEE");
 
-                byte[] message = Encoding.ASCII.GetBytes("GET_WEIGHT");
-                stream.Write(message, 0, message.Length);
-                stream.Flush();
-
-                byte[] buffer = new byte[4];
-
-                while (isRunning)
-                {
-                    if (!isRunning) break;
-                    int bytesRead = stream.Read(buffer, 0, buffer.Length);
-
-                    if (bytesRead == 4)
+                    if (client == null || !client.Connected)
                     {
-                        receivedValue = BitConverter.ToSingle(buffer, 0);
-                        if (receivedValue != 0.0)
-                        {
-                            value = receivedValue;
-                            OnWeightReceived?.Invoke(value); // Pozivamo event!
-                        }
+                        client = new TcpClient("127.0.0.1", 50001);
+                        stream = client.GetStream();
                     }
-                    //Task.Delay(1000).Wait();
+
+                    byte[] message = Encoding.ASCII.GetBytes("GET_WEIGHT");
+                    stream.Write(message, 0, message.Length);
+                    stream.Flush();
+
+                    byte[] buffer = new byte[4];
+
+                    while (isRunning)
+                    {
+                        if (!isRunning) break;
+                        int bytesRead = stream.Read(buffer, 0, buffer.Length);
+
+                        if (bytesRead == 4)
+                        {
+                            receivedValue = BitConverter.ToSingle(buffer, 0);
+                            if (receivedValue != 0.0)
+                            {
+                                value = receivedValue - 0.1f;
+                                OnWeightReceived?.Invoke(value); // Pozivamo event!
+                            }
+                        }
+                        //Task.Delay(1000).Wait();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show("Greška pri primanju podataka: " + ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Greška pri primanju podataka: " + ex.Message);
-            }
+            
         }
 
         public static void FruitClick(object sender, EventArgs e)
@@ -175,12 +179,12 @@ namespace MF_Shopping_Assistant.Classes
                         if (listFruitDiscountPrice[i] == 0)
                         {
                             double priceOfProduct = listFruitPrice[i] * value / 1000;
-                            GlobalData.listQuantityOfProducts.Add(value / 1000);
+                            GlobalData.listQuantityOfProducts.Add(Math.Round(value / 1000, 2) - 0.1);
                             GlobalData.listPricePerUnitOfProducts.Add(listFruitPrice[i]);
                             GlobalData.listPriceOfProducts.Add(priceOfProduct);
                             GlobalData.listNameOfProducts.Add(listFruitName[i]);
-                            GlobalData.listIdsOfProducts.Add(1);
-                            GlobalData.listTypeOfProducts.Add("1");
+                            GlobalData.listIdsOfProducts.Add(listFruitId[i]);
+                            GlobalData.listTypeOfProducts.Add(listFruitType[i]);
                             GlobalData.listManufacturerOfProducts.Add("1");
                             GlobalData.listInStockOfProducts.Add(listFruitInStock[i]);
 
@@ -190,7 +194,7 @@ namespace MF_Shopping_Assistant.Classes
                         if (listFruitDiscountPrice[i] != 0)
                         {
                             double priceOfProduct = listFruitDiscountPrice[i] * value / 1000;
-                            GlobalData.listQuantityOfProducts.Add(value / 1000);
+                            GlobalData.listQuantityOfProducts.Add(Math.Round(value / 1000, 2) - 0.1);
                             GlobalData.listPricePerUnitOfProducts.Add(listFruitPrice[i]);
                             GlobalData.listPriceOfProducts.Add(priceOfProduct);
                             GlobalData.listNameOfProducts.Add(listFruitName[i]);
@@ -205,12 +209,7 @@ namespace MF_Shopping_Assistant.Classes
                     }
                 }
 
-                double totalPrice = 0;
-                for (int i = 0; i < GlobalData.listPriceOfProducts.Count; i++)
-                {
-                    totalPrice += GlobalData.listPriceOfProducts[i];
-                }
-                lblTotalPrice.Text = totalPrice.ToString();
+                EditProduct.CalculateTotalPrice();
 
                 flpFruit.Visible = false;
 

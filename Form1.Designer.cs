@@ -55,9 +55,15 @@
             this.lblClickToPay = new System.Windows.Forms.Label();
             this.panelUpdateProductQuantity = new System.Windows.Forms.Panel();
             this.btnUpdateProduct = new System.Windows.Forms.Button();
+            this.btnShowFruit = new System.Windows.Forms.Button();
             this.lblUpdateNumberOfProducts = new System.Windows.Forms.Label();
             this.btnUpdateQuantityDecrease = new System.Windows.Forms.Button();
             this.btnUpdateQuantityIncrease = new System.Windows.Forms.Button();
+            this.panelEmail = new System.Windows.Forms.Panel();
+            this.btnSendEmail = new System.Windows.Forms.Button();
+            this.txtSendEmail = new System.Windows.Forms.TextBox();
+            this.btnNotEmail = new System.Windows.Forms.Button();
+            this.btnEmail = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.label10 = new System.Windows.Forms.Label();
             this.btnPay = new System.Windows.Forms.Button();
@@ -82,7 +88,6 @@
             this.lblDiscountPriceP1 = new System.Windows.Forms.Label();
             this.lblOldPriceP1 = new System.Windows.Forms.Label();
             this.lblProductNameP1 = new System.Windows.Forms.Label();
-            this.btnShowFruit = new System.Windows.Forms.Button();
             this.flpFruit = new System.Windows.Forms.FlowLayoutPanel();
             this.lblFruitWeight = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -90,6 +95,7 @@
             this.panel2.SuspendLayout();
             this.panelConfirmPayment.SuspendLayout();
             this.panelUpdateProductQuantity.SuspendLayout();
+            this.panelEmail.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.homePagePanel.SuspendLayout();
             this.panelDiscountPage.SuspendLayout();
@@ -337,7 +343,7 @@
             this.panelUpdateProductQuantity.Controls.Add(this.btnUpdateQuantityIncrease);
             this.panelUpdateProductQuantity.Location = new System.Drawing.Point(851, 185);
             this.panelUpdateProductQuantity.Name = "panelUpdateProductQuantity";
-            this.panelUpdateProductQuantity.Size = new System.Drawing.Size(200, 135);
+            this.panelUpdateProductQuantity.Size = new System.Drawing.Size(286, 135);
             this.panelUpdateProductQuantity.TabIndex = 7;
             this.panelUpdateProductQuantity.Visible = false;
             // 
@@ -350,6 +356,16 @@
             this.btnUpdateProduct.Text = "Finish";
             this.btnUpdateProduct.UseVisualStyleBackColor = true;
             this.btnUpdateProduct.Click += new System.EventHandler(this.btnUpdateProduct_Click);
+            // 
+            // btnShowFruit
+            // 
+            this.btnShowFruit.Location = new System.Drawing.Point(1029, 326);
+            this.btnShowFruit.Name = "btnShowFruit";
+            this.btnShowFruit.Size = new System.Drawing.Size(75, 23);
+            this.btnShowFruit.TabIndex = 14;
+            this.btnShowFruit.Text = "Fruitffawf";
+            this.btnShowFruit.UseVisualStyleBackColor = true;
+            this.btnShowFruit.Click += new System.EventHandler(this.btnShowFruit_Click);
             // 
             // lblUpdateNumberOfProducts
             // 
@@ -379,6 +395,57 @@
             this.btnUpdateQuantityIncrease.Text = "+";
             this.btnUpdateQuantityIncrease.UseVisualStyleBackColor = true;
             this.btnUpdateQuantityIncrease.Click += new System.EventHandler(this.btnUpdateQuantityIncrease_Click);
+            // 
+            // panelEmail
+            // 
+            this.panelEmail.Controls.Add(this.btnSendEmail);
+            this.panelEmail.Controls.Add(this.txtSendEmail);
+            this.panelEmail.Controls.Add(this.btnNotEmail);
+            this.panelEmail.Controls.Add(this.btnEmail);
+            this.panelEmail.Location = new System.Drawing.Point(998, 3);
+            this.panelEmail.Name = "panelEmail";
+            this.panelEmail.Size = new System.Drawing.Size(200, 100);
+            this.panelEmail.TabIndex = 16;
+            this.panelEmail.Visible = false;
+            // 
+            // btnSendEmail
+            // 
+            this.btnSendEmail.Location = new System.Drawing.Point(15, 37);
+            this.btnSendEmail.Name = "btnSendEmail";
+            this.btnSendEmail.Size = new System.Drawing.Size(75, 23);
+            this.btnSendEmail.TabIndex = 4;
+            this.btnSendEmail.Text = "Send email";
+            this.btnSendEmail.UseVisualStyleBackColor = true;
+            this.btnSendEmail.Visible = false;
+            this.btnSendEmail.Click += new System.EventHandler(this.btnSendEmail_Click);
+            // 
+            // txtSendEmail
+            // 
+            this.txtSendEmail.Location = new System.Drawing.Point(15, 9);
+            this.txtSendEmail.Name = "txtSendEmail";
+            this.txtSendEmail.Size = new System.Drawing.Size(141, 22);
+            this.txtSendEmail.TabIndex = 3;
+            this.txtSendEmail.Visible = false;
+            // 
+            // btnNotEmail
+            // 
+            this.btnNotEmail.Location = new System.Drawing.Point(96, 64);
+            this.btnNotEmail.Name = "btnNotEmail";
+            this.btnNotEmail.Size = new System.Drawing.Size(75, 23);
+            this.btnNotEmail.TabIndex = 2;
+            this.btnNotEmail.Text = "NECU";
+            this.btnNotEmail.UseVisualStyleBackColor = true;
+            this.btnNotEmail.Click += new System.EventHandler(this.btnNotEmail_Click);
+            // 
+            // btnEmail
+            // 
+            this.btnEmail.Location = new System.Drawing.Point(15, 64);
+            this.btnEmail.Name = "btnEmail";
+            this.btnEmail.Size = new System.Drawing.Size(75, 23);
+            this.btnEmail.TabIndex = 1;
+            this.btnEmail.Text = "MAIL";
+            this.btnEmail.UseVisualStyleBackColor = true;
+            this.btnEmail.Click += new System.EventHandler(this.btnEmail_Click);
             // 
             // flowLayoutPanel2
             // 
@@ -633,16 +700,6 @@
             this.lblProductNameP1.TabIndex = 0;
             this.lblProductNameP1.Text = "BANANE";
             // 
-            // btnShowFruit
-            // 
-            this.btnShowFruit.Location = new System.Drawing.Point(1110, 294);
-            this.btnShowFruit.Name = "btnShowFruit";
-            this.btnShowFruit.Size = new System.Drawing.Size(75, 23);
-            this.btnShowFruit.TabIndex = 14;
-            this.btnShowFruit.Text = "Fruitffawf";
-            this.btnShowFruit.UseVisualStyleBackColor = true;
-            this.btnShowFruit.Click += new System.EventHandler(this.btnShowFruit_Click);
-            // 
             // flpFruit
             // 
             this.flpFruit.Location = new System.Drawing.Point(1016, 357);
@@ -663,10 +720,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1347, 642);
+            this.Controls.Add(this.panelEmail);
+            this.Controls.Add(this.btnShowFruit);
             this.Controls.Add(this.lblFruitWeight);
             this.Controls.Add(this.flpFruit);
-            this.Controls.Add(this.btnShowFruit);
             this.Controls.Add(this.homePagePanel);
             this.Controls.Add(this.panelDiscountPage);
             this.Controls.Add(this.flowLayoutPanel2);
@@ -692,6 +751,8 @@
             this.panelConfirmPayment.PerformLayout();
             this.panelUpdateProductQuantity.ResumeLayout(false);
             this.panelUpdateProductQuantity.PerformLayout();
+            this.panelEmail.ResumeLayout(false);
+            this.panelEmail.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.homePagePanel.ResumeLayout(false);
             this.homePagePanel.PerformLayout();
@@ -766,6 +827,11 @@
         private System.Windows.Forms.Button btnShowFruit;
         private System.Windows.Forms.FlowLayoutPanel flpFruit;
         private System.Windows.Forms.Label lblFruitWeight;
+        private System.Windows.Forms.Panel panelEmail;
+        private System.Windows.Forms.TextBox txtSendEmail;
+        private System.Windows.Forms.Button btnNotEmail;
+        private System.Windows.Forms.Button btnEmail;
+        private System.Windows.Forms.Button btnSendEmail;
     }
 }
 

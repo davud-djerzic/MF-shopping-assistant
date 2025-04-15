@@ -45,7 +45,7 @@ namespace MF_Shopping_Assistant.Classes
                             Size = new Size(477, 35),
                             Location = new Point(10, i * 40),
                         };
-                        label.Text = GlobalData.listNameOfProducts[i] + "   " + GlobalData.listTypeOfProducts[i] + "   " + GlobalData.listManufacturerOfProducts[i] + "\n" + GlobalData.listQuantityOfProducts[i] + "x" + "   " + GlobalData.listPricePerUnitOfProducts[i] + "    " + GlobalData.listPriceOfProducts[i];
+                        label.Text = GlobalData.listNameOfProducts[i] + "   " + GlobalData.listTypeOfProducts[i] + "   " + GlobalData.listManufacturerOfProducts[i] + "\n" + GlobalData.listQuantityOfProducts[i] + "x" + "   " + GlobalData.listPricePerUnitOfProducts[i] + "    " + Math.Round(GlobalData.listPriceOfProducts[i], 2);
                         flowLayoutPanel2.Controls.Add(label);
                     }
                 }
@@ -78,7 +78,7 @@ namespace MF_Shopping_Assistant.Classes
                     await cmdUpdateProduct1.ExecuteNonQueryAsync();
                 }
 
-                SetReset.reset();
+                //SetReset.reset();
                 
                 await Fruit.loadFruit();
             }

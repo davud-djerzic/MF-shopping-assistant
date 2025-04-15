@@ -121,14 +121,9 @@ namespace MF_Shopping_Assistant.Classes
                     if (!productFound)
                     {
                         MessageBox.Show("Product doesn't exist");
-                    } 
-
-                    double totalPrice = 0;
-                    for (int i = 0; i < GlobalData.listPriceOfProducts.Count; i++)
-                    {
-                        totalPrice += GlobalData.listPriceOfProducts[i];
                     }
-                    lblTotalPrice.Text = totalPrice.ToString() + "KM";
+
+                    CalculateTotalPrice();
 
                     txtScannedBarcode.Clear();
                     txtScannedBarcode.Focus();
@@ -175,12 +170,7 @@ namespace MF_Shopping_Assistant.Classes
                 }
             }
 
-            double totalPrice = 0;
-            for (int i = 0; i < GlobalData.listPriceOfProducts.Count; i++)
-            {
-                totalPrice += GlobalData.listPriceOfProducts[i];
-                lblTotalPrice.Text = totalPrice.ToString();
-            }
+            CalculateTotalPrice();
 
             txtScannedBarcode.Clear();
             txtScannedBarcode.Focus();
@@ -213,12 +203,7 @@ namespace MF_Shopping_Assistant.Classes
                     GlobalData.listTypeOfProducts.RemoveAt(Convert.ToInt32(parentPanel.Tag));
                     GlobalData.listInStockOfProducts.RemoveAt(Convert.ToInt32(parentPanel.Tag));
 
-                    double totalPrice = 0;
-                    for (int i = 0; i < GlobalData.listPriceOfProducts.Count; i++)
-                    {
-                        totalPrice += GlobalData.listPriceOfProducts[i];
-                    }
-                    lblTotalPrice.Text = totalPrice.ToString();
+                    CalculateTotalPrice();
 
                     UI.updatePanelTag(flowLayoutPanel1);
 
@@ -258,6 +243,17 @@ namespace MF_Shopping_Assistant.Classes
                     panelUpdateProductQuantity.Visible = true;
                 }
             }
+        }
+
+        public static void CalculateTotalPrice()
+        {
+            double totalPrice = 0;
+            for (int i = 0; i < GlobalData.listPriceOfProducts.Count; i++)
+            {
+                totalPrice += Math.Round(GlobalData.listPriceOfProducts[i], 2);
+                Math.Round(totalPrice, 2);
+            }
+            lblTotalPrice.Text = totalPrice.ToString() + "KM";
         }
     }
 }

@@ -17,6 +17,8 @@ using System.Net.Sockets;
 using System.Security.Policy;
 using System.Reflection;
 using MF_Shopping_Assistant.Classes;
+using iTextSharp.text.pdf;
+
 
 namespace MF_Shopping_Assistant
 {
@@ -174,6 +176,22 @@ namespace MF_Shopping_Assistant
         private async void btnPay_Click(object sender, EventArgs e)
         {
             await payment.Pay();
+            panelEmail.Visible = true;
+            /*string pdfPath = @"C:\Users\Korisnik\Desktop\MF Shopping Assistant\bin\Debug\pdfs\Order_20250408_150900.pdf";
+
+            // Ukloni prethodne kontrole ako želiš
+            //this.Controls.Clear();
+
+            // Kreiraj PdfViewer
+            var pdfViewer = new PdfViewer();
+            pdfViewer.Dock = DockStyle.Fill;
+
+            // Dodaj viewer na formu
+            this.Controls.Add(pdfViewer);
+
+            // Učitaj PDF fajl u viewer
+            var document = PdfDocument.Load(pdfPath);
+            pdfViewer.Document = document;*/
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -190,6 +208,52 @@ namespace MF_Shopping_Assistant
         private async void btnShowFruit_Click(object sender, EventArgs e)
         {
             await fruit.btnShowFruit();
+        }
+
+        private void btnEmail_Click(object sender, EventArgs e)
+        {
+            btnSendEmail.Visible = true;
+            txtSendEmail.Visible = true;
+        }
+
+        private void btnNotEmail_Click(object sender, EventArgs e)
+        {
+            panelEmail.Visible = false;
+            txtSendEmail.Visible = false;
+            txtSendEmail.Text = "";
+            btnSendEmail.Visible = false;
+            SetReset.reset();
+        }
+
+        private void btnSendEmail_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!SendEmail.ValidateEmail(txtSendEmail.Text)) throw new Exception("Invalid email format");
+
+                GeneratePdf generatePdf = new GeneratePdf();
+                string pdfName = $"Invoice{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                //string pdfFolder = Path.Combine(Application.StartupPath, "pdfs");
+                //string pdfPath = Path.Combine(pdfFolder, pdfName);
+
+
+                string pdfPath = Path.Combine(Application.StartupPath, "/home/pi/pdfs/", pdfName);
+                generatePdf.GeneratePdfFile(pdfName, txtSendEmail.Text);
+
+                SendEmail.SendPdfEmail(txtSendEmail.Text, pdfPath);
+
+                panelEmail.Visible = false;
+                txtSendEmail.Text = "";
+                txtSendEmail.Visible = false;
+                btnSendEmail.Visible = false;
+
+                SetReset.reset();
+            } catch(Exception ex)
+            {
+                txtSendEmail.Text = "";
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private async void buttonBuyFruit_Click(object sender, EventArgs e)
