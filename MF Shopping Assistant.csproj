@@ -108,6 +108,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Diagnostics.DiagnosticSource.8.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -235,6 +236,7 @@
       <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -261,7 +263,6 @@
     <Compile Include="Classes\GlobalData.cs" />
     <Compile Include="Classes\ModifyQuantity.cs" />
     <Compile Include="Classes\Payment.cs" />
-    <Compile Include="Classes\QRCoder.cs" />
     <Compile Include="Classes\SendEmail.cs" />
     <Compile Include="Classes\SetReset.cs" />
     <Compile Include="Classes\UI.cs" />

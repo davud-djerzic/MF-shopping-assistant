@@ -27,9 +27,9 @@ namespace MF_Shopping_Assistant.Classes
             {
                 panel = new Panel
                 {
-                    Size = new Size(260, 68),
+                    Size = new Size(510, 130),
                     Location = new Point(6, 12),
-                    BackColor = Color.LightGray,
+                    BackColor = Color.Wheat,
                     BorderStyle = BorderStyle.FixedSingle,
                     Tag = numberOfProducts
                 };
@@ -38,24 +38,25 @@ namespace MF_Shopping_Assistant.Classes
             {
                 panel = new Panel
                 {
-                    Size = new Size(260, 68),
+                    Size = new Size(510, 130),
                     Location = new Point(6, 71 * numberOfProducts),
-                    BackColor = Color.LightGray,
+                    BackColor = Color.Wheat,
                     BorderStyle = BorderStyle.FixedSingle,
                     Tag = numberOfProducts
                 };
             }
-            if (!isFruit) panel.DoubleClick += EditProduct.PanelDoubleClick;
+           // if (!isFruit) panel.DoubleClick += EditProduct.PanelDoubleClick;
 
-            panel.MouseDown += flowLayoutPanel1_MouseDown;
-            panel.MouseUp += flowLayoutPanel1_MouseUp;
-            panel.MouseMove += flowLayoutPanel1_MouseMove;
+            panel.MouseDown += flowLayoutPanel1Y_MouseDown;
+            panel.MouseUp += flowLayoutPanel1Y_MouseUp;
+            panel.MouseMove += flowLayoutPanel1Y_MouseMove;
 
             Label labelName = new Label
             {
                 Text = productName,
-                Location = new Point(17, 21),
-                AutoSize = true
+                Location = new Point(10, 5),
+                AutoSize = true,
+                Font = new Font("Arial", 12, FontStyle.Regular)
             };
             panel.Controls.Add(labelName);
 
@@ -63,8 +64,9 @@ namespace MF_Shopping_Assistant.Classes
             {
                 Name = "lblTotalPrice",
                 Text = totalPrice,
-                Location = new Point(230, 48),
-                AutoSize = true
+                Location = new Point(370, 96),
+                AutoSize = true,
+                Font = new Font("Arial", 12, FontStyle.Regular)
             };
 
             panel.Controls.Add(labelTotalPrice);
@@ -73,8 +75,9 @@ namespace MF_Shopping_Assistant.Classes
             {
                 Name = "lblPricePerUnit",
                 Text = pricePerUnit,
-                Location = new Point(142, 48),
-                AutoSize = true
+                Location = new Point(200, 96),
+                AutoSize = true,
+                Font = new Font("Arial", 12, FontStyle.Regular)
             };
 
             panel.Controls.Add(labelPricePerUnit);
@@ -83,21 +86,51 @@ namespace MF_Shopping_Assistant.Classes
             {
                 Name = "lblQuantity",
                 Text = quantity,
-                Location = new Point(17, 48),
-                AutoSize = true
+                Location = new Point(30, 96),
+                AutoSize = true,
+                Font = new Font("Arial", 12, FontStyle.Regular)
             };
 
             panel.Controls.Add(labelQuantity);
 
             System.Windows.Forms.Button closeButton = new System.Windows.Forms.Button
             {
-                Location = new Point(220, 1),
+                Text = "X",
+                ForeColor = Color.White,
+                Location = new Point(430, 1),
+                Size = new Size(75, 30),
                 AutoSize = true,
                 Tag = numberOfProducts,
-
+                BackColor = Color.Maroon
             };
             closeButton.Click += EditProduct.RemoveProduct;
             panel.Controls.Add(closeButton);
+
+            if (!isFruit)
+            {
+                string imagePath = @"C:\Users\Korisnik\Downloads\settingsIcon2.png";
+
+                Button updateProductButton = new Button
+                {
+                    ForeColor = Color.White,
+                    Location = new Point(430, 90),
+                    Size = new Size(75, 30),
+                    AutoSize = true,
+                    Tag = numberOfProducts,
+                    BackColor = Color.Maroon
+                };
+                Image originalImage = Image.FromFile(imagePath);
+                Image resizedImage = new Bitmap(originalImage, updateProductButton.Size); // Skaliraj na veličinu buttona
+
+                updateProductButton.Image = resizedImage;
+                updateProductButton.ImageAlign = ContentAlignment.MiddleCenter;
+
+                updateProductButton.Click += EditProduct.UpdateProductByButton;
+                panel.Controls.Add(updateProductButton);
+            }
+           
+
+            
 
             numberOfProducts++;
 
@@ -105,13 +138,13 @@ namespace MF_Shopping_Assistant.Classes
             flowLayoutPanel1.Controls.Add(panel);
         }
 
-        public static void flowLayoutPanel1_MouseDown(object sender, MouseEventArgs e)
+        public static void flowLayoutPanel1Y_MouseDown(object sender, MouseEventArgs e)
         {
             /*
             scrollStartY = e.Y;
             scrollPosition = flowLayoutPanel1.AutoScrollPosition.Y;
             isScrolling = false;*/
-            
+
             scrollStartY = e.Y;
 
             if (sender is Panel panel && panel.Parent is FlowLayoutPanel flp)
@@ -122,17 +155,17 @@ namespace MF_Shopping_Assistant.Classes
             Form1.isScrolling = false;
         }
 
-        public static void flowLayoutPanel1_MouseMove(object sender, MouseEventArgs e)
+        public static void flowLayoutPanel1Y_MouseMove(object sender, MouseEventArgs e)
         {/*
-            if (e.Button == MouseButtons.Left)
-            {
-                int deltaY = e.Y - scrollStartY;
-                if (Math.Abs(deltaY) > 5)
-                {
-                    isScrolling = true;
-                    flowLayoutPanel1.AutoScrollPosition = new Point(0, -(scrollPosition + deltaY));
-                }
-            }*/
+     if (e.Button == MouseButtons.Left)
+     {
+         int deltaY = e.Y - scrollStartY;
+         if (Math.Abs(deltaY) > 5)
+         {
+             isScrolling = true;
+             flowLayoutPanel1.AutoScrollPosition = new Point(0, -(scrollPosition + deltaY));
+         }
+     }*/
             if (e.Button == MouseButtons.Left)
             {
                 int deltaY = e.Y - scrollStartY;
@@ -148,7 +181,7 @@ namespace MF_Shopping_Assistant.Classes
             }
         }
 
-        public static void flowLayoutPanel1_MouseUp(object sender, MouseEventArgs e)
+        public static void flowLayoutPanel1Y_MouseUp(object sender, MouseEventArgs e)
         {
             // flowLayoutPanel1.Capture = false;
 
@@ -157,6 +190,149 @@ namespace MF_Shopping_Assistant.Classes
                 flp.Capture = false;
             }
         }
+
+        /*public static void flowLayoutPanel1Y_MouseDown(object sender, MouseEventArgs e)
+        {
+            scrollStartY = e.Y;
+
+            if (sender is FlowLayoutPanel flp)
+            {
+                scrollPosition = Math.Abs(flp.AutoScrollPosition.Y);
+            }
+            else if (sender is Panel panel && panel.Parent is FlowLayoutPanel flp2)
+            {
+                scrollPosition = Math.Abs(flp2.AutoScrollPosition.Y);
+            }
+
+            Form1.isScrolling = false;
+        }
+
+        public static void flowLayoutPanel1Y_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                int deltaY = e.Y - scrollStartY;
+
+                if (Math.Abs(deltaY) > 5)
+                {
+                    Form1.isScrolling = true;
+
+                    FlowLayoutPanel flp = null;
+
+                    if (sender is FlowLayoutPanel flowPanel)
+                    {
+                        flp = flowPanel;
+                    }
+                    else if (sender is Panel panel && panel.Parent is FlowLayoutPanel parentFlow)
+                    {
+                        flp = parentFlow;
+                    }
+
+                    if (flp != null)
+                    {
+                        int newScroll = scrollPosition - deltaY;
+
+                        // Ograniči scrolling da ne ide ispod 0
+                        if (newScroll < 0) newScroll = 0;
+
+                        flp.AutoScrollPosition = new Point(0, newScroll);
+                    }
+                }
+            }
+        }
+
+        public static void flowLayoutPanel1Y_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (sender is Panel panel && panel.Parent is FlowLayoutPanel flp)
+            {
+                flp.Capture = false;
+            }
+            else if (sender is FlowLayoutPanel flp2)
+            {
+                flp2.Capture = false;
+            }
+        }*/
+
+        public static void HideBackground(Panel panel, Panel panelDisableBackground)
+        {
+            panelDisableBackground.Location = new Point(0, 0);
+            panelDisableBackground.Size = new Size(518, 717);
+            panelDisableBackground.BackColor = Color.FromArgb(20, Color.Black);
+            panel.Location = new Point(100, 100);
+            panel.BringToFront();
+        }
+
+        public static void ShowBackground(Panel panel, Panel panelDisableBackground)
+        {
+            panelDisableBackground.Location = new Point(0, 0);
+            panelDisableBackground.Size = new Size(0, 0);
+            panelDisableBackground.BackColor = Color.FromArgb(20, Color.Black);
+            panel.Location = new Point(519, 0);
+        }
+
+     
+
+        public static void flowLayoutPanel1X_MouseDown(object sender, MouseEventArgs e)
+        {
+            scrollStartY = e.X; 
+
+            if (sender is FlowLayoutPanel flp)
+            {
+                scrollPosition = Math.Abs(flp.AutoScrollPosition.X); 
+            }
+            else if (sender is Panel panel && panel.Parent is FlowLayoutPanel flp2)
+            {
+                scrollPosition = Math.Abs(flp2.AutoScrollPosition.X); 
+            }
+
+            Form1.isScrolling = false;
+        }
+
+        public static void flowLayoutPanel1X_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                int deltaX = e.X - scrollStartY; 
+
+                if (Math.Abs(deltaX) > 5)
+                {
+                    Form1.isScrolling = true;
+
+                    FlowLayoutPanel flp = null;
+
+                    if (sender is FlowLayoutPanel flowPanel)
+                    {
+                        flp = flowPanel;
+                    }
+                    else if (sender is Panel panel && panel.Parent is FlowLayoutPanel parentFlow)
+                    {
+                        flp = parentFlow;
+                    }
+
+                    if (flp != null)
+                    {
+                        int newScroll = scrollPosition - deltaX;
+
+                        if (newScroll < 0) newScroll = 0;
+
+                        flp.AutoScrollPosition = new Point(newScroll, 0); 
+                    }
+                }
+            }
+        }
+
+        public static void flowLayoutPanel1X_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (sender is Panel panel && panel.Parent is FlowLayoutPanel flp)
+            {
+                flp.Capture = false;
+            }
+            else if (sender is FlowLayoutPanel flp2)
+            {
+                flp2.Capture = false;
+            }
+        }
+
 
         public static void updatePanelTag(FlowLayoutPanel flowLayoutPanel)
         {

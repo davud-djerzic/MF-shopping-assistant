@@ -54,6 +54,12 @@ namespace MF_Shopping_Assistant.Classes
 
         public async Task getDiscountProducts()
         {
+            GlobalData.listDiscountProductId.Clear();
+            GlobalData.listDiscountProductDiscountId.Clear();
+            GlobalData.listDiscountProductPrice.Clear();
+            GlobalData.listDiscountProductName.Clear();
+            GlobalData.listDiscountProductType.Clear();
+            GlobalData.listDiscountProductManufacturer.Clear();
             string getProductByBarcode = "SELECT * FROM Product WHERE DiscountId IS NOT NULL";
 
             using (MySqlCommand cmdProduct = new MySqlCommand(getProductByBarcode, mySqlConnection))

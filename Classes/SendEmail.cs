@@ -12,7 +12,7 @@ namespace MF_Shopping_Assistant.Classes
 {
     internal class SendEmail
     {
-        public static void SendPdfEmail(string toEmail, string pdfFilePath)
+        public async static Task SendPdfEmail(string toEmail, string pdfFilePath)
         {
             try
             {                

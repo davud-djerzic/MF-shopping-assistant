@@ -25,8 +25,12 @@ namespace MF_Shopping_Assistant.Classes
         }
         public void QuantityIncrease()
         {
-            quantity++;
-            lblNumberOfProducts.Text = quantity.ToString();
+            if (quantity < EditProduct.productInStock)
+            {
+                quantity++;
+                lblNumberOfProducts.Text = quantity.ToString();
+            }
+
         }
 
         public void QuantityDecrease()
@@ -43,8 +47,12 @@ namespace MF_Shopping_Assistant.Classes
 
         public void UpdateQuantityIncrease()
         {
-            updateQuantity++;
-            lblUpdateNumberOfProducts.Text = updateQuantity.ToString();
+            if (updateQuantity < EditProduct.productInStock)
+            {
+                updateQuantity++;
+                lblUpdateNumberOfProducts.Text = updateQuantity.ToString();
+            }
+                
         }
 
     }

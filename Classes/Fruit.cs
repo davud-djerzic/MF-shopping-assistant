@@ -28,6 +28,8 @@ namespace MF_Shopping_Assistant.Classes
         private static TextBox txtScannedBarcode;
         private Panel homePagePanel;
         private static FlowLayoutPanel flowLayoutPanel1;
+        private static Panel panelClickToPay;
+        private static Panel panelSlider;
 
         private static List<double> listFruitPrice = new List<double>();
         private static List<double> listFruitDiscountPrice = new List<double>();
@@ -36,8 +38,8 @@ namespace MF_Shopping_Assistant.Classes
         private static List<int> listFruitId = new List<int>();
         private static List<string> listFruitType = new List<string>();
 
-
-        public Fruit(MySqlConnection mySqlConnection, FlowLayoutPanel flpFruit, Panel homePagePanel, Label lblTotalPrice, TextBox txtScannedBarcode, FlowLayoutPanel flowLayoutPanel1)
+        private static bool isClose = false;
+        public Fruit(MySqlConnection mySqlConnection, FlowLayoutPanel flpFruit, Panel homePagePanel, Label lblTotalPrice, TextBox txtScannedBarcode, FlowLayoutPanel flowLayoutPanel1, Panel panelClickToPay, Panel panelSlider)
         {
             Fruit.mySqlConnection = mySqlConnection;
             Fruit.lblTotalPrice = lblTotalPrice;
@@ -45,6 +47,8 @@ namespace MF_Shopping_Assistant.Classes
             Fruit.txtScannedBarcode = txtScannedBarcode;
             this.homePagePanel = homePagePanel;
             Fruit.flowLayoutPanel1 = flowLayoutPanel1;
+            Fruit.panelClickToPay = panelClickToPay;
+            Fruit.panelSlider = panelSlider;
         }
 
         public delegate void WeightReceivedHandler(float weight);
@@ -54,13 +58,17 @@ namespace MF_Shopping_Assistant.Classes
         {
             flpFruit.Visible = true;
 
-            flpFruit.Location = new Point(homePagePanel.Location.X, homePagePanel.Location.Y);
-            flpFruit.Size = new Size(homePagePanel.Width, homePagePanel.Height);
+            //flpFruit.Location = new Point(homePagePanel.Location.X, homePagePanel.Location.Y);
+            //flpFruit.Location = new Point(100, 100);
+           // flpFruit.Size = new Size(500, 500);
 
             try
             {
                 isRunning = true;
+                isClose = false;
+                MessageBox.Show(isRunning.ToString() + "   " + isClose.ToString());
                 await Task.Run(() => ReceiveWeightData());
+                MessageBox.Show(isRunning.ToString() + "   " + isClose.ToString());
             }
             catch (Exception ex)
             {
@@ -74,6 +82,24 @@ namespace MF_Shopping_Assistant.Classes
             {
                 isRunning = false;
                 await SendCommandToRaspberry("STOP");
+
+                stream?.Close();
+                client?.Close();
+                client = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Greška: " + ex.Message);
+            }
+        }
+
+        public static async Task btnCloseFruitPanel()
+        {
+            try
+            {
+                isRunning = false;
+                //isClose = true;
+                await SendCommandToRaspberry("CLOSE");
 
                 stream?.Close();
                 client?.Close();
@@ -152,6 +178,7 @@ namespace MF_Shopping_Assistant.Classes
                             if (receivedValue != 0.0)
                             {
                                 value = receivedValue - 0.1f;
+                                if (value < 20) value = 0;
                                 OnWeightReceived?.Invoke(value); // Pozivamo event!
                             }
                         }
@@ -171,6 +198,7 @@ namespace MF_Shopping_Assistant.Classes
             if (sender is Panel panel && panel.Tag != null)
             {
                 string clickedTag = panel.Tag.ToString();
+                
                 //MessageBox.Show(clickedTag);
                 for (int i = 0; i < listFruitName.Count; i++)
                 {
@@ -178,8 +206,8 @@ namespace MF_Shopping_Assistant.Classes
                     {
                         if (listFruitDiscountPrice[i] == 0)
                         {
-                            double priceOfProduct = listFruitPrice[i] * value / 1000;
-                            GlobalData.listQuantityOfProducts.Add(Math.Round(value / 1000, 2) - 0.1);
+                            double priceOfProduct = listFruitPrice[i] * Math.Round(value / 1000, 2);
+                            GlobalData.listQuantityOfProducts.Add(Math.Round(value, 2) - 0.1);
                             GlobalData.listPricePerUnitOfProducts.Add(listFruitPrice[i]);
                             GlobalData.listPriceOfProducts.Add(priceOfProduct);
                             GlobalData.listNameOfProducts.Add(listFruitName[i]);
@@ -188,13 +216,13 @@ namespace MF_Shopping_Assistant.Classes
                             GlobalData.listManufacturerOfProducts.Add("1");
                             GlobalData.listInStockOfProducts.Add(listFruitInStock[i]);
 
-                            double totalPriceOfProduct = listFruitPrice[i] * value / 1000;
-                            UI.addNewProduct(listFruitName[i], totalPriceOfProduct.ToString(), listFruitPrice[i].ToString(), (value / 1000).ToString(), true, flowLayoutPanel1);
+                            //double totalPriceOfProduct = Math.Round(listFruitPrice[i] * value, 2);
+                            UI.addNewProduct(listFruitName[i], priceOfProduct.ToString(), listFruitPrice[i].ToString(), (value).ToString(), true, flowLayoutPanel1);
                         }
                         if (listFruitDiscountPrice[i] != 0)
                         {
-                            double priceOfProduct = listFruitDiscountPrice[i] * value / 1000;
-                            GlobalData.listQuantityOfProducts.Add(Math.Round(value / 1000, 2) - 0.1);
+                            double priceOfProduct = listFruitDiscountPrice[i] * Math.Round(value / 1000, 2);
+                            GlobalData.listQuantityOfProducts.Add(Math.Round(value, 2) - 0.1);
                             GlobalData.listPricePerUnitOfProducts.Add(listFruitPrice[i]);
                             GlobalData.listPriceOfProducts.Add(priceOfProduct);
                             GlobalData.listNameOfProducts.Add(listFruitName[i]);
@@ -203,19 +231,25 @@ namespace MF_Shopping_Assistant.Classes
                             GlobalData.listManufacturerOfProducts.Add("1");
                             GlobalData.listInStockOfProducts.Add(listFruitInStock[i]);
 
-                            double totalPriceOfProduct = listFruitDiscountPrice[i] * value / 1000;
-                            UI.addNewProduct(listFruitName[i], totalPriceOfProduct.ToString(), listFruitPrice[i].ToString(), (value / 1000).ToString(), true, flowLayoutPanel1);
+                            
+                            //double totalPriceOfProduct = Math.Round(listFruitDiscountPrice[i] * value, 2);
+                            UI.addNewProduct(listFruitName[i], priceOfProduct.ToString(), listFruitPrice[i].ToString(), (value).ToString(), true, flowLayoutPanel1);
                         }
                     }
                 }
 
-                EditProduct.CalculateTotalPrice();
+                EditProduct.CalculateTotalPrice(lblTotalPrice);
 
                 flpFruit.Visible = false;
+
+                panelClickToPay.Visible = true;
+                panelSlider.Visible = false;
 
                 txtScannedBarcode.Focus();
             }
         }
+
+        public static List<FlowLayoutPanel> stranice = new List<FlowLayoutPanel>();
 
         public static async Task loadFruit()
         {
@@ -268,28 +302,77 @@ namespace MF_Shopping_Assistant.Classes
                 }
             }
 
+            
+            int proizvodaPoStranici = 4;
+            int currentPage = 0;
+
+            FlowLayoutPanel firstPage = new FlowLayoutPanel()
+            {
+                Size = new Size(690, 782),
+                WrapContents = true,
+                FlowDirection = FlowDirection.LeftToRight,
+                AutoScroll = false,
+                BackColor=Color.Wheat
+            };
+            int proizvodaNaStranici = 0;
+
             for (int i = 0; i < listFruitDiscountPrice.Count; i++)
             {
-                string imagePath = Path.Combine(Application.StartupPath, "/home/pi/Desktop/Pictures/", $"{listFruitName[i]}.jpg");
-                //string imagePath = Path.Combine(Application.StartupPath, "Pictures/", $"{listFruitName[i]}.jpg");
+               // string imagePath = Path.Combine(Application.StartupPath, "/home/pi/Desktop/Pictures/", $"{listFruitName[i]}.jpg");
+                string imagePath = Path.Combine(Application.StartupPath, "Pictures/", $"{listFruitName[i]}.jpg");
                
                 Panel panel = new Panel
                 {
-                    Size = new Size(100, 100),
+                    Size = new Size(120, 120),
                     Tag = listFruitName[i],
                     BackgroundImage = Image.FromFile(imagePath),
-                    BackgroundImageLayout = ImageLayout.Stretch
+                    BackgroundImageLayout = ImageLayout.Stretch,
+                    Margin = new Padding(5)
                 };
                 panel.Click += async (sender, e) => await btnChooseFruitToBuy();
 
                 panel.Click += FruitClick;
+
+                panel.MouseDown += UI.flowLayoutPanel1X_MouseDown;
+                panel.MouseUp += UI.flowLayoutPanel1X_MouseUp;
+                panel.MouseMove += UI.flowLayoutPanel1X_MouseMove;
 
                 Label label = new Label
                 {
                     Text = $"{i + 1}"
                 };
                 panel.Controls.Add(label);
-                flpFruit.Controls.Add(panel);
+
+                firstPage.Controls.Add(panel);
+                proizvodaNaStranici++;
+
+                if (proizvodaNaStranici >= proizvodaPoStranici)
+                {
+                    // Kada se napuni stranica, postavi Location po X
+                    firstPage.Location = new Point(stranice.Count * firstPage.Width, 0);
+                    flpFruit.Controls.Add(firstPage);
+                    stranice.Add(firstPage);
+
+                    // Nova stranica
+                    firstPage = new FlowLayoutPanel()
+                    {
+                        Size = new Size(500, 500),
+                        WrapContents = true,
+                        FlowDirection = FlowDirection.LeftToRight,
+                        AutoScroll = false,
+                        Padding = new Padding(0),
+                        BackColor=Color.Wheat
+
+                    };
+                    proizvodaNaStranici = 0;
+                }
+            }
+            // Ako ostane još proizvoda na zadnjoj stranici
+            if (firstPage.Controls.Count > 0)
+            {
+                firstPage.Location = new Point(stranice.Count * firstPage.Width, 0);
+                flpFruit.Controls.Add(firstPage);
+                stranice.Add(firstPage);
             }
         }
     }

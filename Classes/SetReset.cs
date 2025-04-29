@@ -41,8 +41,11 @@ namespace MF_Shopping_Assistant.Classes
         private Label lblProductNameP4;
         private Label lblOldPriceP4;
         private Label lblDiscountPriceP4;
-        private Button btnPay;
-
+        private static Button btnPay;
+        private static Panel panelHeader;
+        private static Panel panelPaymentTotalPrice;
+        private static Panel panelClickToPay;
+        private static Panel panelEmail;
         /*private Fruit fruit;
         private ModifyQuantity modifyQuantity;
         private EditProduct editProduct;
@@ -72,7 +75,7 @@ namespace MF_Shopping_Assistant.Classes
          Label lblDiscountPriceP3,
          Label lblProductNameP4,
          Label lblOldPriceP4,
-         Label lblDiscountPriceP4)
+         Label lblDiscountPriceP4, Button button1, Panel panelHeader, Panel panelPaymentTotalPrice, Panel panelClickToPay, Panel panelEmail)
         {
             this.mySqlConnection = mySqlConnection;
             /*this.fruit = fruit;
@@ -88,7 +91,7 @@ namespace MF_Shopping_Assistant.Classes
             SetReset.panelConfirmPayment = panelConfirmPayment;
             SetReset.txtScannedBarcode = txtScannedBarcode;
             SetReset.lblTotalPrice = lblTotalPrice;
-            this.btnPay = btnPay;
+            SetReset.btnPay = btnPay;
             this.lblHomePage = lblHomePage;
 
             this.lblClickToPay = lblClickToPay;
@@ -112,7 +115,11 @@ namespace MF_Shopping_Assistant.Classes
              this. lblDiscountPriceP3 = lblDiscountPriceP3;
              this. lblProductNameP4 = lblProductNameP4;
              this. lblOldPriceP4 = lblOldPriceP4;
-            this.lblDiscountPriceP4 = lblDiscountPriceP4;  
+            this.lblDiscountPriceP4 = lblDiscountPriceP4;
+            SetReset.panelHeader = panelHeader;
+            SetReset.panelPaymentTotalPrice = panelPaymentTotalPrice;
+            SetReset.panelClickToPay = panelClickToPay;
+            SetReset.panelEmail = panelEmail;
         }
 
         public async Task LoadAsync(Fruit fruit, ModifyQuantity modifyQuantity, EditProduct editProduct, UI ui, DiscountProduct discountProduct, Payment payment)
@@ -167,17 +174,31 @@ namespace MF_Shopping_Assistant.Classes
             Form1.isDoubleClicked = false;
             Form1.isScrolling = false;
 
-            panelDiscountPage.Visible = true;
+            panelDiscountPage.Visible = false;
             flowLayoutPanel1.Visible = true;
-            flowLayoutPanel2.Visible = true;
+
+            homePagePanel.Location = new Point(0, 0);
+
+            flowLayoutPanel2.Visible = false;
             panelConfirmPayment.Visible = true;
             txtScannedBarcode.Focus();
-            lblTotalPrice.Text = "0";
+            lblTotalPrice.Text = "";
+
+            panelHeader.Visible = false;
+            panelPaymentTotalPrice.Visible = false;
+
+            panelClickToPay.Visible = false;
+
+            panelEmail.Visible = false;
+
+            btnPay.Visible = false;
 
             Form1.isIntroFinish = false;
+
         }
         private async void HomePage_Click(object sender, EventArgs e)
         {
+            panelDiscountPage.Visible = true;
             homePagePanel.Visible = false;
             panelDiscountPage.Location = new Point(homePagePanel.Location.X, homePagePanel.Location.Y);
             DiscountProduct discountProduct = new DiscountProduct(mySqlConnection, lblProductNameP1, lblDiscountPercentageP1, lblOldPriceP1, lblDiscountPriceP1, lblProductNameP2, lblDiscountPercentageP2, lblOldPriceP2, lblDiscountPriceP2, lblProductNameP3, lblOldPriceP3, lblDiscountPriceP3, lblProductNameP4, lblOldPriceP4, lblDiscountPriceP4);
@@ -190,6 +211,8 @@ namespace MF_Shopping_Assistant.Classes
             flowLayoutPanel1.Visible = true;
             txtScannedBarcode.Clear();
             Form1.isIntroFinish = true;
+            txtScannedBarcode.Focus();
+            panelClickToPay.Visible = true;
         }
 
         private void addClickOnPanels(Control parentPanel)
