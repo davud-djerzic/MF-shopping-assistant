@@ -38,6 +38,8 @@ namespace MF_Shopping_Assistant.Classes
         private static List<int> listFruitId = new List<int>();
         private static List<string> listFruitType = new List<string>();
 
+        public static List<FlowLayoutPanel> slides = new List<FlowLayoutPanel>();
+
         private static bool isClose = false;
         public Fruit(MySqlConnection mySqlConnection, FlowLayoutPanel flpFruit, Panel homePagePanel, Label lblTotalPrice, TextBox txtScannedBarcode, FlowLayoutPanel flowLayoutPanel1, Panel panelClickToPay, Panel panelSlider)
         {
@@ -190,7 +192,6 @@ namespace MF_Shopping_Assistant.Classes
                     //MessageBox.Show("Greška pri primanju podataka: " + ex.Message);
                 }
             }
-            
         }
 
         public static void FruitClick(object sender, EventArgs e)
@@ -249,8 +250,6 @@ namespace MF_Shopping_Assistant.Classes
             }
         }
 
-        public static List<FlowLayoutPanel> stranice = new List<FlowLayoutPanel>();
-
         public static async Task loadFruit()
         {
             flpFruit.Visible = false;
@@ -303,27 +302,27 @@ namespace MF_Shopping_Assistant.Classes
             }
 
             
-            int proizvodaPoStranici = 4;
-            int currentPage = 0;
+            int productsPerPage = 12;
+            //int currentPage = 0;
 
             FlowLayoutPanel firstPage = new FlowLayoutPanel()
             {
-                Size = new Size(690, 782),
+                Size = new Size(600, 660),
                 WrapContents = true,
                 FlowDirection = FlowDirection.LeftToRight,
                 AutoScroll = false,
                 BackColor=Color.Wheat
             };
-            int proizvodaNaStranici = 0;
+            int productsOnPage = 0;
 
             for (int i = 0; i < listFruitDiscountPrice.Count; i++)
             {
-               // string imagePath = Path.Combine(Application.StartupPath, "/home/pi/Desktop/Pictures/", $"{listFruitName[i]}.jpg");
+                //string imagePath = Path.Combine(Application.StartupPath, "/home/pi/Desktop/Pictures/", $"{listFruitName[i]}.jpg");
                 string imagePath = Path.Combine(Application.StartupPath, "Pictures/", $"{listFruitName[i]}.jpg");
                
                 Panel panel = new Panel
                 {
-                    Size = new Size(120, 120),
+                    Size = new Size(135, 135),
                     Tag = listFruitName[i],
                     BackgroundImage = Image.FromFile(imagePath),
                     BackgroundImageLayout = ImageLayout.Stretch,
@@ -337,26 +336,26 @@ namespace MF_Shopping_Assistant.Classes
                 panel.MouseUp += UI.flowLayoutPanel1X_MouseUp;
                 panel.MouseMove += UI.flowLayoutPanel1X_MouseMove;
 
-                Label label = new Label
+                /*Label label = new Label
                 {
                     Text = $"{i + 1}"
                 };
-                panel.Controls.Add(label);
+                panel.Controls.Add(label);*/
 
                 firstPage.Controls.Add(panel);
-                proizvodaNaStranici++;
+                productsOnPage++;
 
-                if (proizvodaNaStranici >= proizvodaPoStranici)
+                if (productsOnPage >= productsPerPage)
                 {
                     // Kada se napuni stranica, postavi Location po X
-                    firstPage.Location = new Point(stranice.Count * firstPage.Width, 0);
+                    firstPage.Location = new Point(slides.Count * firstPage.Width, 0);
                     flpFruit.Controls.Add(firstPage);
-                    stranice.Add(firstPage);
+                    slides.Add(firstPage);
 
                     // Nova stranica
                     firstPage = new FlowLayoutPanel()
                     {
-                        Size = new Size(500, 500),
+                        Size = new Size(600, 660),
                         WrapContents = true,
                         FlowDirection = FlowDirection.LeftToRight,
                         AutoScroll = false,
@@ -364,15 +363,15 @@ namespace MF_Shopping_Assistant.Classes
                         BackColor=Color.Wheat
 
                     };
-                    proizvodaNaStranici = 0;
+                    productsOnPage = 0;
                 }
             }
             // Ako ostane još proizvoda na zadnjoj stranici
             if (firstPage.Controls.Count > 0)
             {
-                firstPage.Location = new Point(stranice.Count * firstPage.Width, 0);
+                firstPage.Location = new Point(slides.Count * firstPage.Width, 0);
                 flpFruit.Controls.Add(firstPage);
-                stranice.Add(firstPage);
+                slides.Add(firstPage);
             }
         }
     }

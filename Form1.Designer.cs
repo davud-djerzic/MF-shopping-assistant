@@ -34,6 +34,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.panelPaymentTotalPrice = new System.Windows.Forms.Panel();
+            this.lblPaymentTotalPrice = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -99,24 +102,20 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.panelPaymentTotalPrice = new System.Windows.Forms.Panel();
-            this.lblPaymentTotalPrice = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.panelSlider = new System.Windows.Forms.Panel();
             this.panelNextPage = new System.Windows.Forms.Panel();
             this.panelPreviousPage = new System.Windows.Forms.Panel();
-            this.btnPreviousPage = new System.Windows.Forms.Button();
-            this.btnNextPage = new System.Windows.Forms.Button();
             this.panelDisableBackground = new System.Windows.Forms.Panel();
             this.panelMessageBox = new System.Windows.Forms.Panel();
             this.btnMessageBoxNo = new System.Windows.Forms.Button();
             this.btnMessageBoxYes = new System.Windows.Forms.Button();
             this.lblMessageBoxMessage = new System.Windows.Forms.Label();
             this.panelMessageBoxOk = new System.Windows.Forms.Panel();
-            this.lblMessageBoxOK = new System.Windows.Forms.Label();
             this.btnMessageBoxOK = new System.Windows.Forms.Button();
+            this.lblMessageBoxOK = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.panelPaymentTotalPrice.SuspendLayout();
             this.panelProductQuantity.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelConfirmPayment.SuspendLayout();
@@ -130,7 +129,6 @@
             this.panelProduct1.SuspendLayout();
             this.panelClickToPay.SuspendLayout();
             this.panelHeader.SuspendLayout();
-            this.panelPaymentTotalPrice.SuspendLayout();
             this.panelSlider.SuspendLayout();
             this.panelMessageBox.SuspendLayout();
             this.panelMessageBoxOk.SuspendLayout();
@@ -145,6 +143,7 @@
             // 
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.panelPaymentTotalPrice);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -172,6 +171,37 @@
             this.label4.Size = new System.Drawing.Size(44, 16);
             this.label4.TabIndex = 3;
             this.label4.Text = "label4";
+            // 
+            // panelPaymentTotalPrice
+            // 
+            this.panelPaymentTotalPrice.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelPaymentTotalPrice.Controls.Add(this.lblPaymentTotalPrice);
+            this.panelPaymentTotalPrice.Controls.Add(this.label11);
+            this.panelPaymentTotalPrice.Location = new System.Drawing.Point(143, 33);
+            this.panelPaymentTotalPrice.Name = "panelPaymentTotalPrice";
+            this.panelPaymentTotalPrice.Size = new System.Drawing.Size(573, 100);
+            this.panelPaymentTotalPrice.TabIndex = 18;
+            this.panelPaymentTotalPrice.Visible = false;
+            // 
+            // lblPaymentTotalPrice
+            // 
+            this.lblPaymentTotalPrice.AutoSize = true;
+            this.lblPaymentTotalPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblPaymentTotalPrice.Location = new System.Drawing.Point(409, 45);
+            this.lblPaymentTotalPrice.Name = "lblPaymentTotalPrice";
+            this.lblPaymentTotalPrice.Size = new System.Drawing.Size(54, 18);
+            this.lblPaymentTotalPrice.TabIndex = 1;
+            this.lblPaymentTotalPrice.Text = "label12";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label11.Location = new System.Drawing.Point(3, 30);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(190, 38);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Total price:";
             // 
             // label3
             // 
@@ -210,7 +240,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(581, 397);
+            this.button1.Location = new System.Drawing.Point(900, 397);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -224,7 +254,7 @@
             this.btnQuantityIncrease.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnQuantityIncrease.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuantityIncrease.ForeColor = System.Drawing.Color.Wheat;
-            this.btnQuantityIncrease.Location = new System.Drawing.Point(194, 86);
+            this.btnQuantityIncrease.Location = new System.Drawing.Point(275, 84);
             this.btnQuantityIncrease.Name = "btnQuantityIncrease";
             this.btnQuantityIncrease.Size = new System.Drawing.Size(101, 72);
             this.btnQuantityIncrease.TabIndex = 0;
@@ -236,7 +266,7 @@
             this.btnQuantityDecrease.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuantityDecrease.ForeColor = System.Drawing.Color.Wheat;
             this.btnQuantityDecrease.Image = ((System.Drawing.Image)(resources.GetObject("btnQuantityDecrease.Image")));
-            this.btnQuantityDecrease.Location = new System.Drawing.Point(72, 92);
+            this.btnQuantityDecrease.Location = new System.Drawing.Point(125, 90);
             this.btnQuantityDecrease.Name = "btnQuantityDecrease";
             this.btnQuantityDecrease.Size = new System.Drawing.Size(72, 66);
             this.btnQuantityDecrease.TabIndex = 1;
@@ -247,7 +277,7 @@
             // 
             this.lblNumberOfProducts.AutoSize = true;
             this.lblNumberOfProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblNumberOfProducts.Location = new System.Drawing.Point(141, 25);
+            this.lblNumberOfProducts.Location = new System.Drawing.Point(224, 33);
             this.lblNumberOfProducts.Name = "lblNumberOfProducts";
             this.lblNumberOfProducts.Size = new System.Drawing.Size(36, 38);
             this.lblNumberOfProducts.TabIndex = 2;
@@ -259,9 +289,9 @@
             this.btnFinishProduct.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnFinishProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnFinishProduct.ForeColor = System.Drawing.Color.Wheat;
-            this.btnFinishProduct.Location = new System.Drawing.Point(94, 184);
+            this.btnFinishProduct.Location = new System.Drawing.Point(156, 180);
             this.btnFinishProduct.Name = "btnFinishProduct";
-            this.btnFinishProduct.Size = new System.Drawing.Size(149, 39);
+            this.btnFinishProduct.Size = new System.Drawing.Size(157, 39);
             this.btnFinishProduct.TabIndex = 3;
             this.btnFinishProduct.Text = "FINISH";
             this.btnFinishProduct.UseVisualStyleBackColor = false;
@@ -276,9 +306,9 @@
             this.panelProductQuantity.Controls.Add(this.btnQuantityDecrease);
             this.panelProductQuantity.Controls.Add(this.btnQuantityIncrease);
             this.panelProductQuantity.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.panelProductQuantity.Location = new System.Drawing.Point(951, 132);
+            this.panelProductQuantity.Location = new System.Drawing.Point(919, 32);
             this.panelProductQuantity.Name = "panelProductQuantity";
-            this.panelProductQuantity.Size = new System.Drawing.Size(350, 250);
+            this.panelProductQuantity.Size = new System.Drawing.Size(484, 255);
             this.panelProductQuantity.TabIndex = 6;
             this.panelProductQuantity.Visible = false;
             // 
@@ -348,7 +378,6 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(690, 750);
             this.flowLayoutPanel1.TabIndex = 7;
-            this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
             this.flowLayoutPanel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.flowLayoutPanel1_MouseDown);
             this.flowLayoutPanel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.flowLayoutPanel1_MouseMove);
             this.flowLayoutPanel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.flowLayoutPanel1_MouseUp);
@@ -385,7 +414,6 @@
             this.lblClickToPay.Size = new System.Drawing.Size(201, 35);
             this.lblClickToPay.TabIndex = 9;
             this.lblClickToPay.Text = "CLICK TO PAY";
-            this.lblClickToPay.Click += new System.EventHandler(this.lblClickToPay_Click);
             // 
             // panelUpdateProductQuantity
             // 
@@ -394,9 +422,9 @@
             this.panelUpdateProductQuantity.Controls.Add(this.lblUpdateNumberOfProducts);
             this.panelUpdateProductQuantity.Controls.Add(this.btnUpdateQuantityDecrease);
             this.panelUpdateProductQuantity.Controls.Add(this.btnUpdateQuantityIncrease);
-            this.panelUpdateProductQuantity.Location = new System.Drawing.Point(902, 47);
+            this.panelUpdateProductQuantity.Location = new System.Drawing.Point(943, 29);
             this.panelUpdateProductQuantity.Name = "panelUpdateProductQuantity";
-            this.panelUpdateProductQuantity.Size = new System.Drawing.Size(350, 250);
+            this.panelUpdateProductQuantity.Size = new System.Drawing.Size(484, 255);
             this.panelUpdateProductQuantity.TabIndex = 7;
             this.panelUpdateProductQuantity.Visible = false;
             // 
@@ -407,9 +435,9 @@
             this.btnUpdateProduct.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdateProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnUpdateProduct.ForeColor = System.Drawing.Color.Wheat;
-            this.btnUpdateProduct.Location = new System.Drawing.Point(94, 184);
+            this.btnUpdateProduct.Location = new System.Drawing.Point(156, 180);
             this.btnUpdateProduct.Name = "btnUpdateProduct";
-            this.btnUpdateProduct.Size = new System.Drawing.Size(149, 39);
+            this.btnUpdateProduct.Size = new System.Drawing.Size(157, 39);
             this.btnUpdateProduct.TabIndex = 3;
             this.btnUpdateProduct.Text = "FINISH";
             this.btnUpdateProduct.UseVisualStyleBackColor = false;
@@ -419,12 +447,11 @@
             // 
             this.lblUpdateNumberOfProducts.AutoSize = true;
             this.lblUpdateNumberOfProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblUpdateNumberOfProducts.Location = new System.Drawing.Point(141, 25);
+            this.lblUpdateNumberOfProducts.Location = new System.Drawing.Point(224, 33);
             this.lblUpdateNumberOfProducts.Name = "lblUpdateNumberOfProducts";
             this.lblUpdateNumberOfProducts.Size = new System.Drawing.Size(36, 38);
             this.lblUpdateNumberOfProducts.TabIndex = 2;
             this.lblUpdateNumberOfProducts.Text = "1";
-            this.lblUpdateNumberOfProducts.Click += new System.EventHandler(this.lblUpdateNumberOfProducts_Click);
             // 
             // btnUpdateQuantityDecrease
             // 
@@ -434,7 +461,7 @@
             this.btnUpdateQuantityDecrease.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdateQuantityDecrease.ForeColor = System.Drawing.Color.Wheat;
             this.btnUpdateQuantityDecrease.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdateQuantityDecrease.Image")));
-            this.btnUpdateQuantityDecrease.Location = new System.Drawing.Point(72, 92);
+            this.btnUpdateQuantityDecrease.Location = new System.Drawing.Point(125, 90);
             this.btnUpdateQuantityDecrease.Name = "btnUpdateQuantityDecrease";
             this.btnUpdateQuantityDecrease.Size = new System.Drawing.Size(72, 66);
             this.btnUpdateQuantityDecrease.TabIndex = 1;
@@ -447,7 +474,7 @@
             this.btnUpdateQuantityIncrease.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnUpdateQuantityIncrease.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdateQuantityIncrease.ForeColor = System.Drawing.Color.Wheat;
-            this.btnUpdateQuantityIncrease.Location = new System.Drawing.Point(194, 86);
+            this.btnUpdateQuantityIncrease.Location = new System.Drawing.Point(275, 84);
             this.btnUpdateQuantityIncrease.Name = "btnUpdateQuantityIncrease";
             this.btnUpdateQuantityIncrease.Size = new System.Drawing.Size(101, 72);
             this.btnUpdateQuantityIncrease.TabIndex = 0;
@@ -532,7 +559,7 @@
             this.flowLayoutPanel2.AutoScroll = true;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(700, 183);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(473, 341);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(573, 450);
             this.flowLayoutPanel2.TabIndex = 0;
             this.flowLayoutPanel2.Visible = false;
             this.flowLayoutPanel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.flowLayoutPanel2_MouseDown);
@@ -546,7 +573,7 @@
             this.btnPay.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnPay.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnPay.ForeColor = System.Drawing.Color.White;
-            this.btnPay.Location = new System.Drawing.Point(418, 406);
+            this.btnPay.Location = new System.Drawing.Point(450, 406);
             this.btnPay.Name = "btnPay";
             this.btnPay.Size = new System.Drawing.Size(157, 65);
             this.btnPay.TabIndex = 11;
@@ -569,7 +596,7 @@
             this.lblHomePage.AutoSize = true;
             this.lblHomePage.Font = new System.Drawing.Font("Arial Rounded MT Bold", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHomePage.ForeColor = System.Drawing.Color.White;
-            this.lblHomePage.Location = new System.Drawing.Point(130, 371);
+            this.lblHomePage.Location = new System.Drawing.Point(143, 371);
             this.lblHomePage.Name = "lblHomePage";
             this.lblHomePage.Size = new System.Drawing.Size(409, 140);
             this.lblHomePage.TabIndex = 0;
@@ -682,7 +709,6 @@
             this.panelProduct2.Name = "panelProduct2";
             this.panelProduct2.Size = new System.Drawing.Size(676, 208);
             this.panelProduct2.TabIndex = 1;
-            this.panelProduct2.Paint += new System.Windows.Forms.PaintEventHandler(this.panelProduct2_Paint);
             // 
             // lblDiscountPercentageP2
             // 
@@ -694,7 +720,6 @@
             this.lblDiscountPercentageP2.Size = new System.Drawing.Size(301, 135);
             this.lblDiscountPercentageP2.TabIndex = 5;
             this.lblDiscountPercentageP2.Text = "50%";
-            this.lblDiscountPercentageP2.Click += new System.EventHandler(this.lblDiscountPercentageP2_Click);
             // 
             // lblDiscountPriceP2
             // 
@@ -795,11 +820,13 @@
             // lblFruitWeight
             // 
             this.lblFruitWeight.AutoSize = true;
-            this.lblFruitWeight.Location = new System.Drawing.Point(1153, 10);
+            this.lblFruitWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblFruitWeight.ForeColor = System.Drawing.Color.White;
+            this.lblFruitWeight.Location = new System.Drawing.Point(343, 18);
             this.lblFruitWeight.Name = "lblFruitWeight";
-            this.lblFruitWeight.Size = new System.Drawing.Size(15, 16);
+            this.lblFruitWeight.Size = new System.Drawing.Size(276, 58);
             this.lblFruitWeight.TabIndex = 0;
-            this.lblFruitWeight.Text = "g";
+            this.lblFruitWeight.Text = "1000,931 g";
             // 
             // panelClickToPay
             // 
@@ -811,7 +838,6 @@
             this.panelClickToPay.Name = "panelClickToPay";
             this.panelClickToPay.Size = new System.Drawing.Size(690, 132);
             this.panelClickToPay.TabIndex = 17;
-            this.panelClickToPay.Paint += new System.Windows.Forms.PaintEventHandler(this.panel7_Paint);
             // 
             // btnShowDiscount
             // 
@@ -849,16 +875,16 @@
             this.panelHeader.Controls.Add(this.label12);
             this.panelHeader.Controls.Add(this.label10);
             this.panelHeader.Controls.Add(this.label9);
-            this.panelHeader.Location = new System.Drawing.Point(100, 750);
+            this.panelHeader.Location = new System.Drawing.Point(1185, 10);
             this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(473, 122);
+            this.panelHeader.Size = new System.Drawing.Size(573, 122);
             this.panelHeader.TabIndex = 0;
             this.panelHeader.Visible = false;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(392, 91);
+            this.label14.Location = new System.Drawing.Point(443, 90);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(38, 16);
             this.label14.TabIndex = 4;
@@ -867,7 +893,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(214, 91);
+            this.label13.Location = new System.Drawing.Point(271, 90);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(27, 16);
             this.label13.TabIndex = 3;
@@ -876,7 +902,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 91);
+            this.label12.Location = new System.Drawing.Point(40, 90);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(44, 16);
             this.label12.TabIndex = 2;
@@ -886,7 +912,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label10.Location = new System.Drawing.Point(155, 45);
+            this.label10.Location = new System.Drawing.Point(190, 45);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(206, 25);
             this.label10.TabIndex = 1;
@@ -896,41 +922,11 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label9.Location = new System.Drawing.Point(21, 10);
+            this.label9.Location = new System.Drawing.Point(71, 9);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(419, 36);
             this.label9.TabIndex = 0;
             this.label9.Text = "MF SHOPPING ASSISTANT";
-            // 
-            // panelPaymentTotalPrice
-            // 
-            this.panelPaymentTotalPrice.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelPaymentTotalPrice.Controls.Add(this.lblPaymentTotalPrice);
-            this.panelPaymentTotalPrice.Controls.Add(this.label11);
-            this.panelPaymentTotalPrice.Location = new System.Drawing.Point(695, 406);
-            this.panelPaymentTotalPrice.Name = "panelPaymentTotalPrice";
-            this.panelPaymentTotalPrice.Size = new System.Drawing.Size(473, 100);
-            this.panelPaymentTotalPrice.TabIndex = 18;
-            this.panelPaymentTotalPrice.Visible = false;
-            // 
-            // lblPaymentTotalPrice
-            // 
-            this.lblPaymentTotalPrice.AutoSize = true;
-            this.lblPaymentTotalPrice.Location = new System.Drawing.Point(378, 44);
-            this.lblPaymentTotalPrice.Name = "lblPaymentTotalPrice";
-            this.lblPaymentTotalPrice.Size = new System.Drawing.Size(51, 16);
-            this.lblPaymentTotalPrice.TabIndex = 1;
-            this.lblPaymentTotalPrice.Text = "label12";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label11.Location = new System.Drawing.Point(3, 30);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(190, 38);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Total price:";
             // 
             // button4
             // 
@@ -947,8 +943,7 @@
             this.panelSlider.BackColor = System.Drawing.Color.Maroon;
             this.panelSlider.Controls.Add(this.panelNextPage);
             this.panelSlider.Controls.Add(this.panelPreviousPage);
-            this.panelSlider.Controls.Add(this.btnPreviousPage);
-            this.panelSlider.Controls.Add(this.btnNextPage);
+            this.panelSlider.Controls.Add(this.lblFruitWeight);
             this.panelSlider.Location = new System.Drawing.Point(0, 782);
             this.panelSlider.Name = "panelSlider";
             this.panelSlider.Size = new System.Drawing.Size(690, 100);
@@ -961,7 +956,7 @@
             this.panelNextPage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelNextPage.BackgroundImage")));
             this.panelNextPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelNextPage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelNextPage.Location = new System.Drawing.Point(548, 13);
+            this.panelNextPage.Location = new System.Drawing.Point(155, 14);
             this.panelNextPage.Name = "panelNextPage";
             this.panelNextPage.Size = new System.Drawing.Size(131, 67);
             this.panelNextPage.TabIndex = 3;
@@ -980,30 +975,9 @@
             this.panelPreviousPage.TabIndex = 2;
             this.panelPreviousPage.Click += new System.EventHandler(this.panelPreviousPage_Click);
             // 
-            // btnPreviousPage
-            // 
-            this.btnPreviousPage.Image = ((System.Drawing.Image)(resources.GetObject("btnPreviousPage.Image")));
-            this.btnPreviousPage.Location = new System.Drawing.Point(176, 13);
-            this.btnPreviousPage.Name = "btnPreviousPage";
-            this.btnPreviousPage.Size = new System.Drawing.Size(131, 67);
-            this.btnPreviousPage.TabIndex = 1;
-            this.btnPreviousPage.Text = "<-";
-            this.btnPreviousPage.UseVisualStyleBackColor = true;
-            this.btnPreviousPage.Click += new System.EventHandler(this.btnPreviousPage_Click);
-            // 
-            // btnNextPage
-            // 
-            this.btnNextPage.Location = new System.Drawing.Point(346, 13);
-            this.btnNextPage.Name = "btnNextPage";
-            this.btnNextPage.Size = new System.Drawing.Size(131, 67);
-            this.btnNextPage.TabIndex = 0;
-            this.btnNextPage.Text = "->";
-            this.btnNextPage.UseVisualStyleBackColor = true;
-            this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
-            // 
             // panelDisableBackground
             // 
-            this.panelDisableBackground.BackColor = System.Drawing.Color.Transparent;
+            this.panelDisableBackground.BackColor = System.Drawing.Color.Maroon;
             this.panelDisableBackground.Location = new System.Drawing.Point(1272, 26);
             this.panelDisableBackground.Name = "panelDisableBackground";
             this.panelDisableBackground.Size = new System.Drawing.Size(63, 53);
@@ -1067,22 +1041,11 @@
             this.panelMessageBoxOk.Controls.Add(this.btnMessageBoxOK);
             this.panelMessageBoxOk.Controls.Add(this.lblMessageBoxOK);
             this.panelMessageBoxOk.ForeColor = System.Drawing.Color.Maroon;
-            this.panelMessageBoxOk.Location = new System.Drawing.Point(695, 0);
+            this.panelMessageBoxOk.Location = new System.Drawing.Point(695, 750);
             this.panelMessageBoxOk.Name = "panelMessageBoxOk";
             this.panelMessageBoxOk.Size = new System.Drawing.Size(484, 255);
             this.panelMessageBoxOk.TabIndex = 23;
             this.panelMessageBoxOk.Visible = false;
-            // 
-            // lblMessageBoxOK
-            // 
-            this.lblMessageBoxOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblMessageBoxOK.ForeColor = System.Drawing.Color.Maroon;
-            this.lblMessageBoxOK.Location = new System.Drawing.Point(12, 40);
-            this.lblMessageBoxOK.Name = "lblMessageBoxOK";
-            this.lblMessageBoxOK.Size = new System.Drawing.Size(449, 65);
-            this.lblMessageBoxOK.TabIndex = 0;
-            this.lblMessageBoxOK.Text = "EEEEEE";
-            this.lblMessageBoxOK.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnMessageBoxOK
             // 
@@ -1098,29 +1061,38 @@
             this.btnMessageBoxOK.UseVisualStyleBackColor = false;
             this.btnMessageBoxOK.Click += new System.EventHandler(this.btnMessageBoxOK_Click);
             // 
+            // lblMessageBoxOK
+            // 
+            this.lblMessageBoxOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblMessageBoxOK.ForeColor = System.Drawing.Color.Maroon;
+            this.lblMessageBoxOK.Location = new System.Drawing.Point(12, 40);
+            this.lblMessageBoxOK.Name = "lblMessageBoxOK";
+            this.lblMessageBoxOK.Size = new System.Drawing.Size(449, 65);
+            this.lblMessageBoxOK.TabIndex = 0;
+            this.lblMessageBoxOK.Text = "EEEEEE";
+            this.lblMessageBoxOK.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1347, 642);
+            this.Controls.Add(this.homePagePanel);
+            this.Controls.Add(this.panelProductQuantity);
+            this.Controls.Add(this.panelUpdateProductQuantity);
+            this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.panelMessageBoxOk);
             this.Controls.Add(this.panelMessageBox);
             this.Controls.Add(this.panelClickToPay);
-            this.Controls.Add(this.panelUpdateProductQuantity);
-            this.Controls.Add(this.panelProductQuantity);
             this.Controls.Add(this.panelDisableBackground);
             this.Controls.Add(this.panelSlider);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.panelPaymentTotalPrice);
             this.Controls.Add(this.panelDiscountPage);
             this.Controls.Add(this.flpFruit);
             this.Controls.Add(this.flowLayoutPanel2);
-            this.Controls.Add(this.panelHeader);
-            this.Controls.Add(this.homePagePanel);
             this.Controls.Add(this.panelEmail);
             this.Controls.Add(this.btnShowFruit);
-            this.Controls.Add(this.lblFruitWeight);
             this.Controls.Add(this.btnPay);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.panel2);
@@ -1133,6 +1105,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panelPaymentTotalPrice.ResumeLayout(false);
+            this.panelPaymentTotalPrice.PerformLayout();
             this.panelProductQuantity.ResumeLayout(false);
             this.panelProductQuantity.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -1157,9 +1131,8 @@
             this.panelClickToPay.ResumeLayout(false);
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
-            this.panelPaymentTotalPrice.ResumeLayout(false);
-            this.panelPaymentTotalPrice.PerformLayout();
             this.panelSlider.ResumeLayout(false);
+            this.panelSlider.PerformLayout();
             this.panelMessageBox.ResumeLayout(false);
             this.panelMessageBoxOk.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -1242,8 +1215,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Panel panelSlider;
-        private System.Windows.Forms.Button btnPreviousPage;
-        private System.Windows.Forms.Button btnNextPage;
         private System.Windows.Forms.Panel panelDisableBackground;
         private System.Windows.Forms.Panel panelMessageBox;
         private System.Windows.Forms.Button btnMessageBoxNo;

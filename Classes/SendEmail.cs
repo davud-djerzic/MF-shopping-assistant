@@ -12,6 +12,7 @@ namespace MF_Shopping_Assistant.Classes
 {
     internal class SendEmail
     {
+        public static bool isEmailSendCorrectly = false;
         public async static Task SendPdfEmail(string toEmail, string pdfFilePath)
         {
             try
@@ -43,10 +44,12 @@ namespace MF_Shopping_Assistant.Classes
                     smtpClient.EnableSsl = true; // Use SSL if required
                     smtpClient.Send(mailMessage);
                 }
+                isEmailSendCorrectly = true;
 
             }
             catch (Exception ex)
             {
+                isEmailSendCorrectly= false;
                 MessageBox.Show($"Greška prilikom slanja maila: {ex.Message}", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

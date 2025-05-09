@@ -192,8 +192,12 @@ namespace MF_Shopping_Assistant.Classes
             panelEmail.Visible = false;
 
             btnPay.Visible = false;
+            
 
             Form1.isIntroFinish = false;
+            Form1.isPdfGenerated = false;
+            Form1.isOpenAnything = false;
+            Form1.isInvalidEmailFormat = false;
 
         }
         private async void HomePage_Click(object sender, EventArgs e)

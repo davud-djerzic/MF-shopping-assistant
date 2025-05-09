@@ -64,7 +64,7 @@ namespace MF_Shopping_Assistant.Classes
                         string name = GlobalData.listNameOfProducts[i];
                         double price = GlobalData.listPricePerUnitOfProducts[i];
                         double quantity = GlobalData.listQuantityOfProducts[i];
-                        double total = (price * quantity) / 1000;
+                        double total = (price * quantity);
                         grandTotal += total;
 
                         AddCell(table, (i + 1).ToString());

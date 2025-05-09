@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,8 @@ namespace MF_Shopping_Assistant.Classes
             {
                 panel = new Panel
                 {
-                    Size = new Size(510, 130),
+                   // Size = new Size(510, 130),
+                    Size = new Size(595, 130),
                     Location = new Point(6, 12),
                     BackColor = Color.Wheat,
                     BorderStyle = BorderStyle.FixedSingle,
@@ -38,7 +40,8 @@ namespace MF_Shopping_Assistant.Classes
             {
                 panel = new Panel
                 {
-                    Size = new Size(510, 130),
+                    //Size = new Size(510, 130),
+                    Size = new Size(595, 130),
                     Location = new Point(6, 71 * numberOfProducts),
                     BackColor = Color.Wheat,
                     BorderStyle = BorderStyle.FixedSingle,
@@ -97,7 +100,8 @@ namespace MF_Shopping_Assistant.Classes
             {
                 Text = "X",
                 ForeColor = Color.White,
-                Location = new Point(430, 1),
+               // Location = new Point(430, 1),
+                Location = new Point(512, 1),
                 Size = new Size(75, 30),
                 AutoSize = true,
                 Tag = numberOfProducts,
@@ -106,31 +110,35 @@ namespace MF_Shopping_Assistant.Classes
             closeButton.Click += EditProduct.RemoveProduct;
             panel.Controls.Add(closeButton);
 
-            if (!isFruit)
+            string imagePath = @"C:\Users\Korisnik\Downloads\settingsIcon2.png";
+            //string imagePath = Path.Combine(Application.StartupPath, "/home/pi/Desktop/Pictures/settingsIcon2.png");
+
+            Button updateProductButton = new Button
             {
-                string imagePath = @"C:\Users\Korisnik\Downloads\settingsIcon2.png";
+                ForeColor = Color.White,
+               // Location = new Point(430, 90),
+                Location = new Point(507, 90),
+                Size = new Size(75, 30),
+                AutoSize = true,
+                Tag = numberOfProducts,
+                BackColor = Color.Maroon,
+                Name = "Update"
+            };
+            Image originalImage = Image.FromFile(imagePath);
+            Image resizedImage = new Bitmap(originalImage, updateProductButton.Size); // Skaliraj na veličinu buttona
 
-                Button updateProductButton = new Button
-                {
-                    ForeColor = Color.White,
-                    Location = new Point(430, 90),
-                    Size = new Size(75, 30),
-                    AutoSize = true,
-                    Tag = numberOfProducts,
-                    BackColor = Color.Maroon
-                };
-                Image originalImage = Image.FromFile(imagePath);
-                Image resizedImage = new Bitmap(originalImage, updateProductButton.Size); // Skaliraj na veličinu buttona
+            updateProductButton.Image = resizedImage;
+            updateProductButton.ImageAlign = ContentAlignment.MiddleCenter;
 
-                updateProductButton.Image = resizedImage;
-                updateProductButton.ImageAlign = ContentAlignment.MiddleCenter;
+            updateProductButton.Click += EditProduct.UpdateProductByButton;
 
-                updateProductButton.Click += EditProduct.UpdateProductByButton;
-                panel.Controls.Add(updateProductButton);
+            panel.Name = "Product";
+            panel.Controls.Add(updateProductButton);
+            if (isFruit)
+            {
+                updateProductButton.Visible = false;
             }
            
-
-            
 
             numberOfProducts++;
 
@@ -256,9 +264,10 @@ namespace MF_Shopping_Assistant.Classes
         public static void HideBackground(Panel panel, Panel panelDisableBackground)
         {
             panelDisableBackground.Location = new Point(0, 0);
-            panelDisableBackground.Size = new Size(518, 717);
-            panelDisableBackground.BackColor = Color.FromArgb(20, Color.Black);
-            panel.Location = new Point(100, 100);
+            //panelDisableBackground.Size = new Size(518, 717);
+            panelDisableBackground.Size = new Size(690, 782);
+           // panelDisableBackground.BackColor = Color.FromArgb(20, Color.Black);
+            panel.Location = new Point(90, 100);
             panel.BringToFront();
         }
 
@@ -266,8 +275,8 @@ namespace MF_Shopping_Assistant.Classes
         {
             panelDisableBackground.Location = new Point(0, 0);
             panelDisableBackground.Size = new Size(0, 0);
-            panelDisableBackground.BackColor = Color.FromArgb(20, Color.Black);
-            panel.Location = new Point(519, 0);
+            //panelDisableBackground.BackColor = Color.FromArgb(20, Color.Black);
+            panel.Location = new Point(800, 0);
         }
 
      
@@ -337,6 +346,26 @@ namespace MF_Shopping_Assistant.Classes
         public static void updatePanelTag(FlowLayoutPanel flowLayoutPanel)
         {
             int tagCounter = 0;
+            foreach (Panel outerPanel in flowLayoutPanel.Controls.OfType<Panel>())
+            {
+                Button updateButton = outerPanel.Controls.Find("Update", true).FirstOrDefault() as Button;
+                if (updateButton != null)
+                {
+                    updateButton.Tag = tagCounter++;
+                }
+                /* if (outerPanel.Name == "Product")
+                 {
+                     Button updateButton = outerPanel.Controls.Find("Update", true).FirstOrDefault() as Button;
+                     if (updateButton != null)
+                     {
+                         updateButton.Tag = tagCounter++;
+                     }
+                 } else
+                 {
+                     tagCounter++;
+                 }*/
+            }
+            tagCounter = 0;
             foreach (Panel panel in flowLayoutPanel.Controls.OfType<Panel>())
             {
                 panel.Tag = tagCounter++;

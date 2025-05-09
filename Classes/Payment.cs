@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -61,6 +62,7 @@ namespace MF_Shopping_Assistant.Classes
         {
             if (!EditProduct.isUpdateQuantityPanelOpen)
             {
+                Form1.isOpenAnything = true;
                 if (GlobalData.listPriceOfProducts.Count != 0)
                 {
                     try
@@ -170,12 +172,17 @@ namespace MF_Shopping_Assistant.Classes
         {
             btnSendEmail.Visible = true;
             txtSendEmail.Visible = true;
+            txtSendEmail.Focus();
             UI.ShowBackground(panelMessageBox, panelDisableBackground);
-            panelEmail.Location = new Point(200, 200);
+
+            UI.HideBackground(panelEmail, panelDisableBackground);
+            //panelEmail.Location = new Point(200, 200);
             panelEmail.Visible = true;
             flowLayoutPanel2.Visible = false;
             panelHeader.Visible = false;
             panelPaymentTotalPrice.Visible = false;
+
+            Form1.process = Process.Start("matchbox-keyboard");
         }
 
         public static void SendEmailNo(object sender, EventArgs e)
@@ -198,25 +205,26 @@ namespace MF_Shopping_Assistant.Classes
 
                 flowLayoutPanel1.Visible = false;
                 flowLayoutPanel2.Visible = true;
-                flowLayoutPanel2.Location = new Point(80, 125);
+                flowLayoutPanel2.Location = new Point(50, 125);
                 btnPay.Visible = true;
                 panelConfirmPayment.Visible = false;
 
                 panelHeader.Visible = true;
-                panelHeader.Location = new Point(80, 2);
+                panelHeader.Location = new Point(50, 2);
 
                 panelPaymentTotalPrice.Visible = true;
-                panelPaymentTotalPrice.Location = new Point(80, 457);
+                panelPaymentTotalPrice.Location = new Point(50, 557);
 
                 btnPay.Visible = true;
-                btnPay.Location = new Point(320, 550);
-
+                // btnPay.Location = new Point(320, 550);
+                btnPay.Location = new Point(410, 650);
                 flowLayoutPanel2.Controls.Clear();
                 for (int i = 0; i < GlobalData.listPriceOfProducts.Count; i++)
                 {
                     Panel panel = new Panel()
                     {
-                        Size = new Size(340, 40),
+                     //   Size = new Size(340, 40),
+                        Size = new Size(495, 40),
                         //Location = new Point(100, 12),
                         //BackColor = Color.Wheat,
                         BorderStyle = BorderStyle.FixedSingle
@@ -234,7 +242,7 @@ namespace MF_Shopping_Assistant.Classes
                     {
                         //Size = new Size(477, 35),
                         //Location = new Point(10, i * 40),
-                        Location = new Point(6, 25),
+                        Location = new Point(15, 25),
                     };
                     labelQuantity.Text = GlobalData.listQuantityOfProducts[i].ToString();
                     panel.Controls.Add(labelQuantity);
@@ -243,7 +251,7 @@ namespace MF_Shopping_Assistant.Classes
                     {
                         //Size = new Size(477, 35),
                         //Location = new Point(10, i * 40),
-                        Location = new Point(180, 25),
+                        Location = new Point(225, 25),
                     };
                     labelPricePerUnit.Text = GlobalData.listPricePerUnitOfProducts[i].ToString();
                     panel.Controls.Add(labelPricePerUnit);
@@ -252,7 +260,7 @@ namespace MF_Shopping_Assistant.Classes
                     {
                         //Size = new Size(477, 35),
                         //Location = new Point(10, i * 40),
-                        Location = new Point(280, 25),
+                        Location = new Point(400, 25),
                     };
                     labelTotalPriceOfProduct.Text = Math.Round(GlobalData.listPriceOfProducts[i], 2).ToString();
                     panel.Controls.Add(labelTotalPriceOfProduct);
@@ -280,6 +288,8 @@ namespace MF_Shopping_Assistant.Classes
             UI.ShowBackground(panelMessageBox, panelDisableBackground);
             txtScannedBarcode.Focus();
             panelClickToPay.Visible = true;
+            txtScannedBarcode.Clear();
+            Form1.isOpenAnything = false;
         }
 
         public async Task Pay()
@@ -289,6 +299,8 @@ namespace MF_Shopping_Assistant.Classes
                 flowLayoutPanel1.Visible = true;
                 flowLayoutPanel2.Visible = false;
                 btnPay.Visible = false;
+                panelHeader.Visible = false;
+
                 flowLayoutPanel1.Controls.Clear();
                 flowLayoutPanel2.Controls.Clear();
                 //MessageBox.Show("Payment completed successfully");
