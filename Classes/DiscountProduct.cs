@@ -200,8 +200,6 @@ namespace MF_Shopping_Assistant.Classes
                             lblOldPriceP1.Text = GlobalData.listDiscountProductPrice[i].ToString();
                             lblDiscountPriceP1.Text = (GlobalData.listDiscountProductPrice[i] - maxPriceDifference1).ToString();
 
-                            //removeAlreadyUsedProduct(i);
-                            //break;
                         }
                         if (GlobalData.listDiscountProductId[i] == indexOfMaxPriceDifference2)
                         {
@@ -209,9 +207,6 @@ namespace MF_Shopping_Assistant.Classes
                             lblDiscountPercentageP2.Text = maxPercentage.ToString() + "%";
                             lblOldPriceP2.Text = GlobalData.listDiscountProductPrice[i].ToString();
                             lblDiscountPriceP2.Text = (GlobalData.listDiscountProductPrice[i] - maxPriceDifference2).ToString();
-
-                            //removeAlreadyUsedProduct(i);
-                            //break;
                         }
                     }
                 }
@@ -230,8 +225,6 @@ namespace MF_Shopping_Assistant.Classes
                                 lblOldPriceP1.Text = GlobalData.listDiscountProductPrice[i].ToString();
                                 lblDiscountPriceP1.Text = (GlobalData.listDiscountProductPrice[i] * ((100 - maxPercentage) / 100.0)).ToString();
 
-                                //removeAlreadyUsedProduct(i);
-                                //break;
                             }
 
                             if (GlobalData.listDiscountProductDiscountId[i] == listDiscountId[j] && listDiscountPercentage[j] == maxPercentage2)
@@ -241,9 +234,6 @@ namespace MF_Shopping_Assistant.Classes
                                 lblDiscountPercentageP2.Text = maxPercentage2.ToString() + "%";
                                 lblOldPriceP2.Text = GlobalData.listDiscountProductPrice[i].ToString();
                                 lblDiscountPriceP2.Text = (GlobalData.listDiscountProductPrice[i] * ((100 - maxPercentage2) / 100.0)).ToString();
-
-                                //removeAlreadyUsedProduct(i);
-                                //break;
                             }
                         }
                     }
@@ -263,8 +253,6 @@ namespace MF_Shopping_Assistant.Classes
                                 lblOldPriceP1.Text = GlobalData.listDiscountProductPrice[i].ToString();
                                 lblDiscountPriceP1.Text = (GlobalData.listDiscountProductPrice[i] * ((100 - maxPercentage) / 100.0)).ToString();
 
-                                //removeAlreadyUsedProduct(i);
-                                //break;
                             }
                         }
                     }
@@ -285,7 +273,6 @@ namespace MF_Shopping_Assistant.Classes
                     }
 
                     double maxPriceDifference2 = 0;
-                    // int indexOfMaxPriceDifference2 = 0;
 
                     for (int i = 0; i < listPriceDifferences.Count; i++)
                     {
@@ -316,8 +303,6 @@ namespace MF_Shopping_Assistant.Classes
                             lblOldPriceP2.Text = GlobalData.listDiscountProductPrice[i].ToString();
                             lblDiscountPriceP2.Text = (GlobalData.listDiscountProductPrice[i] - maxPriceDifference2).ToString();
 
-                            //removeAlreadyUsedProduct(i);
-                            //break;
                         }
                     }
                 }
@@ -354,15 +339,6 @@ namespace MF_Shopping_Assistant.Classes
                         }
                     }
                 }
-
-                // MessageBox.Show(indexOfMaxPriceDifference1.ToString() + indexOfMaxPriceDifference2.ToString());
-
-                // MessageBox.Show(listPriceDifferencesProductId1[0].ToString());
-                /* for (int i = 0; i < listDiscountProductId.Count; i++)
-                 {
-                     MessageBox.Show(listDiscountProductId[i].ToString());
-
-                 }*/
 
                 for (int i = 0; i < GlobalData.listDiscountProductId.Count; i++)
                 {

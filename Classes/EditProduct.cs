@@ -60,7 +60,6 @@ namespace MF_Shopping_Assistant.Classes
             txtScannedBarcode.Enabled = true;
 
             panelProductQuantity.Visible = false;
-            //string getProductByBarcode = "SELECT * FROM Product";
             string getProductByBarcode = "SELECT * FROM Product WHERE Barcode = @barcode";
 
             using (MySqlCommand cmdProduct = new MySqlCommand(getProductByBarcode, mySqlConnection))
@@ -70,9 +69,7 @@ namespace MF_Shopping_Assistant.Classes
                 using (DbDataReader productReader = await cmdProduct.ExecuteReaderAsync())
                 {
                     bool productAlreadyExists = false;
-                    //bool productFound = false;
 
-                    //bool isEverythingWentOk = true;
                     try
                     {
                         if (await productReader.ReadAsync())
@@ -100,7 +97,6 @@ namespace MF_Shopping_Assistant.Classes
                                 {
                                     GlobalData.listQuantityOfProducts[i] += ModifyQuantity.quantity;
                                     GlobalData.listPriceOfProducts[i] += priceOfProduct;
-                                    //GlobalData.listPricePerUnitOfProducts[i] = priceOfProduct;
                                     indexOfFoundProduct = i;
                                     productAlreadyExists = true;
                                     break;
@@ -118,7 +114,6 @@ namespace MF_Shopping_Assistant.Classes
                                             GlobalData.listQuantityOfProducts[indexOfFoundProduct] -= ModifyQuantity.quantity;
                                                 
                                             GlobalData.listPriceOfProducts[indexOfFoundProduct] -= priceOfProduct;
-                                            //isEverythingWentOk = false;
                                             throw new KeyNotFoundException("You selected more product than we have");
                                         } else
                                         {
@@ -138,7 +133,6 @@ namespace MF_Shopping_Assistant.Classes
 
                                 if (ModifyQuantity.quantity > (double)productReader["InStock"])
                                 {
-                                    //isEverythingWentOk = false;
                                     throw new KeyNotFoundException("You selected more product than we have");
                                 }
                                 string productNameTypeManufacturer = productReader["Name"].ToString() + " " + productReader["Type"].ToString() + " " + productReader["Manufacturer"].ToString();
@@ -152,20 +146,15 @@ namespace MF_Shopping_Assistant.Classes
                                 }
 
                                 GlobalData.listQuantityOfProducts.Add(ModifyQuantity.quantity);
-                                GlobalData.listPricePerUnitOfProducts.Add(pricePerUnitOfProduct); // TODO: fix this
-                                //else GlobalData.listPricePerUnitOfProducts.Add(Convert.ToDouble(productReader["Price"]));
+                                GlobalData.listPricePerUnitOfProducts.Add(pricePerUnitOfProduct); 
                                 GlobalData.listPriceOfProducts.Add(priceOfProduct);
                                 GlobalData.listNameOfProducts.Add(productReader["Name"].ToString());
                                 GlobalData.listIdsOfProducts.Add(Convert.ToInt32(productReader["ID"]));
                                 GlobalData.listTypeOfProducts.Add(productReader["Type"].ToString());
                                 GlobalData.listManufacturerOfProducts.Add(productReader["Manufacturer"].ToString());
                                 GlobalData.listInStockOfProducts.Add((double)productReader["InStock"]);
-                                //listAvailableQuantity.Add((double)productReader["InStock"]);
-
-                                //productInStock = (double)productReader["InStock"];
                             }
-                            //productFound = true;
-                                
+
                         }
                         
                     }
@@ -183,12 +172,6 @@ namespace MF_Shopping_Assistant.Classes
                         MessageBox.Show(ex.Message);
                     }
                     
-                    
-                    /*if (!productFound && isEverythingWentOk)
-                    {
-                        MessageBox.Show("Product doesn't exist");
-                    }*/
-
                     CalculateTotalPrice(lblTotalPrice);
 
                     txtScannedBarcode.Clear();
@@ -219,7 +202,6 @@ namespace MF_Shopping_Assistant.Classes
                     Button updateButton = panel.Controls.Find("Update", true).FirstOrDefault() as Button;
                     if (updateButton.Tag.ToString() == selectedPanelTag)
                     {
-                        //MessageBox.Show(ModifyQuantity.updateQuantity.ToString() + "  " + GlobalData.listInStockOfProducts[Convert.ToInt32(selectedPanelTag)]);
                         if (ModifyQuantity.updateQuantity > GlobalData.listInStockOfProducts[Convert.ToInt32(selectedPanelTag)])
                             throw new Exception("You selected more product than we have");
 
@@ -227,16 +209,7 @@ namespace MF_Shopping_Assistant.Classes
                         Label labelPricePerUnit = panel.Controls.Find("lblPricePerUnit", true).FirstOrDefault() as Label;
                         Label labelQuantity = panel.Controls.Find("lblQuantity", true).FirstOrDefault() as Label;
 
-                        /*foreach(Control c in panel.Controls)
-                        {
-                            if(c is Label lbl && lbl.Name == "lblPricePerUnit")
-                        }*/
-
                         double priceOfProduct = Convert.ToDouble(labelPricePerUnit.Text) * ModifyQuantity.updateQuantity;
-
-                        /*double priceOfProduct = Convert.ToDouble(GlobalData.listPricePerUnitOfProducts[Convert.ToInt32(selectedPanelTag)] * ModifyQuantity.updateQuantity);
-                        double pricePerUnit = GlobalData.listPricePerUnitOfProducts[Convert.ToInt32(selectedPanelTag)];
-                        string productName = GlobalData.listNameOfProducts[Convert.ToInt32(selectedPanelTag)];*/
 
                         labelTotalPrice.Text = priceOfProduct.ToString();
                         labelPricePerUnit.Text = labelPricePerUnit.Text;
@@ -246,38 +219,6 @@ namespace MF_Shopping_Assistant.Classes
                         GlobalData.listQuantityOfProducts[Convert.ToInt32(selectedPanelTag)] = ModifyQuantity.updateQuantity;
                     }
                 }
-
-               // foreach (Panel panel in flowLayoutPanel1.Controls.OfType<Panel>())
-               // {
-                 //   if (panel.Tag.ToString() == selectedPanelTag)
-                   // {
-                     //   MessageBox.Show(ModifyQuantity.updateQuantity.ToString() + "  " + GlobalData.listInStockOfProducts[Convert.ToInt32(selectedPanelTag)]);
-                       // if (ModifyQuantity.updateQuantity > GlobalData.listInStockOfProducts[Convert.ToInt32(selectedPanelTag)])
-                         //   throw new Exception("You selected more product than we have");
-
-                        //Label labelTotalPrice = panel.Controls.Find("lblTotalPrice", true).FirstOrDefault() as Label;
-                        //Label labelPricePerUnit = panel.Controls.Find("lblPricePerUnit", true).FirstOrDefault() as Label;
-                        //Label labelQuantity = panel.Controls.Find("lblQuantity", true).FirstOrDefault() as Label;
-
-                        /*foreach(Control c in panel.Controls)
-                        {
-                            if(c is Label lbl && lbl.Name == "lblPricePerUnit")
-                        }*/
-
-                        //double priceOfProduct = Convert.ToDouble(labelPricePerUnit.Text) * ModifyQuantity.updateQuantity;
-
-                        /*double priceOfProduct = Convert.ToDouble(GlobalData.listPricePerUnitOfProducts[Convert.ToInt32(selectedPanelTag)] * ModifyQuantity.updateQuantity);
-                        double pricePerUnit = GlobalData.listPricePerUnitOfProducts[Convert.ToInt32(selectedPanelTag)];
-                        string productName = GlobalData.listNameOfProducts[Convert.ToInt32(selectedPanelTag)];*/
-
-                        //labelTotalPrice.Text = priceOfProduct.ToString();
-                        //labelPricePerUnit.Text = labelPricePerUnit.Text;
-                        //labelQuantity.Text = ModifyQuantity.updateQuantity.ToString();
-
-//                        GlobalData.listPriceOfProducts[Convert.ToInt32(selectedPanelTag)] = priceOfProduct;
-  //                      GlobalData.listQuantityOfProducts[Convert.ToInt32(selectedPanelTag)] = ModifyQuantity.updateQuantity;
-    //                }
-      //          }
            }
             catch (Exception ex)
             {
@@ -325,7 +266,6 @@ namespace MF_Shopping_Assistant.Classes
                         GlobalData.listTypeOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
                         GlobalData.listInStockOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
                         GlobalData.panelsOfProducts.Remove(parentPanel);
-                        // listAvailableQuantity.RemoveAt(Convert.ToInt32(parentPanel.Tag));
                         CalculateTotalPrice(lblTotalPrice);
 
                         UI.updatePanelTag(flowLayoutPanel1);
@@ -345,8 +285,6 @@ namespace MF_Shopping_Assistant.Classes
             try
             {
                 double quantityOfSelectedProduct;
-                //MessageBox.Show(Form1.isScrolling + " " + Form1.isBarcodeScanned);
-                //if (!Form1.isScrolling && !Form1.isBarcodeScanned)
                 if (!Form1.isBarcodeScanned)
                 {
                     panelClickToPay.Visible = false;
@@ -375,31 +313,6 @@ namespace MF_Shopping_Assistant.Classes
 
 
                         UI.updatePanelTag(flowLayoutPanel1);
-
-                        /*Panel panel = sender as Panel;
-                        if (panel != null)
-                        {
-                            for (int i = 0; i < GlobalData.listQuantityOfProducts.Count; i++)
-                            {
-                                if (Convert.ToInt32(panel.Tag) == i)
-                                {
-                                    quantityOfSelectedProduct = GlobalData.listQuantityOfProducts[i];
-                                    lblUpdateNumberOfProducts.Text = quantityOfSelectedProduct.ToString();
-                                    ModifyQuantity.updateQuantity = GlobalData.listQuantityOfProducts[i];
-
-                                    selectedPanelTag = panel.Tag.ToString();
-
-                                    productInStock = GlobalData.listInStockOfProducts[i];
-
-                                    break;
-                                }
-                            }
-
-
-                            UI.updatePanelTag(flowLayoutPanel1);
-
-                            panelUpdateProductQuantity.Visible = true;
-                        }*/
                     }
                     isUpdateQuantityPanelOpen = true;
                 }

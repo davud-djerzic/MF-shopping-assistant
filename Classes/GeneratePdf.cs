@@ -16,8 +16,6 @@ namespace MF_Shopping_Assistant.Classes
                 Directory.CreateDirectory(folderPath);
                 string pdfPath = Path.Combine(folderPath, pdfName);
 
-               // MessageBox.Show(pdfPath);
-
                 using (FileStream stream = new FileStream(pdfPath, FileMode.Create))
                 {
                     Document document = new Document(PageSize.A4, 25, 25, 30, 30);
@@ -82,13 +80,8 @@ namespace MF_Shopping_Assistant.Classes
                     document.Add(new Paragraph($"\nTotal price: {grandTotal.ToString("N2")} KM"));
 
                     document.Close();
-                    //QRCoder qrCoder = new QRCoder();
-                    //qrCoder.GenerateQrCodeForPdf(pdfPath);
-                    //System.Diagnostics.Process.Start(pdfPath);
                         
                 }
-
-               // MessageBox.Show("PDF created successfully!");
             }
             catch (Exception ex)
             {

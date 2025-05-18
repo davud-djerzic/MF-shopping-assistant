@@ -232,14 +232,10 @@ namespace MF_Shopping_Assistant.Classes
                     {
                         //Size = new Size(340, 40),
                         Size = new Size(495, 40),
-                        //Location = new Point(100, 12),
-                        //BackColor = Color.Wheat,
                         BorderStyle = BorderStyle.FixedSingle
                     };
                     Label label = new Label()
                     {
-                        //Size = new Size(477, 35),
-                        //Location = new Point(10, i * 40),
                         Location = new Point(6, 2),
                     };
                     label.Text = GlobalData.listNameOfProducts[i] + "   " + GlobalData.listManufacturerOfProducts[i] + "   " +  GlobalData.listTypeOfProducts[i];
@@ -247,8 +243,6 @@ namespace MF_Shopping_Assistant.Classes
 
                     Label labelQuantity = new Label()
                     {
-                        //Size = new Size(477, 35),
-                        //Location = new Point(10, i * 40),
                         Location = new Point(225, 25),
                     };
                     labelQuantity.Text = GlobalData.listQuantityOfProducts[i].ToString();
@@ -265,14 +259,10 @@ namespace MF_Shopping_Assistant.Classes
 
                     Label labelTotalPriceOfProduct = new Label()
                     {
-                        //Size = new Size(477, 35),
-                        //Location = new Point(10, i * 40),
                         Location = new Point(400, 25),
                     };
                     labelTotalPriceOfProduct.Text = Math.Round(GlobalData.listPriceOfProducts[i], 2).ToString();
                     panel.Controls.Add(labelTotalPriceOfProduct);
-
-                    //label.Text = GlobalData.listNameOfProducts[i] + "   " + GlobalData.listTypeOfProducts[i] + "   " + GlobalData.listManufacturerOfProducts[i] + "\n" + GlobalData.listQuantityOfProducts[i] + "x" + "   " + GlobalData.listPricePerUnitOfProducts[i] + "    " + Math.Round(GlobalData.listPriceOfProducts[i], 2);
 
                     panel.MouseDown += UI.flowLayoutPanel1Y_MouseDown;
                     panel.MouseUp += UI.flowLayoutPanel1Y_MouseUp;
@@ -327,7 +317,6 @@ namespace MF_Shopping_Assistant.Classes
 
                 flowLayoutPanel1.Controls.Clear();
                 flowLayoutPanel2.Controls.Clear();
-                //MessageBox.Show("Payment completed successfully");
                 string queryUpdateQuantityOfProduct = "UPDATE Product SET InStock = @Item WHERE Id = @Id";
                 MySqlCommand cmdUpdateProduct1 = new MySqlCommand(queryUpdateQuantityOfProduct, mySqlConnection);
                 for (int i = 0; i < GlobalData.listIdsOfProducts.Count; i++)
@@ -338,8 +327,6 @@ namespace MF_Shopping_Assistant.Classes
                     cmdUpdateProduct1.Parameters.AddWithValue("@Id", GlobalData.listIdsOfProducts[i]);
                     await cmdUpdateProduct1.ExecuteNonQueryAsync();
                 }
-
-                //SetReset.reset();
                 
                 await Fruit.loadFruit();
             }

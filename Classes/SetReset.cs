@@ -79,12 +79,6 @@ namespace MF_Shopping_Assistant.Classes
          Label lblDiscountPriceP4, Button button1, Panel panelHeader, Panel panelPaymentTotalPrice, Panel panelClickToPay, Panel panelEmail, Button btnBack)
         {
             this.mySqlConnection = mySqlConnection;
-            /*this.fruit = fruit;
-            this.modifyQuantity = modifyQuantity;
-            this.editProduct = editProduct;
-            this.ui = ui;
-            this.discountProduct = discountProduct;
-            this.payment = payment;*/
             SetReset.homePagePanel = homePagePanel;
             SetReset.panelDiscountPage = panelDiscountPage;
             SetReset.flowLayoutPanel1 = flowLayoutPanel1;
@@ -125,11 +119,7 @@ namespace MF_Shopping_Assistant.Classes
         }
 
         public async Task LoadAsync(Fruit fruit, ModifyQuantity modifyQuantity, EditProduct editProduct, UI ui, DiscountProduct discountProduct, Payment payment)
-        {
-            //Env.Load();
-            //string connectionString = Env.GetString("Connection_String");
-            //MessageBox.Show(connectionString);
-            
+        {   
             txtScannedBarcode.Focus();
 
             flowLayoutPanel1.AutoScroll = true;
@@ -201,7 +191,6 @@ namespace MF_Shopping_Assistant.Classes
             Form1.isOpenAnything = false;
             Form1.isInvalidEmailFormat = false;
             Form1.currentPage = 0;
-           // Form1.isThereAddedProduct = true;
 
         }
         private async void HomePage_Click(object sender, EventArgs e)

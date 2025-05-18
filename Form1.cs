@@ -60,7 +60,6 @@ namespace MF_Shopping_Assistant
 
         public static int currentPage = 0;
 
-       // public static bool isThereAddedProduct = false;
 
         public Form1()
         {
@@ -74,7 +73,6 @@ namespace MF_Shopping_Assistant
                 this.Invoke(new Action(() =>
                 {
                     lblFruitWeight.Text = $"{weight:F2} g";
-                    //lblFruitWeight.Text = $"Vrijednost: 405,87 g";
                 }));
             }
             else
@@ -173,29 +171,16 @@ namespace MF_Shopping_Assistant
         private void flowLayoutPanel1_MouseDown(object sender, MouseEventArgs e)
         {
             UI.flowLayoutPanel1Y_MouseDown(sender, e);
-            /*scrollStartY = e.Y;
-            scrollPosition = flowLayoutPanel1.AutoScrollPosition.Y;
-            isScrolling = false;*/
         }
 
         private void flowLayoutPanel1_MouseMove(object sender, MouseEventArgs e)
         {
              UI.flowLayoutPanel1Y_MouseMove(sender, e);
-            /*if (e.Button == MouseButtons.Left)
-            {
-                int deltaY = e.Y - scrollStartY;
-                if (Math.Abs(deltaY) > 5)
-                {
-                    isScrolling = true;
-                    flowLayoutPanel1.AutoScrollPosition = new Point(0, -(scrollPosition + deltaY));
-                }
-            }*/
         }
 
         private void flowLayoutPanel1_MouseUp(object sender, MouseEventArgs e)
         {
             UI.flowLayoutPanel1Y_MouseUp(sender, e);
-           // flowLayoutPanel1.Capture = false;
         }
         private void btnUpdateProduct_Click(object sender, EventArgs e)
         {
@@ -243,15 +228,6 @@ namespace MF_Shopping_Assistant
             {
                 MessageBox.Show(ex.Message);
             }
-           /* if (GlobalData.listPriceOfProducts.Count != 0)
-                
-            else
-            {
-                panelMessageBoxOk.Visible = true;
-                panelMessageBoxOk.Location = new Point(100, 100);
-                lblMessageBoxOK.Text = "You don't have a product to buy";
-            }*/
-              
         }
 
         private async void btnPay_Click(object sender, EventArgs e)
@@ -273,35 +249,6 @@ namespace MF_Shopping_Assistant
             {
                 MessageBox.Show(ex.Message);
             }
-            /*DialogResult respond = MessageBox.Show("Do you want to receive the reciept from an email", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (respond == DialogResult.Yes)
-            {
-                btnSendEmail.Visible = true;
-                txtSendEmail.Visible = true;
-            } else
-            {
-                panelEmail.Visible = false;
-                txtSendEmail.Visible = false;
-                txtSendEmail.Text = "";
-                btnSendEmail.Visible = false;
-                SetReset.reset();
-            }*/
-
-            /*string pdfPath = @"C:\Users\Korisnik\Desktop\MF Shopping Assistant\bin\Debug\pdfs\Order_20250408_150900.pdf";
-
-            // Ukloni prethodne kontrole ako želiš
-            //this.Controls.Clear();
-
-            // Kreiraj PdfViewer
-            var pdfViewer = new PdfViewer();
-            pdfViewer.Dock = DockStyle.Fill;
-
-            // Dodaj viewer na formu
-            this.Controls.Add(pdfViewer);
-
-            // Učitaj PDF fajl u viewer
-            var document = PdfDocument.Load(pdfPath);
-            pdfViewer.Document = document;*/
         }
 
         private void BtnMessageBoxYes_Click(object sender, EventArgs e)
@@ -395,8 +342,6 @@ namespace MF_Shopping_Assistant
                 btnSendEmail.Visible = false;
 
                 process.Kill();
-                
-                //SetReset.reset();
             } catch(Exception ex)
             {
                 txtSendEmail.Text = "";
@@ -406,7 +351,6 @@ namespace MF_Shopping_Assistant
                 panelMessageBoxOk.Visible = true;
                 panelMessageBoxOk.Location = new Point(100, 100);
                 lblMessageBoxOK.Text = ex.Message;
-                //MessageBox.Show(ex.Message);
             }
 
         }
@@ -422,15 +366,6 @@ namespace MF_Shopping_Assistant
                     panelSlider.Visible = true;
                     isOpenAnything = true;
                     await fruit.btnShowFruit();
-
-                    /*if (!isOpenFruitPanel)
-                    {
-                       
-                    }
-
-                    else
-                        flpFruit.Visible = false;
-                    isOpenFruitPanel = !isOpenFruitPanel;*/
                 }
             }
             catch (Exception ex)
@@ -467,30 +402,16 @@ namespace MF_Shopping_Assistant
         private void flowLayoutPanel2_MouseDown(object sender, MouseEventArgs e)
         {
             UI.flowLayoutPanel1Y_MouseDown(sender, e);
-            /*scrollStartY = e.Y;
-            scrollPosition = flowLayoutPanel2.AutoScrollPosition.Y;
-            isScrolling = false;*/
-
         }
 
         private void flowLayoutPanel2_MouseMove(object sender, MouseEventArgs e)
         {
             UI.flowLayoutPanel1Y_MouseMove(sender, e);
-            /*if (e.Button == MouseButtons.Left)
-            {
-                int deltaY = e.Y - scrollStartY;
-                if (Math.Abs(deltaY) > 5)
-                {
-                    isScrolling = true;
-                    flowLayoutPanel2.AutoScrollPosition = new Point(0, -(scrollPosition + deltaY));
-                }
-            }*/
         }
 
         private void flowLayoutPanel2_MouseUp(object sender, MouseEventArgs e)
         {
             UI.flowLayoutPanel1Y_MouseUp(sender, e);
-           // flowLayoutPanel2.Capture = false;
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -523,25 +444,21 @@ namespace MF_Shopping_Assistant
 
         private void btnMessageBoxOK_Click(object sender, EventArgs e)
         {
-            //Form1.isThereAddedProduct = true;
-            //MessageBox.Show(EditProduct.isAddedExtraProduct.ToString());
             if (EditProduct.isAddedExtraProduct)
             {
                 UI.ShowBackground(panelMessageBoxOk, panelDisableBackground);
                 EditProduct.isAddedExtraProduct = false;
             }
-            //MessageBox.Show(isInvalidEmailFormat.ToString());
             if (isInvalidEmailFormat)
             {
                 UI.ShowBackground(panelMessageBoxOk, panelDisableBackground);
-                //process = Process.Start("matchbox-keyboard");
+                process = Process.Start("matchbox-keyboard");
                 panelDisableBackground.Location = new Point(0, 0);
                 // panelDisableBackground.Size = new Size(518, 717);
                 panelDisableBackground.Size = new Size(690, 782);
                 txtSendEmail.Focus();
             }
             panelMessageBoxOk.Visible = false;
-            //MessageBox.Show(isPdfGenerated.ToString());
             if (isPdfGenerated) {
                 UI.ShowBackground(panelEmail, panelDisableBackground);
                 SetReset.reset();

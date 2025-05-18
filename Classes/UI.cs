@@ -149,11 +149,6 @@ namespace MF_Shopping_Assistant.Classes
 
         public static void flowLayoutPanel1Y_MouseDown(object sender, MouseEventArgs e)
         {
-            /*
-            scrollStartY = e.Y;
-            scrollPosition = flowLayoutPanel1.AutoScrollPosition.Y;
-            isScrolling = false;*/
-
             scrollStartY = e.Y;
 
             if (sender is Panel panel && panel.Parent is FlowLayoutPanel flp)
@@ -165,16 +160,7 @@ namespace MF_Shopping_Assistant.Classes
         }
 
         public static void flowLayoutPanel1Y_MouseMove(object sender, MouseEventArgs e)
-        {/*
-     if (e.Button == MouseButtons.Left)
-     {
-         int deltaY = e.Y - scrollStartY;
-         if (Math.Abs(deltaY) > 5)
-         {
-             isScrolling = true;
-             flowLayoutPanel1.AutoScrollPosition = new Point(0, -(scrollPosition + deltaY));
-         }
-     }*/
+        {
             if (e.Button == MouseButtons.Left)
             {
                 int deltaY = e.Y - scrollStartY;
@@ -192,82 +178,18 @@ namespace MF_Shopping_Assistant.Classes
 
         public static void flowLayoutPanel1Y_MouseUp(object sender, MouseEventArgs e)
         {
-            // flowLayoutPanel1.Capture = false;
 
             if (sender is Panel panel && panel.Parent is FlowLayoutPanel flp)
             {
                 flp.Capture = false;
             }
         }
-
-        /*public static void flowLayoutPanel1Y_MouseDown(object sender, MouseEventArgs e)
-        {
-            scrollStartY = e.Y;
-
-            if (sender is FlowLayoutPanel flp)
-            {
-                scrollPosition = Math.Abs(flp.AutoScrollPosition.Y);
-            }
-            else if (sender is Panel panel && panel.Parent is FlowLayoutPanel flp2)
-            {
-                scrollPosition = Math.Abs(flp2.AutoScrollPosition.Y);
-            }
-
-            Form1.isScrolling = false;
-        }
-
-        public static void flowLayoutPanel1Y_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                int deltaY = e.Y - scrollStartY;
-
-                if (Math.Abs(deltaY) > 5)
-                {
-                    Form1.isScrolling = true;
-
-                    FlowLayoutPanel flp = null;
-
-                    if (sender is FlowLayoutPanel flowPanel)
-                    {
-                        flp = flowPanel;
-                    }
-                    else if (sender is Panel panel && panel.Parent is FlowLayoutPanel parentFlow)
-                    {
-                        flp = parentFlow;
-                    }
-
-                    if (flp != null)
-                    {
-                        int newScroll = scrollPosition - deltaY;
-
-                        // Ograniči scrolling da ne ide ispod 0
-                        if (newScroll < 0) newScroll = 0;
-
-                        flp.AutoScrollPosition = new Point(0, newScroll);
-                    }
-                }
-            }
-        }
-
-        public static void flowLayoutPanel1Y_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (sender is Panel panel && panel.Parent is FlowLayoutPanel flp)
-            {
-                flp.Capture = false;
-            }
-            else if (sender is FlowLayoutPanel flp2)
-            {
-                flp2.Capture = false;
-            }
-        }*/
 
         public static void HideBackground(Panel panel, Panel panelDisableBackground)
         {
             panelDisableBackground.Location = new Point(0, 0);
             //panelDisableBackground.Size = new Size(518, 717);
             panelDisableBackground.Size = new Size(690, 782);
-           // panelDisableBackground.BackColor = Color.FromArgb(20, Color.Black);
             panel.Location = new Point(90, 100);
             panel.BringToFront();
         }
@@ -276,7 +198,7 @@ namespace MF_Shopping_Assistant.Classes
         {
             panelDisableBackground.Location = new Point(0, 0);
             panelDisableBackground.Size = new Size(0, 0);
-            //panelDisableBackground.BackColor = Color.FromArgb(20, Color.Black);
+            
             panel.Location = new Point(800, 0);
         }
 

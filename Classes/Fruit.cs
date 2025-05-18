@@ -98,7 +98,6 @@ namespace MF_Shopping_Assistant.Classes
             try
             {
                 isRunning = false;
-                //isClose = true;
                 await SendCommandToRaspberry("CLOSE");
 
                 stream?.Close();
@@ -125,21 +124,6 @@ namespace MF_Shopping_Assistant.Classes
                 await stream.WriteAsync(message, 0, message.Length);
                 await stream.FlushAsync();
 
-                /*byte[] buffer = new byte[4];
-
-
-                int bytesRead = stream.Read(buffer, 0, buffer.Length);
-
-                if (bytesRead == 4)
-                {
-                    receivedValue = BitConverter.ToSingle(buffer, 0);
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        lblFruitWeight.Text = $"Vrijednost: {receivedValue:F2} g";
-                    });
-                }
-                //Task.Delay(1000).Wait();
-                */
             }
             catch (Exception ex)
             {
@@ -179,15 +163,14 @@ namespace MF_Shopping_Assistant.Classes
                             {
                                 value = receivedValue - 0.1f;
                                 if (value < 20) value = 0f;
-                                OnWeightReceived?.Invoke(value); // Pozivamo event!
+                                OnWeightReceived?.Invoke(value); 
                             }
                         }
-                        //Task.Delay(1000).Wait();
                     }
                 }
                 catch (Exception ex)
                 {
-                    //MessageBox.Show("Greška pri primanju podataka: " + ex.Message);
+                    
                 }
             }
         }
@@ -200,7 +183,6 @@ namespace MF_Shopping_Assistant.Classes
                 {
                     string clickedTag = panel.Tag.ToString();
 
-                    //MessageBox.Show(clickedTag);
                     for (int i = 0; i < listFruitName.Count; i++)
                     {
                         if (listFruitName[i] == clickedTag)
@@ -209,9 +191,9 @@ namespace MF_Shopping_Assistant.Classes
                             {
                                 double priceOfProduct = listFruitPrice[i] * Math.Round(value / 1000, 2);
                                 GlobalData.listQuantityOfProducts.Add(Math.Round(value, 2) - 0.1);
-                                //GlobalData.listQuantityOfProducts.Add(507.85);
+                                
                                 GlobalData.listPricePerUnitOfProducts.Add(listFruitPrice[i]);
-                                //priceOfProduct
+                                
                                 GlobalData.listPriceOfProducts.Add(priceOfProduct);
                                 GlobalData.listNameOfProducts.Add(listFruitName[i]);
                                 GlobalData.listIdsOfProducts.Add(listFruitId[i]);
@@ -219,7 +201,6 @@ namespace MF_Shopping_Assistant.Classes
                                 GlobalData.listManufacturerOfProducts.Add("Agricom");
                                 GlobalData.listInStockOfProducts.Add(listFruitInStock[i]);
 
-                                //double totalPriceOfProduct = Math.Round(listFruitPrice[i] * value, 2);
                                 UI.addNewProduct(listFruitName[i], priceOfProduct.ToString(), listFruitPrice[i].ToString(), (Math.Round(value, 2) - 0.1).ToString(), true, flowLayoutPanel1);
                             }
                             if (listFruitDiscountPrice[i] != 0)
@@ -234,8 +215,6 @@ namespace MF_Shopping_Assistant.Classes
                                 GlobalData.listManufacturerOfProducts.Add("Agricom");
                                 GlobalData.listInStockOfProducts.Add(listFruitInStock[i]);
 
-
-                                //double totalPriceOfProduct = Math.Round(listFruitDiscountPrice[i] * value, 2);
                                 UI.addNewProduct(listFruitName[i], priceOfProduct.ToString(), listFruitPrice[i].ToString(), (Math.Round(value, 2) - 0.1).ToString(), true, flowLayoutPanel1);
                             }
                         }
@@ -288,8 +267,6 @@ namespace MF_Shopping_Assistant.Classes
                     }
                 }
 
-                //MessageBox.Show(FruitCategoryID.ToString() + " " + VegetablesCategoryID.ToString());
-
                 string getProductByFruit = $"SELECT id, type,name,price,discountPrice,inStock FROM Product WHERE CategoryID={vegetablesCategoryID} OR CategoryID={fruitCategoryID}";
 
                 using (MySqlCommand cmdProduct = new MySqlCommand(getProductByFruit, mySqlConnection))
@@ -314,7 +291,6 @@ namespace MF_Shopping_Assistant.Classes
 
 
                 int productsPerPage = 12;
-                //int currentPage = 0;
 
                 FlowLayoutPanel firstPage = new FlowLayoutPanel()
                 {
@@ -348,23 +324,15 @@ namespace MF_Shopping_Assistant.Classes
                     panel.MouseUp += UI.flowLayoutPanel1X_MouseUp;
                     panel.MouseMove += UI.flowLayoutPanel1X_MouseMove;
 
-                    /*Label label = new Label
-                    {
-                        Text = $"{i + 1}"
-                    };
-                    panel.Controls.Add(label);*/
-
                     firstPage.Controls.Add(panel);
                     productsOnPage++;
 
                     if (productsOnPage >= productsPerPage)
                     {
-                        // Kada se napuni stranica, postavi Location po X
                         firstPage.Location = new Point(slides.Count * firstPage.Width, 0);
                         flpFruit.Controls.Add(firstPage);
                         slides.Add(firstPage);
 
-                        // Nova stranica
                         firstPage = new FlowLayoutPanel()
                         {
                             Size = new Size(600, 660),
@@ -378,7 +346,7 @@ namespace MF_Shopping_Assistant.Classes
                         productsOnPage = 0;
                     }
                 }
-                // Ako ostane još proizvoda na zadnjoj stranici
+
                 if (firstPage.Controls.Count > 0)
                 {
                     firstPage.Location = new Point(slides.Count * firstPage.Width, 0);
