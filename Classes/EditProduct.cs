@@ -21,7 +21,7 @@ namespace MF_Shopping_Assistant.Classes
         private static Label lblUpdateNumberOfProducts;
         private static FlowLayoutPanel flowLayoutPanel1;
         private static Button btnUpdateProduct;
-        private Panel panelClickToPay;
+        private static Panel panelClickToPay;
         private Panel panelMessageBoxOk;
         private Label lblMessageBoxOK;
 
@@ -49,22 +49,24 @@ namespace MF_Shopping_Assistant.Classes
             EditProduct.lblUpdateNumberOfProducts = lblUpdateNumberOfProducts;
             EditProduct.btnUpdateProduct = btnUpdateProduct;
             EditProduct.panelDisableBackground = panelDisableBackground;
-            this.panelClickToPay = panelClickToPay;
+            EditProduct.panelClickToPay = panelClickToPay;
             this.panelMessageBoxOk = panelMessageBoxOk;
             this.lblMessageBoxOK = lblMessageBoxOK;
         }
         public async Task finishProduct()
         {
-
             UI.ShowBackground(panelProductQuantity, panelDisableBackground);
 
             txtScannedBarcode.Enabled = true;
 
             panelProductQuantity.Visible = false;
-            string getProductByBarcode = "SELECT * FROM Product";
+            //string getProductByBarcode = "SELECT * FROM Product";
+            string getProductByBarcode = "SELECT * FROM Product WHERE Barcode = @barcode";
 
             using (MySqlCommand cmdProduct = new MySqlCommand(getProductByBarcode, mySqlConnection))
             {
+                cmdProduct.Parameters.AddWithValue("@barcode", Form1.scannedBarcode);
+
                 using (DbDataReader productReader = await cmdProduct.ExecuteReaderAsync())
                 {
                     bool productAlreadyExists = false;
@@ -73,101 +75,99 @@ namespace MF_Shopping_Assistant.Classes
                     //bool isEverythingWentOk = true;
                     try
                     {
-                        while (productReader.Read())
+                        if (await productReader.ReadAsync())
                         {
-                            if (productReader["Barcode"].ToString() == Form1.scannedBarcode)
+                            double priceOfProduct = 0;
+                            double pricePerUnitOfProduct = 0;
+                            int columnIndex = productReader.GetOrdinal("DiscountId");
+
+                            if (!productReader.IsDBNull(columnIndex))
                             {
-                                double priceOfProduct = 0;
-                                double pricePerUnitOfProduct = 0;
-                                int columnIndex = productReader.GetOrdinal("DiscountId");
+                                priceOfProduct = Convert.ToDouble(productReader["DiscountPrice"]) * ModifyQuantity.quantity;
+                                pricePerUnitOfProduct = (double)productReader["DiscountPrice"];
+                            }
+                            else
+                            {
+                                priceOfProduct = Convert.ToDouble(productReader["Price"]) * ModifyQuantity.quantity;
+                                pricePerUnitOfProduct = (double)productReader["Price"];
+                            }
 
-                                if (!productReader.IsDBNull(columnIndex))
+                            int indexOfFoundProduct = 0;
+
+                            for (int i = 0; i < GlobalData.listIdsOfProducts.Count; i++)
+                            {
+                                if (GlobalData.listIdsOfProducts[i] == Convert.ToInt32(productReader["ID"]))
                                 {
-                                    priceOfProduct = Convert.ToDouble(productReader["DiscountPrice"]) * ModifyQuantity.quantity;
-                                    pricePerUnitOfProduct = (double)productReader["DiscountPrice"];
+                                    GlobalData.listQuantityOfProducts[i] += ModifyQuantity.quantity;
+                                    GlobalData.listPriceOfProducts[i] += priceOfProduct;
+                                    //GlobalData.listPricePerUnitOfProducts[i] = priceOfProduct;
+                                    indexOfFoundProduct = i;
+                                    productAlreadyExists = true;
+                                    break;
                                 }
-                                else
-                                {
-                                    priceOfProduct = Convert.ToDouble(productReader["Price"]) * ModifyQuantity.quantity;
-                                    pricePerUnitOfProduct = (double)productReader["Price"];
-                                }
+                            }
 
-                                int indexOfFoundProduct = 0;
-
-                                for (int i = 0; i < GlobalData.listIdsOfProducts.Count; i++)
+                            if (productAlreadyExists)
+                            {
+                                foreach (Panel panel in flowLayoutPanel1.Controls.OfType<Panel>())
                                 {
-                                    if (GlobalData.listIdsOfProducts[i] == Convert.ToInt32(productReader["ID"]))
+                                    if ((int)panel.Tag == indexOfFoundProduct)
                                     {
-                                        GlobalData.listQuantityOfProducts[i] += ModifyQuantity.quantity;
-                                        GlobalData.listPriceOfProducts[i] += priceOfProduct;
-                                        //GlobalData.listPricePerUnitOfProducts[i] = priceOfProduct;
-                                        indexOfFoundProduct = i;
-                                        productAlreadyExists = true;
-                                        break;
-                                    }
-                                }
-
-                                if (productAlreadyExists)
-                                {
-                                    foreach (Panel panel in flowLayoutPanel1.Controls.OfType<Panel>())
-                                    {
-                                        if ((int)panel.Tag == indexOfFoundProduct)
+                                        if (GlobalData.listQuantityOfProducts[indexOfFoundProduct] > (double)productReader["InStock"])
                                         {
-                                            if (GlobalData.listQuantityOfProducts[indexOfFoundProduct] > (double)productReader["InStock"])
-                                            {
-                                                GlobalData.listQuantityOfProducts[indexOfFoundProduct] -= ModifyQuantity.quantity;
+                                            GlobalData.listQuantityOfProducts[indexOfFoundProduct] -= ModifyQuantity.quantity;
                                                 
-                                                GlobalData.listPriceOfProducts[indexOfFoundProduct] -= priceOfProduct;
-                                                //isEverythingWentOk = false;
-                                                throw new KeyNotFoundException("You selected more product than we have");
-                                            } else
-                                            {
-                                                Label labelTotalPrice = panel.Controls.Find("lblTotalPrice", true).FirstOrDefault() as Label;
-                                                Label labelQuantity = panel.Controls.Find("lblQuantity", true).FirstOrDefault() as Label;
-                                                labelTotalPrice.Text = GlobalData.listPriceOfProducts[indexOfFoundProduct].ToString();
-                                                labelQuantity.Text = GlobalData.listQuantityOfProducts[indexOfFoundProduct].ToString();
+                                            GlobalData.listPriceOfProducts[indexOfFoundProduct] -= priceOfProduct;
+                                            //isEverythingWentOk = false;
+                                            throw new KeyNotFoundException("You selected more product than we have");
+                                        } else
+                                        {
+                                            Label labelTotalPrice = panel.Controls.Find("lblTotalPrice", true).FirstOrDefault() as Label;
+                                            Label labelQuantity = panel.Controls.Find("lblQuantity", true).FirstOrDefault() as Label;
+                                            labelTotalPrice.Text = GlobalData.listPriceOfProducts[indexOfFoundProduct].ToString();
+                                            labelQuantity.Text = GlobalData.listQuantityOfProducts[indexOfFoundProduct].ToString();
 
-                                            }
                                         }
                                     }
                                 }
-
-                                if (!productAlreadyExists)
-                                {
-                                    int columnIndex1 = productReader.GetOrdinal("DiscountId");
-
-                                    if (ModifyQuantity.quantity > (double)productReader["InStock"])
-                                    {
-                                        //isEverythingWentOk = false;
-                                        throw new KeyNotFoundException("You selected more product than we have");
-                                    }
-                                    string productNameTypeManufacturer = productReader["Name"].ToString() + " " + productReader["Type"].ToString() + " " + productReader["Manufacturer"].ToString();
-                                    if (!productReader.IsDBNull(columnIndex1))
-                                    {
-                                        UI.addNewProduct(productNameTypeManufacturer, priceOfProduct.ToString(), productReader["DiscountPrice"].ToString(), ModifyQuantity.quantity.ToString(), false, flowLayoutPanel1);
-                                    }
-                                    else
-                                    {
-                                        UI.addNewProduct(productNameTypeManufacturer, priceOfProduct.ToString(), productReader["Price"].ToString(), ModifyQuantity.quantity.ToString(), false, flowLayoutPanel1);
-                                    }
-
-                                    GlobalData.listQuantityOfProducts.Add(ModifyQuantity.quantity);
-                                    GlobalData.listPricePerUnitOfProducts.Add(pricePerUnitOfProduct); // TODO: fix this
-                                    //else GlobalData.listPricePerUnitOfProducts.Add(Convert.ToDouble(productReader["Price"]));
-                                    GlobalData.listPriceOfProducts.Add(priceOfProduct);
-                                    GlobalData.listNameOfProducts.Add(productReader["Name"].ToString());
-                                    GlobalData.listIdsOfProducts.Add(Convert.ToInt32(productReader["ID"]));
-                                    GlobalData.listTypeOfProducts.Add(productReader["Type"].ToString());
-                                    GlobalData.listManufacturerOfProducts.Add(productReader["Manufacturer"].ToString());
-                                    GlobalData.listInStockOfProducts.Add((double)productReader["InStock"]);
-                                    //listAvailableQuantity.Add((double)productReader["InStock"]);
-
-                                    //productInStock = (double)productReader["InStock"];
-                                }
-                                //productFound = true;
-                                break;
                             }
+
+                            if (!productAlreadyExists)
+                            {
+                                int columnIndex1 = productReader.GetOrdinal("DiscountId");
+
+                                if (ModifyQuantity.quantity > (double)productReader["InStock"])
+                                {
+                                    //isEverythingWentOk = false;
+                                    throw new KeyNotFoundException("You selected more product than we have");
+                                }
+                                string productNameTypeManufacturer = productReader["Name"].ToString() + " " + productReader["Type"].ToString() + " " + productReader["Manufacturer"].ToString();
+                                if (!productReader.IsDBNull(columnIndex1))
+                                {
+                                    UI.addNewProduct(productNameTypeManufacturer, priceOfProduct.ToString(), productReader["DiscountPrice"].ToString(), ModifyQuantity.quantity.ToString(), false, flowLayoutPanel1);
+                                }
+                                else
+                                {
+                                    UI.addNewProduct(productNameTypeManufacturer, priceOfProduct.ToString(), productReader["Price"].ToString(), ModifyQuantity.quantity.ToString(), false, flowLayoutPanel1);
+                                }
+
+                                GlobalData.listQuantityOfProducts.Add(ModifyQuantity.quantity);
+                                GlobalData.listPricePerUnitOfProducts.Add(pricePerUnitOfProduct); // TODO: fix this
+                                //else GlobalData.listPricePerUnitOfProducts.Add(Convert.ToDouble(productReader["Price"]));
+                                GlobalData.listPriceOfProducts.Add(priceOfProduct);
+                                GlobalData.listNameOfProducts.Add(productReader["Name"].ToString());
+                                GlobalData.listIdsOfProducts.Add(Convert.ToInt32(productReader["ID"]));
+                                GlobalData.listTypeOfProducts.Add(productReader["Type"].ToString());
+                                GlobalData.listManufacturerOfProducts.Add(productReader["Manufacturer"].ToString());
+                                GlobalData.listInStockOfProducts.Add((double)productReader["InStock"]);
+                                //listAvailableQuantity.Add((double)productReader["InStock"]);
+
+                                //productInStock = (double)productReader["InStock"];
+                            }
+                            //productFound = true;
+                                
                         }
+                        
                     }
                     catch (KeyNotFoundException ex)
                     {
@@ -219,7 +219,7 @@ namespace MF_Shopping_Assistant.Classes
                     Button updateButton = panel.Controls.Find("Update", true).FirstOrDefault() as Button;
                     if (updateButton.Tag.ToString() == selectedPanelTag)
                     {
-                        MessageBox.Show(ModifyQuantity.updateQuantity.ToString() + "  " + GlobalData.listInStockOfProducts[Convert.ToInt32(selectedPanelTag)]);
+                        //MessageBox.Show(ModifyQuantity.updateQuantity.ToString() + "  " + GlobalData.listInStockOfProducts[Convert.ToInt32(selectedPanelTag)]);
                         if (ModifyQuantity.updateQuantity > GlobalData.listInStockOfProducts[Convert.ToInt32(selectedPanelTag)])
                             throw new Exception("You selected more product than we have");
 
@@ -301,82 +301,71 @@ namespace MF_Shopping_Assistant.Classes
 
         public static void RemoveProduct(object sender, EventArgs e)
         {
-            System.Windows.Forms.Button clickedButton = sender as System.Windows.Forms.Button;
-            if (clickedButton != null)
+            try
             {
-                Panel parentPanel = clickedButton.Parent as Panel;
-                Button updateButton = parentPanel.Controls.Find("Update", true).FirstOrDefault() as Button;
-
-                if (parentPanel != null && updateButton != null)
+                System.Windows.Forms.Button clickedButton = sender as System.Windows.Forms.Button;
+                if (clickedButton != null)
                 {
-                    flowLayoutPanel1.Controls.Remove(parentPanel);
-                    parentPanel.Dispose();
+                    Panel parentPanel = clickedButton.Parent as Panel;
+                    Button updateButton = parentPanel.Controls.Find("Update", true).FirstOrDefault() as Button;
 
-                    UI.numberOfProducts--;
+                    if (parentPanel != null && updateButton != null)
+                    {
+                        flowLayoutPanel1.Controls.Remove(parentPanel);
+                        parentPanel.Dispose();
 
-                    GlobalData.listNameOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
-                    GlobalData.listPriceOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
-                    GlobalData.listPricePerUnitOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
-                    GlobalData.listQuantityOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
-                    GlobalData.listIdsOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
-                    GlobalData.listManufacturerOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
-                    GlobalData.listTypeOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
-                    GlobalData.listInStockOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
-                   // listAvailableQuantity.RemoveAt(Convert.ToInt32(parentPanel.Tag));
-                    CalculateTotalPrice(lblTotalPrice);
+                        UI.numberOfProducts--;
 
-                    UI.updatePanelTag(flowLayoutPanel1);
+                        GlobalData.listNameOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
+                        GlobalData.listPriceOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
+                        GlobalData.listPricePerUnitOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
+                        GlobalData.listQuantityOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
+                        GlobalData.listIdsOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
+                        GlobalData.listManufacturerOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
+                        GlobalData.listTypeOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
+                        GlobalData.listInStockOfProducts.RemoveAt(Convert.ToInt32(updateButton.Tag));
+                        GlobalData.panelsOfProducts.Remove(parentPanel);
+                        // listAvailableQuantity.RemoveAt(Convert.ToInt32(parentPanel.Tag));
+                        CalculateTotalPrice(lblTotalPrice);
 
-                    txtScannedBarcode.Focus();
+                        UI.updatePanelTag(flowLayoutPanel1);
+
+                        txtScannedBarcode.Focus();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            } 
         }
 
         public static void UpdateProductByButton(object sender, EventArgs e)
         {
-            double quantityOfSelectedProduct;
-            MessageBox.Show(Form1.isScrolling + " " + Form1.isBarcodeScanned);
-            //if (!Form1.isScrolling && !Form1.isBarcodeScanned)
-            if (!Form1.isBarcodeScanned)
+            try
             {
-                panelUpdateProductQuantity.Visible = true;
-                Form1.isDoubleClicked = true;
-
-                btnUpdateProduct.Focus();
-                Button button = sender as Button;
-                if (button != null)
+                double quantityOfSelectedProduct;
+                //MessageBox.Show(Form1.isScrolling + " " + Form1.isBarcodeScanned);
+                //if (!Form1.isScrolling && !Form1.isBarcodeScanned)
+                if (!Form1.isBarcodeScanned)
                 {
-                    for (int i = 0; i < GlobalData.listQuantityOfProducts.Count; i++)
-                    {
-                        if (Convert.ToInt32(button.Tag) == i)
-                        {
-                            quantityOfSelectedProduct = GlobalData.listQuantityOfProducts[i];
-                            lblUpdateNumberOfProducts.Text = quantityOfSelectedProduct.ToString();
-                            ModifyQuantity.updateQuantity = GlobalData.listQuantityOfProducts[i];
+                    panelClickToPay.Visible = false;
+                    panelUpdateProductQuantity.Visible = true;
+                    Form1.isDoubleClicked = true;
 
-                            selectedPanelTag = button.Tag.ToString();
-
-                            productInStock = GlobalData.listInStockOfProducts[i];
-
-                            break;
-                        }
-                    }
-
-
-                    UI.updatePanelTag(flowLayoutPanel1);
-   
-                    /*Panel panel = sender as Panel;
-                    if (panel != null)
+                    btnUpdateProduct.Focus();
+                    Button button = sender as Button;
+                    if (button != null)
                     {
                         for (int i = 0; i < GlobalData.listQuantityOfProducts.Count; i++)
                         {
-                            if (Convert.ToInt32(panel.Tag) == i)
+                            if (Convert.ToInt32(button.Tag) == i)
                             {
                                 quantityOfSelectedProduct = GlobalData.listQuantityOfProducts[i];
                                 lblUpdateNumberOfProducts.Text = quantityOfSelectedProduct.ToString();
                                 ModifyQuantity.updateQuantity = GlobalData.listQuantityOfProducts[i];
 
-                                selectedPanelTag = panel.Tag.ToString();
+                                selectedPanelTag = button.Tag.ToString();
 
                                 productInStock = GlobalData.listInStockOfProducts[i];
 
@@ -387,12 +376,39 @@ namespace MF_Shopping_Assistant.Classes
 
                         UI.updatePanelTag(flowLayoutPanel1);
 
-                        panelUpdateProductQuantity.Visible = true;
-                    }*/
+                        /*Panel panel = sender as Panel;
+                        if (panel != null)
+                        {
+                            for (int i = 0; i < GlobalData.listQuantityOfProducts.Count; i++)
+                            {
+                                if (Convert.ToInt32(panel.Tag) == i)
+                                {
+                                    quantityOfSelectedProduct = GlobalData.listQuantityOfProducts[i];
+                                    lblUpdateNumberOfProducts.Text = quantityOfSelectedProduct.ToString();
+                                    ModifyQuantity.updateQuantity = GlobalData.listQuantityOfProducts[i];
+
+                                    selectedPanelTag = panel.Tag.ToString();
+
+                                    productInStock = GlobalData.listInStockOfProducts[i];
+
+                                    break;
+                                }
+                            }
+
+
+                            UI.updatePanelTag(flowLayoutPanel1);
+
+                            panelUpdateProductQuantity.Visible = true;
+                        }*/
+                    }
+                    isUpdateQuantityPanelOpen = true;
                 }
-                isUpdateQuantityPanelOpen = true;
+                UI.HideBackground(panelUpdateProductQuantity, panelDisableBackground);
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
-            UI.HideBackground(panelUpdateProductQuantity, panelDisableBackground);
+            
         }
 
         public async Task<bool> GetInStockOfProduct(string barcode)

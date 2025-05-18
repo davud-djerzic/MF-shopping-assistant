@@ -68,9 +68,7 @@ namespace MF_Shopping_Assistant.Classes
             {
                 isRunning = true;
                 isClose = false;
-                MessageBox.Show(isRunning.ToString() + "   " + isClose.ToString());
                 await Task.Run(() => ReceiveWeightData());
-                MessageBox.Show(isRunning.ToString() + "   " + isClose.ToString());
             }
             catch (Exception ex)
             {
@@ -180,7 +178,7 @@ namespace MF_Shopping_Assistant.Classes
                             if (receivedValue != 0.0)
                             {
                                 value = receivedValue - 0.1f;
-                                if (value < 20) value = 0;
+                                if (value < 20) value = 0f;
                                 OnWeightReceived?.Invoke(value); // Pozivamo event!
                             }
                         }
@@ -196,182 +194,201 @@ namespace MF_Shopping_Assistant.Classes
 
         public static void FruitClick(object sender, EventArgs e)
         {
-            if (sender is Panel panel && panel.Tag != null)
+            try
             {
-                string clickedTag = panel.Tag.ToString();
-                
-                //MessageBox.Show(clickedTag);
-                for (int i = 0; i < listFruitName.Count; i++)
+                if (sender is Panel panel && panel.Tag != null && value > 20)
                 {
-                    if (listFruitName[i] == clickedTag)
+                    string clickedTag = panel.Tag.ToString();
+
+                    //MessageBox.Show(clickedTag);
+                    for (int i = 0; i < listFruitName.Count; i++)
                     {
-                        if (listFruitDiscountPrice[i] == 0)
+                        if (listFruitName[i] == clickedTag)
                         {
-                            double priceOfProduct = listFruitPrice[i] * Math.Round(value / 1000, 2);
-                            GlobalData.listQuantityOfProducts.Add(Math.Round(value, 2) - 0.1);
-                            GlobalData.listPricePerUnitOfProducts.Add(listFruitPrice[i]);
-                            GlobalData.listPriceOfProducts.Add(priceOfProduct);
-                            GlobalData.listNameOfProducts.Add(listFruitName[i]);
-                            GlobalData.listIdsOfProducts.Add(listFruitId[i]);
-                            GlobalData.listTypeOfProducts.Add(listFruitType[i]);
-                            GlobalData.listManufacturerOfProducts.Add("1");
-                            GlobalData.listInStockOfProducts.Add(listFruitInStock[i]);
+                            if (listFruitDiscountPrice[i] == 0)
+                            {
+                                double priceOfProduct = listFruitPrice[i] * Math.Round(value / 1000, 2);
+                                GlobalData.listQuantityOfProducts.Add(Math.Round(value, 2) - 0.1);
+                                //GlobalData.listQuantityOfProducts.Add(507.85);
+                                GlobalData.listPricePerUnitOfProducts.Add(listFruitPrice[i]);
+                                //priceOfProduct
+                                GlobalData.listPriceOfProducts.Add(priceOfProduct);
+                                GlobalData.listNameOfProducts.Add(listFruitName[i]);
+                                GlobalData.listIdsOfProducts.Add(listFruitId[i]);
+                                GlobalData.listTypeOfProducts.Add(listFruitType[i]);
+                                GlobalData.listManufacturerOfProducts.Add("Agricom");
+                                GlobalData.listInStockOfProducts.Add(listFruitInStock[i]);
 
-                            //double totalPriceOfProduct = Math.Round(listFruitPrice[i] * value, 2);
-                            UI.addNewProduct(listFruitName[i], priceOfProduct.ToString(), listFruitPrice[i].ToString(), (value).ToString(), true, flowLayoutPanel1);
-                        }
-                        if (listFruitDiscountPrice[i] != 0)
-                        {
-                            double priceOfProduct = listFruitDiscountPrice[i] * Math.Round(value / 1000, 2);
-                            GlobalData.listQuantityOfProducts.Add(Math.Round(value, 2) - 0.1);
-                            GlobalData.listPricePerUnitOfProducts.Add(listFruitPrice[i]);
-                            GlobalData.listPriceOfProducts.Add(priceOfProduct);
-                            GlobalData.listNameOfProducts.Add(listFruitName[i]);
-                            GlobalData.listIdsOfProducts.Add(listFruitId[i]);
-                            GlobalData.listTypeOfProducts.Add(listFruitType[i]);
-                            GlobalData.listManufacturerOfProducts.Add("1");
-                            GlobalData.listInStockOfProducts.Add(listFruitInStock[i]);
+                                //double totalPriceOfProduct = Math.Round(listFruitPrice[i] * value, 2);
+                                UI.addNewProduct(listFruitName[i], priceOfProduct.ToString(), listFruitPrice[i].ToString(), (Math.Round(value, 2) - 0.1).ToString(), true, flowLayoutPanel1);
+                            }
+                            if (listFruitDiscountPrice[i] != 0)
+                            {
+                                double priceOfProduct = listFruitDiscountPrice[i] * Math.Round(value / 1000, 2);
+                                GlobalData.listQuantityOfProducts.Add(Math.Round(value, 2) - 0.1);
+                                GlobalData.listPricePerUnitOfProducts.Add(listFruitPrice[i]);
+                                GlobalData.listPriceOfProducts.Add(priceOfProduct);
+                                GlobalData.listNameOfProducts.Add(listFruitName[i]);
+                                GlobalData.listIdsOfProducts.Add(listFruitId[i]);
+                                GlobalData.listTypeOfProducts.Add(listFruitType[i]);
+                                GlobalData.listManufacturerOfProducts.Add("Agricom");
+                                GlobalData.listInStockOfProducts.Add(listFruitInStock[i]);
 
-                            
-                            //double totalPriceOfProduct = Math.Round(listFruitDiscountPrice[i] * value, 2);
-                            UI.addNewProduct(listFruitName[i], priceOfProduct.ToString(), listFruitPrice[i].ToString(), (value).ToString(), true, flowLayoutPanel1);
+
+                                //double totalPriceOfProduct = Math.Round(listFruitDiscountPrice[i] * value, 2);
+                                UI.addNewProduct(listFruitName[i], priceOfProduct.ToString(), listFruitPrice[i].ToString(), (Math.Round(value, 2) - 0.1).ToString(), true, flowLayoutPanel1);
+                            }
                         }
                     }
+
+                    EditProduct.CalculateTotalPrice(lblTotalPrice);
                 }
-
-                EditProduct.CalculateTotalPrice(lblTotalPrice);
-
-                flpFruit.Visible = false;
-
-                panelClickToPay.Visible = true;
-                panelSlider.Visible = false;
-
-                txtScannedBarcode.Focus();
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
+            flpFruit.Visible = false;
+
+            panelClickToPay.Visible = true;
+            panelSlider.Visible = false;
+            Form1.isOpenAnything = false;
+
+            Form1.currentPage = 0; 
+            int scrollX = Form1.currentPage * 600;
+            flpFruit.AutoScrollPosition = new Point(scrollX, 0);
+            txtScannedBarcode.Focus();
         }
 
         public static async Task loadFruit()
         {
-            flpFruit.Visible = false;
-
-            listFruitInStock.Clear();
-            listFruitName.Clear();
-            listFruitDiscountPrice.Clear();
-            listFruitPrice.Clear();
-            flpFruit.Controls.Clear();
-
-            string getCategoryForFruit = "SELECT * FROM Category";
-
-            int fruitCategoryID = 0;
-            int vegetablesCategoryID = 0;
-
-            using (MySqlCommand cmdProduct = new MySqlCommand(getCategoryForFruit, mySqlConnection))
+            try
             {
-                using (DbDataReader productReader = await cmdProduct.ExecuteReaderAsync())
+                flpFruit.Visible = false;
+
+                listFruitInStock.Clear();
+                listFruitName.Clear();
+                listFruitDiscountPrice.Clear();
+                listFruitPrice.Clear();
+                flpFruit.Controls.Clear();
+
+                string getCategoryForFruit = "SELECT * FROM Category";
+
+                int fruitCategoryID = 0;
+                int vegetablesCategoryID = 0;
+
+                using (MySqlCommand cmdProduct = new MySqlCommand(getCategoryForFruit, mySqlConnection))
                 {
-                    while (productReader.Read())
+                    using (DbDataReader productReader = await cmdProduct.ExecuteReaderAsync())
                     {
-                        if (productReader["name"].ToString() == "Fruit") fruitCategoryID = (int)productReader["ID"];
-                        if (productReader["name"].ToString() == "Vegetables") vegetablesCategoryID = (int)productReader["ID"];
+                        while (productReader.Read())
+                        {
+                            if (productReader["name"].ToString() == "Fruit") fruitCategoryID = (int)productReader["ID"];
+                            if (productReader["name"].ToString() == "Vegetables") vegetablesCategoryID = (int)productReader["ID"];
+                        }
                     }
                 }
-            }
 
-            //MessageBox.Show(FruitCategoryID.ToString() + " " + VegetablesCategoryID.ToString());
+                //MessageBox.Show(FruitCategoryID.ToString() + " " + VegetablesCategoryID.ToString());
 
-            string getProductByFruit = $"SELECT id, type,name,price,discountPrice,inStock FROM Product WHERE CategoryID={vegetablesCategoryID} OR CategoryID={fruitCategoryID}";
+                string getProductByFruit = $"SELECT id, type,name,price,discountPrice,inStock FROM Product WHERE CategoryID={vegetablesCategoryID} OR CategoryID={fruitCategoryID}";
 
-            using (MySqlCommand cmdProduct = new MySqlCommand(getProductByFruit, mySqlConnection))
-            {
-                using (DbDataReader productReader = await cmdProduct.ExecuteReaderAsync())
+                using (MySqlCommand cmdProduct = new MySqlCommand(getProductByFruit, mySqlConnection))
                 {
-                    while (productReader.Read())
+                    using (DbDataReader productReader = await cmdProduct.ExecuteReaderAsync())
                     {
-                        int columnIndex = productReader.GetOrdinal("DiscountPrice");
+                        while (productReader.Read())
+                        {
+                            int columnIndex = productReader.GetOrdinal("DiscountPrice");
 
-                        if (!productReader.IsDBNull(columnIndex)) listFruitDiscountPrice.Add((double)productReader["DiscountPrice"]);
-                        else listFruitDiscountPrice.Add(0);
+                            if (!productReader.IsDBNull(columnIndex)) listFruitDiscountPrice.Add((double)productReader["DiscountPrice"]);
+                            else listFruitDiscountPrice.Add(0);
 
-                        listFruitId.Add((int)productReader["ID"]);
-                        listFruitInStock.Add((double)productReader["InStock"]);
-                        listFruitName.Add(productReader["Name"].ToString().ToLower());
-                        listFruitPrice.Add((double)productReader["Price"]);
-                        listFruitType.Add(productReader["Type"].ToString().ToLower());
+                            listFruitId.Add((int)productReader["ID"]);
+                            listFruitInStock.Add((double)productReader["InStock"]);
+                            listFruitName.Add(productReader["Name"].ToString().ToLower());
+                            listFruitPrice.Add((double)productReader["Price"]);
+                            listFruitType.Add(productReader["Type"].ToString().ToLower());
+                        }
                     }
                 }
-            }
 
-            
-            int productsPerPage = 12;
-            //int currentPage = 0;
 
-            FlowLayoutPanel firstPage = new FlowLayoutPanel()
-            {
-                Size = new Size(600, 660),
-                WrapContents = true,
-                FlowDirection = FlowDirection.LeftToRight,
-                AutoScroll = false,
-                BackColor=Color.Wheat
-            };
-            int productsOnPage = 0;
+                int productsPerPage = 12;
+                //int currentPage = 0;
 
-            for (int i = 0; i < listFruitDiscountPrice.Count; i++)
-            {
-                //string imagePath = Path.Combine(Application.StartupPath, "/home/pi/Desktop/Pictures/", $"{listFruitName[i]}.jpg");
-                string imagePath = Path.Combine(Application.StartupPath, "Pictures/", $"{listFruitName[i]}.jpg");
-               
-                Panel panel = new Panel
+                FlowLayoutPanel firstPage = new FlowLayoutPanel()
                 {
-                    Size = new Size(135, 135),
-                    Tag = listFruitName[i],
-                    BackgroundImage = Image.FromFile(imagePath),
-                    BackgroundImageLayout = ImageLayout.Stretch,
-                    Margin = new Padding(5)
+                    Size = new Size(600, 660),
+                    WrapContents = true,
+                    FlowDirection = FlowDirection.LeftToRight,
+                    AutoScroll = false,
+                    BackColor = Color.Wheat
                 };
-                panel.Click += async (sender, e) => await btnChooseFruitToBuy();
+                int productsOnPage = 0;
 
-                panel.Click += FruitClick;
-
-                panel.MouseDown += UI.flowLayoutPanel1X_MouseDown;
-                panel.MouseUp += UI.flowLayoutPanel1X_MouseUp;
-                panel.MouseMove += UI.flowLayoutPanel1X_MouseMove;
-
-                /*Label label = new Label
+                for (int i = 0; i < listFruitDiscountPrice.Count; i++)
                 {
-                    Text = $"{i + 1}"
-                };
-                panel.Controls.Add(label);*/
+                    string imagePath = Path.Combine(Application.StartupPath, "/home/pi/Desktop/Pictures/", $"{listFruitName[i]}.jpg");
+                    //string imagePath = Path.Combine(Application.StartupPath, "Pictures/", $"{listFruitName[i]}.jpg");
 
-                firstPage.Controls.Add(panel);
-                productsOnPage++;
+                    Panel panel = new Panel
+                    {
+                        Size = new Size(135, 135),
+                        //Size = new Size(115, 115),
+                        Tag = listFruitName[i],
+                        BackgroundImage = Image.FromFile(imagePath),
+                        BackgroundImageLayout = ImageLayout.Stretch,
+                        Margin = new Padding(5)
+                    };
+                    panel.Click += async (sender, e) => await btnChooseFruitToBuy();
 
-                if (productsOnPage >= productsPerPage)
+                    panel.Click += FruitClick;
+
+                    panel.MouseDown += UI.flowLayoutPanel1X_MouseDown;
+                    panel.MouseUp += UI.flowLayoutPanel1X_MouseUp;
+                    panel.MouseMove += UI.flowLayoutPanel1X_MouseMove;
+
+                    /*Label label = new Label
+                    {
+                        Text = $"{i + 1}"
+                    };
+                    panel.Controls.Add(label);*/
+
+                    firstPage.Controls.Add(panel);
+                    productsOnPage++;
+
+                    if (productsOnPage >= productsPerPage)
+                    {
+                        // Kada se napuni stranica, postavi Location po X
+                        firstPage.Location = new Point(slides.Count * firstPage.Width, 0);
+                        flpFruit.Controls.Add(firstPage);
+                        slides.Add(firstPage);
+
+                        // Nova stranica
+                        firstPage = new FlowLayoutPanel()
+                        {
+                            Size = new Size(600, 660),
+                            WrapContents = true,
+                            FlowDirection = FlowDirection.LeftToRight,
+                            AutoScroll = false,
+                            Padding = new Padding(0),
+                            BackColor = Color.Wheat
+
+                        };
+                        productsOnPage = 0;
+                    }
+                }
+                // Ako ostane još proizvoda na zadnjoj stranici
+                if (firstPage.Controls.Count > 0)
                 {
-                    // Kada se napuni stranica, postavi Location po X
                     firstPage.Location = new Point(slides.Count * firstPage.Width, 0);
                     flpFruit.Controls.Add(firstPage);
                     slides.Add(firstPage);
-
-                    // Nova stranica
-                    firstPage = new FlowLayoutPanel()
-                    {
-                        Size = new Size(600, 660),
-                        WrapContents = true,
-                        FlowDirection = FlowDirection.LeftToRight,
-                        AutoScroll = false,
-                        Padding = new Padding(0),
-                        BackColor=Color.Wheat
-
-                    };
-                    productsOnPage = 0;
                 }
             }
-            // Ako ostane još proizvoda na zadnjoj stranici
-            if (firstPage.Controls.Count > 0)
+            catch (Exception ex)
             {
-                firstPage.Location = new Point(slides.Count * firstPage.Width, 0);
-                flpFruit.Controls.Add(firstPage);
-                slides.Add(firstPage);
+                MessageBox.Show(ex.Message);
             }
         }
     }

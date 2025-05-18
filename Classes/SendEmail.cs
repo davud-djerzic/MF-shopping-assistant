@@ -26,8 +26,8 @@ namespace MF_Shopping_Assistant.Classes
                 var mailMessage = new MailMessage
                 {
                     From = new MailAddress(fromEmail),
-                    Subject = "Your PDF File",
-                    Body = "Please find attached the PDF file.",
+                    Subject = "MF Shopping Assistant invoice",
+                    Body = "FodyConfig product MF Shopping Assistant sends you your invoice",
                     IsBodyHtml = false
                 };
 

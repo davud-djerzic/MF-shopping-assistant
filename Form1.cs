@@ -58,7 +58,9 @@ namespace MF_Shopping_Assistant
         public static bool isOpenAnything = false;
         public static bool isInvalidEmailFormat = false;
 
-        private static int currentPage = 0;
+        public static int currentPage = 0;
+
+       // public static bool isThereAddedProduct = false;
 
         public Form1()
         {
@@ -71,12 +73,13 @@ namespace MF_Shopping_Assistant
             {
                 this.Invoke(new Action(() =>
                 {
-                    lblFruitWeight.Text = $"Vrijednost: {weight:F2} g";
+                    lblFruitWeight.Text = $"{weight:F2} g";
+                    //lblFruitWeight.Text = $"Vrijednost: 405,87 g";
                 }));
             }
             else
             {
-                lblFruitWeight.Text = $"Vrijednost: {weight:F2} g";
+                lblFruitWeight.Text = $"{weight:F2} g";
             }
         }
 
@@ -100,9 +103,9 @@ namespace MF_Shopping_Assistant
             editProduct = new EditProduct(mySqlConnection, txtScannedBarcode, panelProductQuantity, lblTotalPrice, lblNumberOfProducts, flowLayoutPanel1, panelUpdateProductQuantity, lblUpdateNumberOfProducts, btnUpdateProduct, panelDisableBackground, panelClickToPay, panelMessageBoxOk, lblMessageBoxOK);
             ui = new UI(flowLayoutPanel1);
             discountProduct = new DiscountProduct(mySqlConnection, lblProductNameP1, lblDiscountPercentageP1, lblOldPriceP1, lblDiscountPriceP1, lblProductNameP2, lblDiscountPercentageP2, lblOldPriceP2, lblDiscountPriceP2, lblProductNameP3, lblOldPriceP3, lblDiscountPriceP3, lblProductNameP4, lblOldPriceP4, lblDiscountPriceP4);
-            payment = new Payment(mySqlConnection, flowLayoutPanel1, flowLayoutPanel2, btnPay, panelConfirmPayment, panelHeader, panelPaymentTotalPrice, lblPaymentTotalPrice, lblMessageBoxMessage, btnMessageBoxYes, btnMessageBoxNo, txtSendEmail, panelEmail, btnSendEmail, panelMessageBox, panelDisableBackground, txtScannedBarcode, panelClickToPay, panelMessageBoxOk, lblMessageBoxOK);
+            payment = new Payment(mySqlConnection, flowLayoutPanel1, flowLayoutPanel2, btnPay, panelConfirmPayment, panelHeader, panelPaymentTotalPrice, lblPaymentTotalPrice, lblMessageBoxMessage, btnMessageBoxYes, btnMessageBoxNo, txtSendEmail, panelEmail, btnSendEmail, panelMessageBox, panelDisableBackground, txtScannedBarcode, panelClickToPay, panelMessageBoxOk, lblMessageBoxOK, btnBack);
 
-            setReset = new SetReset(mySqlConnection, homePagePanel, panelDiscountPage, flowLayoutPanel1, flowLayoutPanel2, panelConfirmPayment, txtScannedBarcode, lblTotalPrice, btnPay, lblHomePage, lblClickToPay, flpFruit, lblNumberOfProducts, lblUpdateNumberOfProducts, panelProductQuantity, panelUpdateProductQuantity, btnUpdateProduct, lblProductNameP1, lblDiscountPercentageP1, lblOldPriceP1, lblDiscountPriceP1, lblProductNameP2, lblDiscountPercentageP2, lblOldPriceP2, lblDiscountPriceP2, lblProductNameP3, lblOldPriceP3, lblDiscountPriceP3, lblProductNameP4, lblOldPriceP4, lblDiscountPriceP4, button1, panelHeader, panelPaymentTotalPrice, panelClickToPay, panelEmail);
+            setReset = new SetReset(mySqlConnection, homePagePanel, panelDiscountPage, flowLayoutPanel1, flowLayoutPanel2, panelConfirmPayment, txtScannedBarcode, lblTotalPrice, btnPay, lblHomePage, lblClickToPay, flpFruit, lblNumberOfProducts, lblUpdateNumberOfProducts, panelProductQuantity, panelUpdateProductQuantity, btnUpdateProduct, lblProductNameP1, lblDiscountPercentageP1, lblOldPriceP1, lblDiscountPriceP1, lblProductNameP2, lblDiscountPercentageP2, lblOldPriceP2, lblDiscountPriceP2, lblProductNameP3, lblOldPriceP3, lblDiscountPriceP3, lblProductNameP4, lblOldPriceP4, lblDiscountPriceP4, button1, panelHeader, panelPaymentTotalPrice, panelClickToPay, panelEmail, btnBack);
             await setReset.LoadAsync(fruit, modifyQuantity, editProduct, ui, discountProduct, payment);
 
             fruit.OnWeightReceived += Fruit_OnWeightReceived;
@@ -113,17 +116,38 @@ namespace MF_Shopping_Assistant
         
         private void btnQuantityIncrease_Click(object sender, EventArgs e)
         {
-            modifyQuantity.QuantityIncrease();
+            try
+            {
+                modifyQuantity.QuantityIncrease();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnQuantityDecrease_Click(object sender, EventArgs e)
         {
-            modifyQuantity.QuantityDecrease();
+            try
+            {
+                modifyQuantity.QuantityDecrease();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private async void btnFinishProduct_Click(object sender, EventArgs e)
         {
-            await editProduct.finishProduct();
+            try
+            {
+                await editProduct.finishProduct();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void txtScannedBarcode_TextChanged(object sender, EventArgs e)
@@ -175,22 +199,50 @@ namespace MF_Shopping_Assistant
         }
         private void btnUpdateProduct_Click(object sender, EventArgs e)
         {
-            editProduct.UpdateProduct();
+            try
+            {
+                editProduct.UpdateProduct();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnUpdateQuantityDecrease_Click(object sender, EventArgs e)
         {
-            modifyQuantity.UpdateQuantityDecrease();
+            try
+            {
+                modifyQuantity.UpdateQuantityDecrease();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnUpdateQuantityIncrease_Click(object sender, EventArgs e)
         {
-            modifyQuantity.UpdateQuantityIncrease();
+            try
+            {
+                modifyQuantity.UpdateQuantityIncrease();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void panelConfirmPayment_Click(object sender, EventArgs e)
         {
-            payment.PanelConfirmPayment_Click(sender, e);
+            try
+            {
+                payment.PanelConfirmPayment_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
            /* if (GlobalData.listPriceOfProducts.Count != 0)
                 
             else
@@ -204,14 +256,23 @@ namespace MF_Shopping_Assistant
 
         private async void btnPay_Click(object sender, EventArgs e)
         {
-            await payment.Pay();
-            UI.HideBackground(panelMessageBox, panelDisableBackground);
-            lblMessageBoxMessage.Text = "Payment completed successfully" + Environment.NewLine + Environment.NewLine + "Do you want to receive the reciept from an email";
-            btnMessageBoxYes.Click -= payment.ConfirmPaymentYes;
-            btnMessageBoxYes.Click += Payment.SendEmailYes;
-            btnMessageBoxNo.Click -= payment.ConfirmPaymentNo;
-            btnMessageBoxNo.Click += Payment.SendEmailNo;
+            try
+            {
+                await payment.Pay();
 
+                UI.HideBackground(panelMessageBox, panelDisableBackground);
+                lblMessageBoxMessage.Text = "Payment completed successfully" + Environment.NewLine + Environment.NewLine + "Do you want to receive the reciept from an email";
+                btnMessageBoxYes.Click -= payment.ConfirmPaymentYes;
+                btnMessageBoxYes.Click += Payment.SendEmailYes;
+                btnMessageBoxNo.Click -= payment.ConfirmPaymentNo;
+                btnMessageBoxNo.Click += Payment.SendEmailNo;
+
+                panelEmail.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             /*DialogResult respond = MessageBox.Show("Do you want to receive the reciept from an email", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (respond == DialogResult.Yes)
             {
@@ -225,8 +286,7 @@ namespace MF_Shopping_Assistant
                 btnSendEmail.Visible = false;
                 SetReset.reset();
             }*/
-            
-            panelEmail.Visible = true;
+
             /*string pdfPath = @"C:\Users\Korisnik\Desktop\MF Shopping Assistant\bin\Debug\pdfs\Order_20250408_150900.pdf";
 
             // Ukloni prethodne kontrole ako želiš
@@ -270,7 +330,14 @@ namespace MF_Shopping_Assistant
 
         private async void btnShowFruit_Click(object sender, EventArgs e)
         {
-            await fruit.btnShowFruit();
+            try
+            {
+                await fruit.btnShowFruit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnEmail_Click(object sender, EventArgs e)
@@ -300,16 +367,15 @@ namespace MF_Shopping_Assistant
 
                 GeneratePdf generatePdf = new GeneratePdf();
                 string pdfName = $"Invoice{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
-                string pdfFolder = Path.Combine(Application.StartupPath, "pdfs");
-                string pdfPath = Path.Combine(pdfFolder, pdfName);
+                //string pdfFolder = Path.Combine(Application.StartupPath, "pdfs");
+                //string pdfPath = Path.Combine(pdfFolder, pdfName);
 
 
-                //string pdfPath = Path.Combine(Application.StartupPath, "/home/pi/pdfs/", pdfName);
+                string pdfPath = Path.Combine(Application.StartupPath, "/home/pi/pdfs/", pdfName);
                 generatePdf.GeneratePdfFile(pdfName, txtSendEmail.Text);
                 isPdfGenerated = true;
 
                 await SendEmail.SendPdfEmail(txtSendEmail.Text, pdfPath);
-
                 if (SendEmail.isEmailSendCorrectly)
                 {
                     panelMessageBoxOk.Visible = true;
@@ -328,7 +394,7 @@ namespace MF_Shopping_Assistant
                 txtSendEmail.Visible = false;
                 btnSendEmail.Visible = false;
 
-                //process.Kill();
+                process.Kill();
                 
                 //SetReset.reset();
             } catch(Exception ex)
@@ -348,36 +414,54 @@ namespace MF_Shopping_Assistant
         private bool isOpenFruitPanel = false;
         private async void btnShowFruit1_Click(object sender, EventArgs e)
         {
-            if (!EditProduct.isUpdateQuantityPanelOpen)
+            try
             {
-                if (!isOpenFruitPanel)
+                if (!EditProduct.isUpdateQuantityPanelOpen && !isOpenAnything)
                 {
                     panelClickToPay.Visible = false;
                     panelSlider.Visible = true;
+                    isOpenAnything = true;
                     await fruit.btnShowFruit();
+
+                    /*if (!isOpenFruitPanel)
+                    {
+                       
+                    }
+
+                    else
+                        flpFruit.Visible = false;
+                    isOpenFruitPanel = !isOpenFruitPanel;*/
                 }
-                   
-                else
-                    flpFruit.Visible = false;
-                isOpenFruitPanel = !isOpenFruitPanel;
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private async void btnShowDiscount_Click(object sender, EventArgs e)
         {
-            if (!EditProduct.isUpdateQuantityPanelOpen)
+            try
             {
-                panelDiscountPage.Visible = true;
-                DiscountProduct discountProduct = new DiscountProduct(mySqlConnection, lblProductNameP1, lblDiscountPercentageP1, lblOldPriceP1, lblDiscountPriceP1, lblProductNameP2, lblDiscountPercentageP2, lblOldPriceP2, lblDiscountPriceP2, lblProductNameP3, lblOldPriceP3, lblDiscountPriceP3, lblProductNameP4, lblOldPriceP4, lblDiscountPriceP4);
-                await discountProduct.getDiscountProducts();
-                panelClickToPay.Visible = false;
+                if (!EditProduct.isUpdateQuantityPanelOpen && !isOpenAnything)
+                {
+                    panelDiscountPage.Visible = true;
+                    DiscountProduct discountProduct = new DiscountProduct(mySqlConnection, lblProductNameP1, lblDiscountPercentageP1, lblOldPriceP1, lblDiscountPriceP1, lblProductNameP2, lblDiscountPercentageP2, lblOldPriceP2, lblDiscountPriceP2, lblProductNameP3, lblOldPriceP3, lblDiscountPriceP3, lblProductNameP4, lblOldPriceP4, lblDiscountPriceP4);
+                    isOpenAnything = true;
+                    await discountProduct.getDiscountProducts();
+                    panelClickToPay.Visible = false;
+ 
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void txtSendEmail_Click(object sender, EventArgs e)
         {
-            //process = Process.Start("matchbox-keyboard");
+            process = Process.Start("matchbox-keyboard");
         }
 
         private void flowLayoutPanel2_MouseDown(object sender, MouseEventArgs e)
@@ -409,6 +493,11 @@ namespace MF_Shopping_Assistant
            // flowLayoutPanel2.Capture = false;
         }
 
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            payment.BackToShopping();
+        }
+
         private void panelPreviousPage_Click(object sender, EventArgs e)
         {
             if (currentPage > 0)
@@ -434,6 +523,7 @@ namespace MF_Shopping_Assistant
 
         private void btnMessageBoxOK_Click(object sender, EventArgs e)
         {
+            //Form1.isThereAddedProduct = true;
             //MessageBox.Show(EditProduct.isAddedExtraProduct.ToString());
             if (EditProduct.isAddedExtraProduct)
             {
@@ -444,7 +534,7 @@ namespace MF_Shopping_Assistant
             if (isInvalidEmailFormat)
             {
                 UI.ShowBackground(panelMessageBoxOk, panelDisableBackground);
-                process = Process.Start("matchbox-keyboard");
+                //process = Process.Start("matchbox-keyboard");
                 panelDisableBackground.Location = new Point(0, 0);
                 // panelDisableBackground.Size = new Size(518, 717);
                 panelDisableBackground.Size = new Size(690, 782);
@@ -468,7 +558,15 @@ namespace MF_Shopping_Assistant
 
         private async void button4_Click(object sender, EventArgs e)
         {
-            await Fruit.btnChooseFruitToBuy();
+            try
+            {
+                await Fruit.btnChooseFruitToBuy();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

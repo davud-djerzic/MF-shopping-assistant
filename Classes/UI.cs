@@ -28,7 +28,7 @@ namespace MF_Shopping_Assistant.Classes
             {
                 panel = new Panel
                 {
-                   // Size = new Size(510, 130),
+                    //Size = new Size(510, 130),
                     Size = new Size(595, 130),
                     Location = new Point(6, 12),
                     BackColor = Color.Wheat,
@@ -100,7 +100,7 @@ namespace MF_Shopping_Assistant.Classes
             {
                 Text = "X",
                 ForeColor = Color.White,
-               // Location = new Point(430, 1),
+                //Location = new Point(430, 1),
                 Location = new Point(512, 1),
                 Size = new Size(75, 30),
                 AutoSize = true,
@@ -110,13 +110,13 @@ namespace MF_Shopping_Assistant.Classes
             closeButton.Click += EditProduct.RemoveProduct;
             panel.Controls.Add(closeButton);
 
-            string imagePath = @"C:\Users\Korisnik\Downloads\settingsIcon2.png";
-            //string imagePath = Path.Combine(Application.StartupPath, "/home/pi/Desktop/Pictures/settingsIcon2.png");
+            //string imagePath = @"C:\Users\Korisnik\Downloads\settingsIcon2.png";
+            string imagePath = Path.Combine(Application.StartupPath, "/home/pi/Desktop/Pictures/settingsIcon2.png");
 
             Button updateProductButton = new Button
             {
                 ForeColor = Color.White,
-               // Location = new Point(430, 90),
+                //Location = new Point(430, 90),
                 Location = new Point(507, 90),
                 Size = new Size(75, 30),
                 AutoSize = true,
@@ -137,6 +137,7 @@ namespace MF_Shopping_Assistant.Classes
             if (isFruit)
             {
                 updateProductButton.Visible = false;
+                panel.Name = "Fruit";
             }
            
 

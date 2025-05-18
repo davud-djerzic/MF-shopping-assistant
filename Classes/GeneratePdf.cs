@@ -16,7 +16,7 @@ namespace MF_Shopping_Assistant.Classes
                 Directory.CreateDirectory(folderPath);
                 string pdfPath = Path.Combine(folderPath, pdfName);
 
-                MessageBox.Show(pdfPath);
+               // MessageBox.Show(pdfPath);
 
                 using (FileStream stream = new FileStream(pdfPath, FileMode.Create))
                 {
@@ -33,6 +33,7 @@ namespace MF_Shopping_Assistant.Classes
                     document.Add(title);
 
                     document.Add(new Paragraph($"Date: {DateTime.Now.ToShortDateString()}"));
+
                     document.Add(new Paragraph(" "));
 
                     // From / To Info
@@ -64,19 +65,21 @@ namespace MF_Shopping_Assistant.Classes
                         string name = GlobalData.listNameOfProducts[i];
                         double price = GlobalData.listPricePerUnitOfProducts[i];
                         double quantity = GlobalData.listQuantityOfProducts[i];
+                        double temp = quantity;
+                        if (GlobalData.panelsOfProducts[i].Name == "Fruit") quantity /= 1000;
                         double total = (price * quantity);
                         grandTotal += total;
 
                         AddCell(table, (i + 1).ToString());
                         AddCell(table, name);
-                        AddCell(table, price.ToString("C"));
-                        AddCell(table, quantity.ToString());
-                        AddCell(table, total.ToString("C"));
+                        AddCell(table, price.ToString("N2") + " KM");
+                        AddCell(table, temp.ToString("N2"));
+                        AddCell(table, total.ToString("N2") + " KM");
                     }
 
                     document.Add(table);
 
-                    document.Add(new Paragraph($"\nTotal price: {grandTotal.ToString("C")}"));
+                    document.Add(new Paragraph($"\nTotal price: {grandTotal.ToString("N2")} KM"));
 
                     document.Close();
                     //QRCoder qrCoder = new QRCoder();
@@ -85,7 +88,7 @@ namespace MF_Shopping_Assistant.Classes
                         
                 }
 
-                MessageBox.Show("PDF created successfully!");
+               // MessageBox.Show("PDF created successfully!");
             }
             catch (Exception ex)
             {

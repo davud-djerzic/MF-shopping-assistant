@@ -34,12 +34,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.panelPaymentTotalPrice = new System.Windows.Forms.Panel();
-            this.lblPaymentTotalPrice = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.panelPaymentTotalPrice = new System.Windows.Forms.Panel();
+            this.lblPaymentTotalPrice = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.txtScannedBarcode = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnQuantityIncrease = new System.Windows.Forms.Button();
@@ -114,6 +114,7 @@
             this.panelMessageBoxOk = new System.Windows.Forms.Panel();
             this.btnMessageBoxOK = new System.Windows.Forms.Button();
             this.lblMessageBoxOK = new System.Windows.Forms.Label();
+            this.btnBack = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panelPaymentTotalPrice.SuspendLayout();
             this.panelProductQuantity.SuspendLayout();
@@ -143,7 +144,6 @@
             // 
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.panelPaymentTotalPrice);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -172,37 +172,6 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "label4";
             // 
-            // panelPaymentTotalPrice
-            // 
-            this.panelPaymentTotalPrice.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelPaymentTotalPrice.Controls.Add(this.lblPaymentTotalPrice);
-            this.panelPaymentTotalPrice.Controls.Add(this.label11);
-            this.panelPaymentTotalPrice.Location = new System.Drawing.Point(143, 33);
-            this.panelPaymentTotalPrice.Name = "panelPaymentTotalPrice";
-            this.panelPaymentTotalPrice.Size = new System.Drawing.Size(573, 100);
-            this.panelPaymentTotalPrice.TabIndex = 18;
-            this.panelPaymentTotalPrice.Visible = false;
-            // 
-            // lblPaymentTotalPrice
-            // 
-            this.lblPaymentTotalPrice.AutoSize = true;
-            this.lblPaymentTotalPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblPaymentTotalPrice.Location = new System.Drawing.Point(409, 45);
-            this.lblPaymentTotalPrice.Name = "lblPaymentTotalPrice";
-            this.lblPaymentTotalPrice.Size = new System.Drawing.Size(54, 18);
-            this.lblPaymentTotalPrice.TabIndex = 1;
-            this.lblPaymentTotalPrice.Text = "label12";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label11.Location = new System.Drawing.Point(3, 30);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(190, 38);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Total price:";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -229,6 +198,37 @@
             this.label1.Size = new System.Drawing.Size(44, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "label1";
+            // 
+            // panelPaymentTotalPrice
+            // 
+            this.panelPaymentTotalPrice.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelPaymentTotalPrice.Controls.Add(this.lblPaymentTotalPrice);
+            this.panelPaymentTotalPrice.Controls.Add(this.label11);
+            this.panelPaymentTotalPrice.Location = new System.Drawing.Point(697, 7);
+            this.panelPaymentTotalPrice.Name = "panelPaymentTotalPrice";
+            this.panelPaymentTotalPrice.Size = new System.Drawing.Size(573, 100);
+            this.panelPaymentTotalPrice.TabIndex = 18;
+            this.panelPaymentTotalPrice.Visible = false;
+            // 
+            // lblPaymentTotalPrice
+            // 
+            this.lblPaymentTotalPrice.AutoSize = true;
+            this.lblPaymentTotalPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblPaymentTotalPrice.Location = new System.Drawing.Point(409, 45);
+            this.lblPaymentTotalPrice.Name = "lblPaymentTotalPrice";
+            this.lblPaymentTotalPrice.Size = new System.Drawing.Size(54, 18);
+            this.lblPaymentTotalPrice.TabIndex = 1;
+            this.lblPaymentTotalPrice.Text = "label12";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label11.Location = new System.Drawing.Point(3, 30);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(190, 38);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Total price:";
             // 
             // txtScannedBarcode
             // 
@@ -822,11 +822,12 @@
             this.lblFruitWeight.AutoSize = true;
             this.lblFruitWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lblFruitWeight.ForeColor = System.Drawing.Color.White;
-            this.lblFruitWeight.Location = new System.Drawing.Point(343, 18);
+            this.lblFruitWeight.Location = new System.Drawing.Point(402, 20);
             this.lblFruitWeight.Name = "lblFruitWeight";
-            this.lblFruitWeight.Size = new System.Drawing.Size(276, 58);
+            this.lblFruitWeight.Size = new System.Drawing.Size(94, 58);
             this.lblFruitWeight.TabIndex = 0;
-            this.lblFruitWeight.Text = "1000,931 g";
+            this.lblFruitWeight.Text = "0 g";
+            this.lblFruitWeight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelClickToPay
             // 
@@ -1072,14 +1073,26 @@
             this.lblMessageBoxOK.Text = "EEEEEE";
             this.lblMessageBoxOK.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(711, 178);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(157, 65);
+            this.btnBack.TabIndex = 24;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1347, 642);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.homePagePanel);
             this.Controls.Add(this.panelProductQuantity);
+            this.Controls.Add(this.panelPaymentTotalPrice);
             this.Controls.Add(this.panelUpdateProductQuantity);
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.panelMessageBoxOk);
@@ -1225,6 +1238,7 @@
         private System.Windows.Forms.Panel panelMessageBoxOk;
         private System.Windows.Forms.Button btnMessageBoxOK;
         private System.Windows.Forms.Label lblMessageBoxOK;
+        private System.Windows.Forms.Button btnBack;
     }
 }
 

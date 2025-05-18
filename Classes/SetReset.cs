@@ -46,6 +46,7 @@ namespace MF_Shopping_Assistant.Classes
         private static Panel panelPaymentTotalPrice;
         private static Panel panelClickToPay;
         private static Panel panelEmail;
+        private static Button btnBack;
         /*private Fruit fruit;
         private ModifyQuantity modifyQuantity;
         private EditProduct editProduct;
@@ -75,7 +76,7 @@ namespace MF_Shopping_Assistant.Classes
          Label lblDiscountPriceP3,
          Label lblProductNameP4,
          Label lblOldPriceP4,
-         Label lblDiscountPriceP4, Button button1, Panel panelHeader, Panel panelPaymentTotalPrice, Panel panelClickToPay, Panel panelEmail)
+         Label lblDiscountPriceP4, Button button1, Panel panelHeader, Panel panelPaymentTotalPrice, Panel panelClickToPay, Panel panelEmail, Button btnBack)
         {
             this.mySqlConnection = mySqlConnection;
             /*this.fruit = fruit;
@@ -120,6 +121,7 @@ namespace MF_Shopping_Assistant.Classes
             SetReset.panelPaymentTotalPrice = panelPaymentTotalPrice;
             SetReset.panelClickToPay = panelClickToPay;
             SetReset.panelEmail = panelEmail;
+            SetReset.btnBack = btnBack;
         }
 
         public async Task LoadAsync(Fruit fruit, ModifyQuantity modifyQuantity, EditProduct editProduct, UI ui, DiscountProduct discountProduct, Payment payment)
@@ -192,12 +194,14 @@ namespace MF_Shopping_Assistant.Classes
             panelEmail.Visible = false;
 
             btnPay.Visible = false;
-            
+            btnBack.Visible = false;
 
             Form1.isIntroFinish = false;
             Form1.isPdfGenerated = false;
             Form1.isOpenAnything = false;
             Form1.isInvalidEmailFormat = false;
+            Form1.currentPage = 0;
+           // Form1.isThereAddedProduct = true;
 
         }
         private async void HomePage_Click(object sender, EventArgs e)

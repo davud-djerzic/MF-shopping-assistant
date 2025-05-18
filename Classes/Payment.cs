@@ -33,8 +33,9 @@ namespace MF_Shopping_Assistant.Classes
         private static Panel panelClickToPay;
         private Panel panelMessageBoxOk;
         private Label lblMessageBoxOK;
+        private static Button btnBack;
 
-        public Payment(MySqlConnection mySqlConnection, FlowLayoutPanel flowLayoutPanel1, FlowLayoutPanel flowLayoutPanel2, Button btnPay, Panel panelConfirmPayment, Panel panelHeader, Panel panelPaymentTotalPrice, Label lblPaymentTotalPrice, Label lblMessageBoxMessage, Button btnMessageBoxYes, Button btnMessageBoxNo, TextBox txtSendEmail, Panel panelEmail, Button btnSendEmail, Panel panelMessageBox, Panel panelDisableBackground, TextBox txtScannedBarcode, Panel panelClickToPay, Panel panelMessageBoxOk, Label lblMessageBoxOK)
+        public Payment(MySqlConnection mySqlConnection, FlowLayoutPanel flowLayoutPanel1, FlowLayoutPanel flowLayoutPanel2, Button btnPay, Panel panelConfirmPayment, Panel panelHeader, Panel panelPaymentTotalPrice, Label lblPaymentTotalPrice, Label lblMessageBoxMessage, Button btnMessageBoxYes, Button btnMessageBoxNo, TextBox txtSendEmail, Panel panelEmail, Button btnSendEmail, Panel panelMessageBox, Panel panelDisableBackground, TextBox txtScannedBarcode, Panel panelClickToPay, Panel panelMessageBoxOk, Label lblMessageBoxOK, Button btnBack)
         {
             this.mySqlConnection = mySqlConnection;
             this.flowLayoutPanel1 = flowLayoutPanel1;
@@ -57,10 +58,11 @@ namespace MF_Shopping_Assistant.Classes
             Payment.panelHeader = panelHeader;
             this.panelMessageBoxOk = panelMessageBoxOk;
             this.lblMessageBoxOK = lblMessageBoxOK;
+            Payment.btnBack = btnBack;
         }
         public void PanelConfirmPayment_Click(object sender, EventArgs e) 
         {
-            if (!EditProduct.isUpdateQuantityPanelOpen)
+            if (!EditProduct.isUpdateQuantityPanelOpen && !Form1.isOpenAnything)
             {
                 Form1.isOpenAnything = true;
                 if (GlobalData.listPriceOfProducts.Count != 0)
@@ -162,6 +164,7 @@ namespace MF_Shopping_Assistant.Classes
                     panelMessageBoxOk.Visible = true;
                     panelMessageBoxOk.Location = new Point(100, 100);
                     lblMessageBoxOK.Text = "You don't have a product to buy";
+                    //Form1.isThereAddedProduct = false;
                     //MessageBox.Show("You dont have product to buy");
                 }
                 
@@ -170,6 +173,7 @@ namespace MF_Shopping_Assistant.Classes
 
         public static void SendEmailYes(object sender, EventArgs e)
         {
+            btnBack.Visible = false;
             btnSendEmail.Visible = true;
             txtSendEmail.Visible = true;
             txtSendEmail.Focus();
@@ -187,6 +191,7 @@ namespace MF_Shopping_Assistant.Classes
 
         public static void SendEmailNo(object sender, EventArgs e)
         {
+            btnBack.Visible = false;
             panelEmail.Visible = false;
             txtSendEmail.Visible = false;
             txtSendEmail.Text = "";
@@ -206,7 +211,6 @@ namespace MF_Shopping_Assistant.Classes
                 flowLayoutPanel1.Visible = false;
                 flowLayoutPanel2.Visible = true;
                 flowLayoutPanel2.Location = new Point(50, 125);
-                btnPay.Visible = true;
                 panelConfirmPayment.Visible = false;
 
                 panelHeader.Visible = true;
@@ -216,14 +220,17 @@ namespace MF_Shopping_Assistant.Classes
                 panelPaymentTotalPrice.Location = new Point(50, 557);
 
                 btnPay.Visible = true;
-                // btnPay.Location = new Point(320, 550);
+                btnBack.Visible = true;
+
+               // btnPay.Location = new Point(320, 550);
                 btnPay.Location = new Point(410, 650);
+                btnBack.Location = new Point(210, 650);
                 flowLayoutPanel2.Controls.Clear();
                 for (int i = 0; i < GlobalData.listPriceOfProducts.Count; i++)
                 {
                     Panel panel = new Panel()
                     {
-                     //   Size = new Size(340, 40),
+                        //Size = new Size(340, 40),
                         Size = new Size(495, 40),
                         //Location = new Point(100, 12),
                         //BackColor = Color.Wheat,
@@ -235,26 +242,26 @@ namespace MF_Shopping_Assistant.Classes
                         //Location = new Point(10, i * 40),
                         Location = new Point(6, 2),
                     };
-                    label.Text = GlobalData.listNameOfProducts[i] + "   " + GlobalData.listTypeOfProducts[i] + "   " + GlobalData.listManufacturerOfProducts[i];
+                    label.Text = GlobalData.listNameOfProducts[i] + "   " + GlobalData.listManufacturerOfProducts[i] + "   " +  GlobalData.listTypeOfProducts[i];
                     panel.Controls.Add(label);
 
                     Label labelQuantity = new Label()
                     {
                         //Size = new Size(477, 35),
                         //Location = new Point(10, i * 40),
-                        Location = new Point(15, 25),
+                        Location = new Point(225, 25),
                     };
                     labelQuantity.Text = GlobalData.listQuantityOfProducts[i].ToString();
                     panel.Controls.Add(labelQuantity);
 
-                    Label labelPricePerUnit = new Label()
+                    /*Label labelPricePerUnit = new Label()
                     {
                         //Size = new Size(477, 35),
                         //Location = new Point(10, i * 40),
                         Location = new Point(225, 25),
                     };
                     labelPricePerUnit.Text = GlobalData.listPricePerUnitOfProducts[i].ToString();
-                    panel.Controls.Add(labelPricePerUnit);
+                    panel.Controls.Add(labelPricePerUnit);*/
 
                     Label labelTotalPriceOfProduct = new Label()
                     {
@@ -292,6 +299,21 @@ namespace MF_Shopping_Assistant.Classes
             Form1.isOpenAnything = false;
         }
 
+        public void BackToShopping()
+        {
+            flowLayoutPanel1.Visible = true;
+            flowLayoutPanel2.Controls.Clear();
+            flowLayoutPanel2.Visible = false;
+            btnPay.Visible = false;
+            panelHeader.Visible = false;
+            btnBack.Visible = false;
+            panelPaymentTotalPrice.Visible = false;
+            panelClickToPay.Visible = true;
+            panelConfirmPayment.Visible = true;
+
+            Form1.isOpenAnything = false;
+        }
+
         public async Task Pay()
         {
             try
@@ -300,6 +322,8 @@ namespace MF_Shopping_Assistant.Classes
                 flowLayoutPanel2.Visible = false;
                 btnPay.Visible = false;
                 panelHeader.Visible = false;
+                panelPaymentTotalPrice.Visible = false;
+                btnBack.Visible = false;
 
                 flowLayoutPanel1.Controls.Clear();
                 flowLayoutPanel2.Controls.Clear();
